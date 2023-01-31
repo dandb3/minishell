@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/01/30 15:24:15 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/01/31 16:38:25 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ typedef struct s_list
 	t_type			type;
 }	t_list;
 
+/*--------------------------------  main  ---------------------------------*/
+int			ft_signal(void);
+
 /*-------------------------------- builtin --------------------------------*/
 int			do_builtin(char **cmds, t_list **env_list);
 int			prompt(t_list *env_list);
@@ -110,5 +113,6 @@ t_env		*make_env(const char *str, int to_check);
 int			push_environ(t_env *env, t_node *cur);
 int			print_envlist(t_list *list, const char *pre);
 t_list		*make_envlist(char **envp);
+char		**env_to_char(t_list *env_list);
 
 #endif

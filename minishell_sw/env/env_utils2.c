@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:43:15 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/01/31 11:14:21 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/01/31 11:41:22 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,29 @@ t_list	*make_envlist(char **envp)
 
 char	**env_to_char(t_list *env_list)
 {
-		
+	char	**envp;
+	size_t	idx;
+	t_node	*cur;
+
+	envp = (char **)malloc(sizeof(char *));
+	if (!envp)
+		exit(MALLOC_FAILURE);
+	cur = env_list->head->next;
+	idx = 0;
+	while (cur->next)
+	{
+		if (((t_env *)cur->val)->val)
+		{
+			envp[idx] = ft_strjoin(((t_env *)cur->val)->key, "=");
+			if (!envp[idx])
+				exit(MALLOC_FAILURE);
+			envp[idx] = ft_strjoin(envp[idx], ((t_env *)cur->val)->val);
+		}
+		else
+			envp[idx] = ft_strdup(((t_env *)cur->val)->key);
+		if (!envp[idx++])
+			exit(MALLOC_FAILURE);
+		cur = cur->next;
+	}
+	return (envp);
 }

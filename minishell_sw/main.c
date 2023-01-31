@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:32:49 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/01/30 15:14:30 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/01/31 16:37:52 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	main(int ac, char **av, char **envp)
 	atexit(leaks);
 	(void) ac;
 	(void) av;
+	ft_signal();
+	(void) envp;
 	env_list = make_envlist(envp);
 	prompt(env_list);
 	return (0);

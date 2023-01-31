@@ -6,19 +6,19 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/01/30 15:23:16 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:25:16 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-int	prompt(__attribute__((unused)) t_list *env_list)
+int	prompt(t_list *env_list)
 {
 	char	*cmd;
 	char	**cmds;
 
-	system("clear");
-	rl_line_buffer = "hihi";
+	system("clear"); // 지우세용
+	//rl_line_buffer = "hihi";
 	while (1)
 	{
 		cmd = readline("MINI$ ");

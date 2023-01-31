@@ -3,7 +3,8 @@
 		"builtin.h": "c",
 		"unistd.h": "c",
 		"minishell.h": "c",
-		"prompt.h": "c"
+		"prompt.h": "c",
+		"signal.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }
