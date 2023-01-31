@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/19 17:38:04 by sunwsong          #+#    #+#              #
-#    Updated: 2023/01/18 11:08:31 by sunwsong         ###   ########.fr        #
+#    Updated: 2023/01/29 20:22:00 by sunwsong         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,16 +28,7 @@ SRCS	= 	ft_isalpha.c ft_isdigit.c\
 			ft_putchar_fd.c ft_putstr_fd.c\
 			ft_putnbr_fd.c ft_putendl_fd.c\
 			ft_printf.c ft_printf_tools.c putnbr_tools.c\
-			ft_putnbr_fd.c\
-			ft_lstnew.c\
-			ft_lstadd_front.c\
-			ft_lstsize.c\
-			ft_lstlast.c\
-			ft_lstadd_back.c\
-			ft_lstdelone.c\
-			ft_lstiter.c\
-			ft_lstclear.c\
-			ft_lstmap.c
+			ft_putnbr_fd.c
 
 OBJS	= ${SRCS:.c=.o}
 

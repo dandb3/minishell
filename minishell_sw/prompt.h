@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_listadd_back.c                                   :+:      :+:    :+:   */
+/*   prompt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 18:58:29 by sunwsong          #+#    #+#             */
-/*   Updated: 2022/11/18 14:38:15 by sunwsong         ###   ########.fr       */
+/*   Created: 2023/01/26 11:25:50 by sunwsong          #+#    #+#             */
+/*   Updated: 2023/01/26 14:07:35 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PROMPT_H
+# define PROMPT_H
 
-void	ft_listadd_back(t_list **lst, t_list *new)
-{
-	if (lst == 0 || new == 0)
-		return ;
-	if ((*lst) == 0)
-		*lst = new;
-	else
-		ft_listlast(*lst)->next = new;
-}
+# include "minishell.h"
+# include <readline/readline.h>
+# include <readline/history.h>
+
+#endif
