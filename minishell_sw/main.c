@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:32:49 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/01 14:02:38 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:25:18 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int ac, char **av, char **envp)
 	(void) ac;
 	(void) av;
 	ft_signal();
+	ft_terminal();
 	env_list = make_envlist(envp);
 	prompt(env_list);
 	return (0);
