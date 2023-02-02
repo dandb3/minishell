@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_listmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -20,13 +20,13 @@ static t_list	*lstset(void *content, void *(*f)(void *), void (*del)(void *))
 	tmp_content = f(content);
 	if (tmp_content == 0)
 		return (0);
-	tmp = ft_lstnew(tmp_content);
+	tmp = ft_listnew(tmp_content);
 	if (tmp == 0)
 		del(tmp_content);
 	return (tmp);
 }
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_listmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*tmp;
 	t_list	*tail;
@@ -45,7 +45,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		tmp = lstset(lst->content, f, del);
 		if (tmp == 0)
 		{
-			ft_lstclear(&head, del);
+			ft_listclear(&head, del);
 			return (0);
 		}
 		tail->next = tmp;

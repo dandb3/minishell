@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 10:36:29 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/01/24 11:17:58 by sunwsong         ###   ########.fr       */
+/*   Created: 2023/01/27 10:32:49 by sunwsong          #+#    #+#             */
+/*   Updated: 2023/01/31 16:37:52 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,19 @@
 
 void	leaks(void)
 {
-	system("leaks a.out");
+	system("leaks minishell");
 }
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **envp)
 {
-	char	*buf;
-	size_t	size;
-	char	*str;
+	t_list	*env_list;
 
-	str = NULL;
-	size = 100;
+	atexit(leaks);
 	(void) ac;
 	(void) av;
-	(void) str;
-	(void) buf;
-	str = getcwd(NULL, 150);
-	printf("%s\n", str);
-	free(str);
+	ft_signal();
+	(void) envp;
+	env_list = make_envlist(envp);
+	prompt(env_list);
 	return (0);
 }

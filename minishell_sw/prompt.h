@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   prompt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 10:59:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/01/24 11:10:50 by sunwsong         ###   ########.fr       */
+/*   Created: 2023/01/26 11:25:50 by sunwsong          #+#    #+#             */
+/*   Updated: 2023/01/31 16:38:30 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#ifndef PROMPT_H
+# define PROMPT_H
 
 # include "minishell.h"
-# include <readline/history.h>
 # include <readline/readline.h>
-# include <dirent.h>
+# include <readline/history.h>
 
 #endif

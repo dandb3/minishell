@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_listadd_back.c                                   :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 18:58:29 by sunwsong          #+#    #+#             */
-/*   Updated: 2022/11/18 14:38:15 by sunwsong         ###   ########.fr       */
+/*   Created: 2023/01/24 11:17:32 by jdoh              #+#    #+#             */
+/*   Updated: 2023/01/27 09:56:11 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "parser.h"
 
-void	ft_listadd_back(t_list **lst, t_list *new)
+long long	free_ret(void *obj1, void *obj2, void *obj3, long long ret)
 {
-	if (lst == 0 || new == 0)
-		return ;
-	if ((*lst) == 0)
-		*lst = new;
-	else
-		ft_listlast(*lst)->next = new;
+	free(obj1);
+	free(obj2);
+	free(obj3);
+	return (ret);
 }
