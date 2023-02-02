@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 11:17:32 by jdoh              #+#    #+#             */
-/*   Updated: 2023/01/27 09:56:11 by sunwsong         ###   ########.fr       */
+/*   Created: 2022/11/10 13:25:31 by jdoh              #+#    #+#             */
+/*   Updated: 2023/01/21 12:30:21 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "libft.h"
 
-long long	free_ret(void *obj1, void *obj2, void *obj3, long long ret)
+int	ft_strcmp(const char *str1, const char *str2)
 {
-	free(obj1);
-	free(obj2);
-	free(obj3);
-	return (ret);
+	while (*str1 && *str2 && *str1 == *str2)
+	{
+		str1++;
+		str2++;
+	}
+	return ((int)(unsigned char)(*str1) - (int)(unsigned char)(*str2));
 }

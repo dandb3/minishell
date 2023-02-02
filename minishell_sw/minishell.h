@@ -43,9 +43,9 @@ typedef enum e_lex
 	LEX_OR,
 	LEX_WILD,
 	LEX_WORD,
-	LEX_WHITE,
 	LEX_PARENTHESIS_OPEN,
-	LEX_PARENTHESIS_CLOSE
+	LEX_PARENTHESIS_CLOSE,
+	LEX_WHITE
 }			t_lex;
 
 enum e_sbool
@@ -98,7 +98,6 @@ long long	free_list(t_list *list, long long ret, t_type type);
 void		sort_list(t_list *env_list);
 
 /*------------------------------- node list -------------------------------*/
-t_list		*make_node_list(char const *str);
 t_node		*make_node(void *val, t_lex lex);
 void		del_node(t_node *node, t_type type);
 void		free_node(t_node *node, t_type type);
