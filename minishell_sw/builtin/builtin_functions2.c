@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:20:12 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/01/30 13:42:30 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/01 10:06:00 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static long long	builtin_atoi(const char *str)
 {
-	int			idx;
+	size_t		idx;
 	int			sign;
 	long long	num;
 
@@ -28,9 +28,9 @@ static long long	builtin_atoi(const char *str)
 			sign *= -1;
 	while ('0' <= str[idx] && str[idx] <= '9')
 		num = num * 10 + (str[idx++] - '0');
-	if (str[idx] != 0 && (str[idx] < '0' || '9' < str[idx]))
+	if ((str[idx] != 0 && (str[idx] < '0' || '9' < str[idx])) || idx >= 21)
 	{
-		ft_printf("MINI: exit: %s: numeric argument required\n", str);
+		ft_printf("exit\nMINI: exit: %s: numeric argument required\n", str);
 		exit(255);
 	}
 	return (num * sign);
@@ -42,22 +42,21 @@ void	builtin_exit(char **cmds)
 	size_t		len;
 
 	if (!(*(++cmds)))
+	{
+		ft_printf("exit\n");
 		exit(EXIT_SUCCESS);
+	}
 	ret = builtin_atoi(*cmds);
 	len = ft_strlen(*cmds);
-	if (len >= 21)
-	{
-		ft_printf("MINI: exit: %s: numeric argument required\n", *cmds);
-		exit(255);
-	}
 	if (len >= 1)
 	{
-		if ((*cmds)[len - 1] - '0' != ret % 10)
+		if ((*cmds)[len - 1] - '0' != (ret % 10) * ((ret > 0) * 2 - 1))
 		{
-			ft_printf("MINI: exit: %s: numeric argument required\n", *cmds);
+			ft_printf("exit\nMINI: exit: %s: numeric argument required\n", *cmds);
 			exit(255);
 		}
 	}
+	ft_printf("exit\n");
 	exit((unsigned char)ret);
 }
 
