@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:40:50 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/03 19:39:42 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:14:17 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,9 @@ static int	word_lexeme(t_node **new_token, char const **str)
 	char const	*tmp;
 
 	tmp = *str;
-	while (!ft_strchr("()<>|\'\"*$& \t", **str) && **str)
-	{
-		printf("**str: %c\n", **str);
+	while (**str && !ft_strchr("()<>|\'\"*$ \t", **str) && \
+		ft_strncmp("&&", *str, 2))
 		++(*str);
-	}
 	*new_token = make_node(ft_substr(tmp, 0, *str - tmp), LEX_WORD);
 	if (*new_token == NULL)
 		exit(MALLOC_FAILURE);
@@ -93,16 +91,12 @@ t_node	*get_pseudo_token(char const **str)
 {
 	t_node	*new_token;
 
-	ft_printf("two lexm stt\n");
 	if (two_len_lexeme(&new_token, str) == SUCCESS)
 		return (new_token);
-	ft_printf("one lexm stt\n");
 	if (one_len_lexeme(&new_token, str) == SUCCESS)
 		return (new_token);
-	ft_printf("white space lexm stt\n");
 	if (white_space_lexeme(&new_token, str) == SUCCESS)
 		return (new_token);
-	ft_printf("word lexm stt\n");
 	word_lexeme(&new_token, str);
 	return (new_token);
 }

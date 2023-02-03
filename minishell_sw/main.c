@@ -6,11 +6,29 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:32:49 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/03 19:30:35 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/03 19:51:57 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char *abc[100] = {
+	"LEX_SINGLE_QUOTE",
+	"LEX_DOUBLE_QUOTE",
+	"LEX_REDIRECT_IN",
+	"LEX_REDIRECT_OUT",
+	"LEX_HERE_DOC",
+	"LEX_REDIRECT_APP",
+	"LEX_PIPE",
+	"LEX_ENV",
+	"LEX_AND",
+	"LEX_OR",
+	"LEX_WILD",
+	"LEX_WORD",
+	"LEX_PARENTHESIS_OPEN",
+	"LEX_PARENTHESIS_CLOSE",
+	"LEX_WHIT"
+};
 
 void	print_tokenlist(t_list *token_list)
 {
@@ -19,23 +37,24 @@ void	print_tokenlist(t_list *token_list)
 	cur = token_list->head->next;
 	while (cur->next)
 	{
-		printf("string: %s, lex: %d\n", (char *)(cur->val), cur->lex);
+		printf("string: %s, lex: %s\n", (char *)(cur->val), abc[cur->lex]);
 		cur = cur->next;
 	}
 	printf("end!\n");
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	extern char	**environ;
+	char		*a;
 	t_list		*env_list;
 	t_list		*token_list;
-	char		str[10000];
 
+	(void) ac;
+	a = av[1];
 	env_list = make_envlist(environ);
 	token_list = NULL;
-	scanf(" %s", str);
-	make_token_list(&token_list, env_list, str);
+	make_token_list(&token_list, env_list, a);
 	print_tokenlist(token_list);
 	exit(0);
 	return (0);
