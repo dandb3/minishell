@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/03 18:40:54 by jdoh              #+#    #+#             */
+/*   Updated: 2023/02/03 19:14:19 by sunwsong         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 void	merge_two_words(t_node *w1, t_node *w2)
@@ -19,7 +31,6 @@ void	merge_two_words(t_node *w1, t_node *w2)
 void	merge_words(t_list *token_list)
 {
 	t_node	*cur_token;
-	t_node	*del_token;
 
 	cur_token = token_list->head->next;
 	while (cur_token->next != NULL)
@@ -47,7 +58,7 @@ int	del_white_tokens(t_list *token_list)
 		if (cur_token->lex == LEX_PARENTHESIS_OPEN)
 			++parenthesis_cnt;
 		if (cur_token->lex == LEX_PARENTHESIS_CLOSE && --parenthesis_cnt < 0)
-				return (FAILURE);
+			return (FAILURE);
 		if (cur_token->lex == LEX_WHITE)
 		{
 			cur_token = cur_token->prev;
@@ -58,9 +69,4 @@ int	del_white_tokens(t_list *token_list)
 	if (parenthesis_cnt != 0)
 		return (FAILURE);
 	return (SUCCESS);
-}
-
-void	tokenize(t_list *token_list)
-{
-	
 }

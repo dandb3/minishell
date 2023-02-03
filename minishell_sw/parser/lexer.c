@@ -1,13 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/03 15:40:00 by sunwsong          #+#    #+#             */
+/*   Updated: 2023/02/03 19:42:29 by sunwsong         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
+
+void	syntax_error(const char *str)
+{
+	printf("%s", str);
+}
 
 //"", '', ()에 대한 syntax analysis가 행해진다.
 int	make_token_list(t_list **token_list, t_list *env_list, char const *str)
 {
+	t_node	*node;
+
 	*token_list = make_list(LEX);
-	if (*token_list == NULL)
-		return (FAILURE);
 	while (*str)
-		push_node(get_pseudo_token(&str), *token_list);
+	{
+		node = get_pseudo_token(&str);
+		push_node(node, *token_list);
+		//printf("while *str: %s\n", (char *)(node->val));
+		ft_printf("str: %s\n", str);
+	}
 	if (expand_env(*token_list, env_list) == FAILURE)
 	{
 		syntax_error("Quotes are not closed\n");

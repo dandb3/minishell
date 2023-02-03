@@ -6,7 +6,7 @@
 #    By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 19:25:02 by jdoh              #+#    #+#              #
-#    Updated: 2023/01/31 17:24:10 by sunwsong         ###   ########.fr        #
+#    Updated: 2023/02/03 19:23:31 by sunwsong         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ SRCS_M		=	main.c prompt.c token.c minishell_utils.c \
 				builtin/builtin_functions1.c builtin/builtin_functions2.c \
 				builtin/builtin.c env/env_utils1.c env/env_utils2.c\
 				doublylinkedlist1.c doublylinkedlist2.c \
+				parser/expand_char.c parser/lexer.c parser/get_pseudo_token.c \
+				parser/lexer_utils.c parser/syntax_error.c \
 				signal.c
 				
 OBJS_M		=	$(SRCS_M:.c=.o)

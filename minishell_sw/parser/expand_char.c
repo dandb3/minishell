@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_char.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/03 18:40:44 by jdoh              #+#    #+#             */
+/*   Updated: 2023/02/03 19:09:58 by sunwsong         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 static char	*find_env_val(t_list *env_list, char const *key)
@@ -29,7 +41,7 @@ static void	substitute_env(t_node *cur_token, t_list *env_list, t_flag flag)
 	if (cur_token->next->next == NULL)
 		return ;
 	if (flag == UN_QUOTED && (cur_token->next->lex == LEX_SINGLE_QUOTE
-		|| cur_token->next->lex == LEX_DOUBLE_QUOTE))
+			|| cur_token->next->lex == LEX_DOUBLE_QUOTE))
 		del_node(cur_token, LEX);
 	else if (cur_token->next->lex == LEX_WORD)
 	{

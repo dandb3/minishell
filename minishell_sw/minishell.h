@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/01/31 16:38:25 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/03 19:24:09 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,9 @@ int			push_environ(t_env *env, t_node *cur);
 int			print_envlist(t_list *list, const char *pre);
 t_list		*make_envlist(char **envp);
 char		**env_to_char(t_list *env_list);
+
+/*lexer*/
+int			make_token_list(t_list **token_list, t_list *env_list, \
+	char const *str);
 
 #endif
