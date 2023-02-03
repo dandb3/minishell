@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:40:00 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/03 19:50:17 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:36:57 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	syntax_error(const char *str)
 {
-	printf("%s", str);
+	printf("SYNTAX_ERROR: %s", str);
 }
 
 //"", '', ()에 대한 syntax analysis가 행해진다.

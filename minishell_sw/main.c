@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:32:49 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/03 19:51:57 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:48:01 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,23 @@ void	print_tokenlist(t_list *token_list)
 		printf("string: %s, lex: %s\n", (char *)(cur->val), abc[cur->lex]);
 		cur = cur->next;
 	}
-	printf("end!\n");
 }
 
 int	main(int ac, char **av)
 {
 	extern char	**environ;
 	char		*a;
+	char		arr[102340];
 	t_list		*env_list;
 	t_list		*token_list;
 
 	(void) ac;
-	a = av[1];
+	(void) av;
+	(void) a;
+	scanf("%s", arr);
 	env_list = make_envlist(environ);
 	token_list = NULL;
-	make_token_list(&token_list, env_list, a);
+	make_token_list(&token_list, env_list, arr);
 	print_tokenlist(token_list);
 	exit(0);
 	return (0);

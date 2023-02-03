@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:40:44 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/03 20:05:25 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:35:39 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	expand_env(t_list *token_list, t_list *env_list)
 			&& cur_token->lex == LEX_ENV)
 			substitute_env(cur_token, env_list, flag);
 		cur_token = cur_token->next;
-		printf("flag: %d\n", flag);
 	}
 	if (flag != UN_QUOTED)
 		return (FAILURE);
@@ -105,7 +104,8 @@ void	expand_quotes(t_list *token_list)
 	cur_token = token_list->head->next;
 	while (cur_token->next != NULL)
 	{
-		if (cur_token->lex == SINGLE_QUOTED || cur_token->lex == DOUBLE_QUOTED)
+		if (cur_token->lex == LEX_SINGLE_QUOTE \
+			|| cur_token->lex == LEX_DOUBLE_QUOTE)
 			substitute_quotes(cur_token, cur_token->lex);
 		cur_token = cur_token->next;
 	}

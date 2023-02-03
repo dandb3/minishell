@@ -6,7 +6,7 @@
 #    By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 19:25:02 by jdoh              #+#    #+#              #
-#    Updated: 2023/02/03 19:23:31 by sunwsong         ###   ########.fr        #
+#    Updated: 2023/02/03 20:33:16 by sunwsong         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ HEADER_M	=	minishell prompt builtin/builtin
 LIBFT		=	libft/libft.a
 LIBFT_DIR	=	libft
 
-RL_LINK_FLAG		= -lreadline -L $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/lib
+RL_LINK_FLAG	= -lreadline -L $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/lib
 RL_COMP_FLAG	= -I $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/include
 
 CFLAGS		=	-Werror -Wextra -Wall
