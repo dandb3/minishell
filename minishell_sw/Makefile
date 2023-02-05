@@ -15,6 +15,8 @@ SRCS_M		=	main.c prompt.c token.c minishell_utils.c terminal.c \
 				builtin/builtin_functions1.c builtin/builtin_functions2.c \
 				builtin/builtin.c env/env_utils1.c env/env_utils2.c\
 				doublylinkedlist1.c doublylinkedlist2.c \
+				parser/expand_char.c parser/lexer.c parser/get_pseudo_token.c \
+				parser/lexer_utils.c parser/syntax_error.c \
 				signal.c
 				
 OBJS_M		=	$(SRCS_M:.c=.o)

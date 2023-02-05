@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:11:49 by jdoh              #+#    #+#             */
-/*   Updated: 2023/01/30 15:12:04 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/03 19:10:58 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_list	*make_list(t_type type)
 
 	result = (t_list *) malloc(sizeof(t_list));
 	if (result == NULL)
-		return (NULL);
+		exit(MALLOC_FAILURE);
 	if (type == ENV)
 	{
 		result->head = make_node(make_env("", FALSE), -1);

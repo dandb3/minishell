@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_sep.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -68,7 +68,7 @@ static char	**free_all(char **result, size_t w_idx)
 	return (0);
 }
 
-char	**ft_split(char const *s, char *sep)
+char	**ft_split_sep(char const *s, char *sep)
 {
 	size_t	s_idx;
 	size_t	w_idx;
