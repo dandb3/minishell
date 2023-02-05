@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/01/31 17:25:16 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:14:07 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,25 @@ int	prompt(t_list *env_list)
 	char	**cmds;
 
 	system("clear"); // 지우세용
-	//rl_line_buffer = "hihi";
 	while (1)
 	{
 		cmd = readline("MINI$ ");
 		if (!cmd)
-			return (0);
-		if (ft_strlen(cmd) == 0)
 		{
-			free(cmd);
-			continue ;
+			ft_printf("exit\n");
+			exit(EXIT_SUCCESS);
 		}
-		add_history(cmd);
-		cmds = ft_split(cmd, ' ');
-		if (!cmds)
-			exit(MALLOC_FAILURE);
-		if (*cmds)
-			do_builtin(cmds, &env_list);
-		free_twoptr(cmds, 0);
+		if (ft_strlen(cmd))
+		{
+			add_history(cmd);
+			cmds = ft_split(cmd, ' ');
+			if (!cmds)
+				exit(MALLOC_FAILURE);
+			if (*cmds)
+				do_builtin(cmds, &env_list);
+			free_twoptr(cmds, 0);
+		}
+		free(cmd);
 	}
 	clear_history();
 	return (0);

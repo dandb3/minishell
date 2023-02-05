@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/03 19:24:09 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:15:04 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_list
 
 /*--------------------------------  main  ---------------------------------*/
 int			ft_signal(void);
+int			ft_terminal(void);
 
 /*-------------------------------- builtin --------------------------------*/
 int			do_builtin(char **cmds, t_list **env_list);

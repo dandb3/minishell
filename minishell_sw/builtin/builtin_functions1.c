@@ -6,11 +6,12 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:36:47 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/01/29 15:29:48 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/02 18:19:57 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+#include <errno.h>
 
 int	builtin_pwd(void)
 {
@@ -26,21 +27,20 @@ int	builtin_pwd(void)
 
 int	builtin_cd(char **cmds)
 {
-	struct stat	buf;
+	char		*str;
 
 	if (!(*(++cmds)))
 	{
 		ft_printf("cd: no arguments\n");
-		return (FALSE);
+		return (EXIT_FAILURE);
 	}
 	if (chdir(*cmds) == -1)
 	{
-		stat(*cmds, &buf);
-		if (S_ISREG(buf.st_mode))
-			ft_printf("MINI: cd: %s: Not a directory\n", *cmds);
-		else
-			ft_printf("MINI: cd: %s: No such file or directory\n", *cmds);
-		return (FALSE);
+		str = ft_strjoin("MINI: cd: ", *cmds);
+		if (!str)
+			exit(EXIT_FAILURE);
+		perror(str);
+		return (EXIT_FAILURE);
 	}
 	return (TRUE);
 }

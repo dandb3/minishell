@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:32:49 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/03 20:48:01 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:14:00 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,13 @@ int	main(int ac, char **av)
 	t_list		*env_list;
 	t_list		*token_list;
 
+//	atexit(leaks);
 	(void) ac;
 	(void) av;
-	(void) a;
-	scanf("%s", arr);
-	env_list = make_envlist(environ);
-	token_list = NULL;
-	make_token_list(&token_list, env_list, arr);
-	print_tokenlist(token_list);
-	exit(0);
+	ft_signal();
+	ft_terminal();
+	env_list = make_envlist(envp);
+	prompt(env_list);
 	return (0);
 }
 
