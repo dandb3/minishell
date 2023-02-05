@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/02 11:15:04 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/05 16:22:41 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ enum e_sbool
 
 typedef enum e_type
 {
-	ENV,
-	LEX
+	ENV = 0,
+	LEX = 1,
+	NAME = 0
 }	t_type;
 
 typedef struct s_node

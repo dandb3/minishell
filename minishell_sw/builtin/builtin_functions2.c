@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:20:12 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/01 10:06:00 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/05 13:47:21 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	builtin_exit(char **cmds)
 	}
 	ret = builtin_atoi(*cmds);
 	len = ft_strlen(*cmds);
-	if (len >= 1)
+	if (len >= 19)
 	{
 		if ((*cmds)[len - 1] - '0' != (ret % 10) * ((ret > 0) * 2 - 1))
 		{
