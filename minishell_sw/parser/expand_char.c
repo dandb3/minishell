@@ -29,10 +29,7 @@ static char	*find_env_val(t_list *env_list, char const *key)
 		}
 		cur_env = cur_env->next;
 	}
-	ret = ft_strdup("");
-	if (ret == NULL)
-		exit(MALLOC_FAILURE);
-	return (ret);
+	return (NULL);
 }
 
 static void	substitute_env(t_node *cur_token, t_list *env_list, t_flag flag)
@@ -48,6 +45,8 @@ static void	substitute_env(t_node *cur_token, t_list *env_list, t_flag flag)
 		free(cur_token->val);
 		cur_token->val = find_env_val(env_list, cur_token->next->val);
 		del_node(cur_token->next, LEX);
+		if (cur_token->val == NULL)
+			del_node(cur_token, LEX);
 	}
 }
 
