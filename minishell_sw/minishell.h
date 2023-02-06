@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/06 15:27:16 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/06 20:47:03 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_list
 /*--------------------------------  main  ---------------------------------*/
 int			ft_signal(void);
 int			ft_terminal(void);
+int			wildcard(char *wstr, char *path);
 
 /*-------------------------------- builtin --------------------------------*/
 int			do_builtin(char **cmds, t_list **env_list);
@@ -98,7 +99,7 @@ void		push_node(t_node *node, t_list *list);
 void		insert_node(t_node *insert_point, t_node *node);
 long long	free_nodes(t_list *list, long long ret, t_type type);
 long long	free_list(t_list *list, long long ret, t_type type);
-void		sort_list(t_list *env_list);
+void		sort_list(t_list *list);
 
 /*------------------------------- node list -------------------------------*/
 t_node		*make_node(void *val, t_lex lex);
@@ -117,6 +118,7 @@ int			push_environ(t_env *env, t_node *cur);
 int			print_envlist(t_list *list, const char *pre);
 t_list		*make_envlist(char **envp);
 char		**env_to_char(t_list *env_list);
+void		sort_envlist(t_list *env_list);
 
 /*lexer*/
 int			make_token_list(t_list **token_list, t_list *env_list, \

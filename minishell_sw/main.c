@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:32:49 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/06 14:41:04 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/06 20:43:28 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,30 @@ void	print_tokenlist(t_list *token_list)
 	}
 }
 
-int	main(int ac, char **av)
+int	main(void)
 {
-	extern char	**environ;
-	t_list		*env_list;
+	char	*wild;
 
-//	atexit(leaks);
-	(void) ac;
-	(void) av;
-	ft_signal();
-	ft_terminal();
-	env_list = make_envlist(environ);
-	prompt(env_list);
+	wild = (char *)malloc(sizeof(char) * 1000000);
+	scanf(" %s", wild);
+	wildcard(wild, ".");
 	return (0);
 }
+
+// int	main(int ac, char **av)
+// {
+// 	extern char	**environ;
+// 	t_list		*env_list;
+
+// //	atexit(leaks);
+// 	(void) ac;
+// 	(void) av;
+// 	ft_signal();
+// 	ft_terminal();
+// 	env_list = make_envlist(environ);
+// 	prompt(env_list);
+// 	return (0);
+// }
 
 // void	leaks(void)
 // {
