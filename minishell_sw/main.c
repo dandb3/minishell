@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:32:49 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/02 11:14:00 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:41:04 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,14 @@ void	print_tokenlist(t_list *token_list)
 int	main(int ac, char **av)
 {
 	extern char	**environ;
-	char		*a;
-	char		arr[102340];
 	t_list		*env_list;
-	t_list		*token_list;
 
 //	atexit(leaks);
 	(void) ac;
 	(void) av;
 	ft_signal();
 	ft_terminal();
-	env_list = make_envlist(envp);
+	env_list = make_envlist(environ);
 	prompt(env_list);
 	return (0);
 }

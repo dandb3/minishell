@@ -6,12 +6,11 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:36:47 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/02 18:19:57 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:55:16 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include <errno.h>
 
 int	builtin_pwd(void)
 {
@@ -19,15 +18,35 @@ int	builtin_pwd(void)
 
 	pwd = getcwd(NULL, UINT32_MAX);
 	if (pwd == NULL)
-		return (FALSE);
+		return (EXIT_FAILURE);
 	ft_printf("%s\n", pwd);
 	free(pwd);
-	return (TRUE);
+	return (EXIT_SUCCESS);
 }
 
-int	builtin_cd(char **cmds)
+static int	export_pwd(const char *oldpwd, t_list **env_list)
+{
+	char		**cmds;
+	const char	*pwd = getcwd(NULL, UINT32_MAX);
+
+	if (!pwd || !oldpwd)
+		return (EXIT_FAILURE);
+	cmds = (char **)ft_calloc(4, sizeof(char *));
+	if (!cmds)
+		exit(MALLOC_FAILURE);
+	cmds[0] = ft_strdup("export");
+	cmds[1] = ft_strjoin("OLDPWD=", oldpwd);
+	cmds[2] = ft_strjoin("PWD=", pwd);
+	cmds[3] = NULL;
+	if (!cmds[0] || !cmds[1] || !cmds[2])
+		exit(MALLOC_FAILURE);
+	return (builtin_export(cmds, env_list));
+}
+
+int	builtin_cd(char **cmds, t_list **env_list)
 {
 	char		*str;
+	const char	*oldpwd = getcwd(NULL, UINT32_MAX);
 
 	if (!(*(++cmds)))
 	{
@@ -38,11 +57,12 @@ int	builtin_cd(char **cmds)
 	{
 		str = ft_strjoin("MINI: cd: ", *cmds);
 		if (!str)
-			exit(EXIT_FAILURE);
+			exit(MALLOC_FAILURE);
 		perror(str);
 		return (EXIT_FAILURE);
 	}
-	return (TRUE);
+	export_pwd(oldpwd, env_list);
+	return (EXIT_SUCCESS);
 }
 
 static int	check_n(char *str)

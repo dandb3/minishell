@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:55:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/01/31 16:56:58 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:57:18 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ size_t	envlen(const char *str)
 	return (len);
 }
 
-static int	check_valid_keyname(const char *str)
+int	check_valid_keyname(const char *str)
 {
 	size_t	idx;
 

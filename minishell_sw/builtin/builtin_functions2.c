@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:20:12 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/05 13:47:21 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:00:20 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	builtin_export(char **cmds, t_list **env_list)
 		cur = (*env_list)->head->next;
 		env = make_env(*cmds++, TRUE);
 		if (!env)
-			return (FAILURE);
+			return (EXIT_FAILURE);
 		while (cur)
 		{
 			if (push_environ(env, cur) == SUCCESS)
@@ -80,21 +80,32 @@ int	builtin_export(char **cmds, t_list **env_list)
 			cur = cur->next;
 		}
 	}
-	return (SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
-void	builtin_env(t_list **env_list)
+int	builtin_env(char **cmds, t_list **env_list)
 {
+	if (cmds[1] != NULL)
+	{
+		ft_printf("env: %s: No such file or directory\n", cmds[1]);
+		return (EXIT_FAILURE);
+	}
 	print_envlist(*env_list, NULL);
+	return (EXIT_SUCCESS);
 }
 
-void	builtin_unset(char **cmds, t_list **env_list)
+int	builtin_unset(char **cmds, t_list **env_list)
 {
 	t_node	*cur;
 	size_t	len;
 
 	while (*(++cmds))
 	{
+		if (check_valid_keyname(*cmds) == FALSE)
+		{
+			ft_printf("MINI: unset: '%s': not a valid identifier", *cmds);
+			return (EXIT_FAILURE);
+		}
 		cur = (*env_list)->head->next;
 		while (cur->next)
 		{
@@ -107,5 +118,5 @@ void	builtin_unset(char **cmds, t_list **env_list)
 			cur = cur->next;
 		}
 	}
-	return ;
+	return (EXIT_SUCCESS);
 }

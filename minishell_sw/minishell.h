@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/05 16:22:41 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:27:16 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <limits.h>
+# include <errno.h>
 # include "libft/libft.h"
 
 # define MALLOC_FAILURE 2
@@ -110,6 +111,7 @@ long long	free_twoptr(char **ptr, long long ret);
 
 /*--------------------------------- utils ---------------------------------*/
 size_t		envlen(const char *str);
+int			check_valid_keyname(const char *str);
 t_env		*make_env(const char *str, int to_check);
 int			push_environ(t_env *env, t_node *cur);
 int			print_envlist(t_list *list, const char *pre);
