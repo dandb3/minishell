@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:55:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/06 14:57:18 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:23:00 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	check_valid_keyname(const char *str)
 
 	idx = 0;
 	if (!str)
+		return (FAILURE);
+	if (*str == '=')
 		return (FAILURE);
 	while (str[idx] && str[idx] != '=')
 	{
