@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:20:12 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/06 15:00:20 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/07 20:44:25 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	builtin_export(char **cmds, t_list **env_list)
 		cur = (*env_list)->head->next;
 		env = make_env(*cmds++, TRUE);
 		if (!env)
-			return (EXIT_FAILURE);
+			continue ;
 		while (cur)
 		{
 			if (push_environ(env, cur) == SUCCESS)

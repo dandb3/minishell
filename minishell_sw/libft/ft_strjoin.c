@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:26:34 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/01/18 11:07:39 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:47:48 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,19 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	len1;
-	size_t	idx;
-	char	*str;
+	char	*result;
+	size_t	s1_len;
+	size_t	s2_len;
 
 	if (s1 == 0 || s2 == 0)
 		return (0);
-	len1 = ft_strlen(s1);
-	str = (char *)malloc(sizeof(char) * (len1 + ft_strlen(s2) + 1));
-	if (str == 0)
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	result = (char *) malloc(sizeof(char) * (s1_len + s2_len + 1));
+	if (result == 0)
 		return (0);
-	idx = 0;
-	while (s1[idx])
-	{
-		str[idx] = s1[idx];
-		idx++;
-	}
-	idx = 0;
-	while (s2[idx])
-	{
-		str[len1 + idx] = s2[idx];
-		idx++;
-	}
-	str[len1 + idx] = '\0';
-	return (str);
+	*result = 0;
+	ft_strlcat(result, s1, s1_len + 1);
+	ft_strlcat(result, s2, s1_len + s2_len + 1);
+	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:10:57 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/06 20:46:56 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/07 21:05:00 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,30 @@ void	sort_list(t_list *list)
 		}
 		cur1 = cur1->next;
 	}
+}
+
+t_node	*make_node(void *val, t_lex lex)
+{
+	t_node	*result;
+
+	if (val == NULL)
+		return (NULL);
+	result = (t_node *) malloc(sizeof(t_node));
+	if (result == NULL)
+		exit(MALLOC_FAILURE);
+	ft_memset(result, 0, sizeof(t_node));
+	result->val = val;
+	result->lex = lex;
+	return (result);
+}
+
+void	free_node(t_node *node, t_type type)
+{
+	if (type == ENV)
+	{
+		free(((t_env *)(node->val))->val);
+		free(((t_env *)(node->val))->key);
+	}
+	free(node->val);
+	free(node);
 }

@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 14:28:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/06 19:20:59 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/07 12:46:20 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	handler(int sig)
 {
 	ft_printf("\n");
 	rl_on_new_line();
-	rl_replace_line("", 1);
+//	rl_replace_line("", 1);
 	rl_redisplay();
 	(void) sig;
 }

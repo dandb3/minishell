@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:36:47 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/06 14:55:16 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/07 20:58:40 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,22 @@ int	builtin_cd(char **cmds, t_list **env_list)
 {
 	char		*str;
 	const char	*oldpwd = getcwd(NULL, UINT32_MAX);
+	char		*nxtpwd;
 
+	nxtpwd = NULL;
 	if (!(*(++cmds)))
 	{
-		ft_printf("cd: no arguments\n");
-		return (EXIT_FAILURE);
+		nxtpwd = find_env(*env_list, "HOME");
+		if (!nxtpwd)
+			return ((ft_printf("MINI: cd: HOME not set\n") & 0) | 1);
 	}
-	if (chdir(*cmds) == -1)
+	if (!nxtpwd)
+		nxtpwd = *cmds;
+	if (ft_strlen(nxtpwd) == 0)
+		return (EXIT_SUCCESS);
+	if (chdir(nxtpwd) == -1)
 	{
-		str = ft_strjoin("MINI: cd: ", *cmds);
+		str = ft_strjoin("MINI: cd: ", nxtpwd);
 		if (!str)
 			exit(MALLOC_FAILURE);
 		perror(str);

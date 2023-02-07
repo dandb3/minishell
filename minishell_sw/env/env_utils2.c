@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:43:15 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/06 20:45:10 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/07 20:59:38 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,18 @@ void	sort_envlist(t_list *env_list)
 		}
 		cur1 = cur1->next;
 	}
+}
+
+char	*find_env(t_list *list, const char *to_find)
+{
+	t_node	*cur;
+
+	cur = list->head->next;
+	while (cur->next)
+	{
+		if (!ft_strcmp(((t_env *)(cur->val))->key, to_find))
+			return (((t_env *)(cur->val))->val);
+		cur = cur->next;
+	}
+	return (NULL);
 }
