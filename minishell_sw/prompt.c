@@ -6,26 +6,28 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/02 11:14:07 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:21:05 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
+
+static void	eof_exit(void)
+{
+	exit(EXIT_SUCCESS);
+}
 
 int	prompt(t_list *env_list)
 {
 	char	*cmd;
 	char	**cmds;
 
-	system("clear"); // 지우세용
 	while (1)
 	{
+		ft_signal();
 		cmd = readline("MINI$ ");
 		if (!cmd)
-		{
-			ft_printf("exit\n");
-			exit(EXIT_SUCCESS);
-		}
+			eof_exit();
 		if (ft_strlen(cmd))
 		{
 			add_history(cmd);
@@ -37,6 +39,7 @@ int	prompt(t_list *env_list)
 			free_twoptr(cmds, 0);
 		}
 		free(cmd);
+		system("leaks minishell");
 	}
 	clear_history();
 	return (0);

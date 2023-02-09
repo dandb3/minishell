@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 14:28:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/07 12:46:20 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:58:51 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	handler(int sig)
 {
 	ft_printf("\n");
 	rl_on_new_line();
-//	rl_replace_line("", 1);
+	rl_replace_line("", 1);
 	rl_redisplay();
 	(void) sig;
 }
@@ -32,6 +32,9 @@ int	ft_signal(void)
 	act_quit.sa_flags = SA_RESTART;
 	act_quit.__sigaction_u.__sa_handler = SIG_IGN;
 	if (sigaction(SIGINT, &act_int, NULL) | sigaction(SIGQUIT, &act_quit, NULL))
-		return (FAILURE);
+	{
+		perror("");
+		exit(EXIT_FAILURE);
+	}
 	return (SUCCESS);
 }

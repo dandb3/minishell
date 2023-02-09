@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:43:15 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/07 20:59:38 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:59:40 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,19 @@ t_list	*make_envlist(char **envp)
 	t_env	*env;
 
 	env_list = make_list(ENV);
-	if (!env_list)
+	env = make_env("?", FALSE);
+	env->val = ft_strdup("0");
+	if (!(env->val))
 		exit(MALLOC_FAILURE);
+	node = make_node(env, -1);
+	push_node(node, env_list);
 	while (*envp)
 	{
-		env = make_env(*envp, TRUE);
-		node = make_node(env, -1);
+		env = make_env(*envp++, TRUE);
 		if (!env || !node)
 			exit(MALLOC_FAILURE);
+		node = make_node(env, -1);
 		push_node(node, env_list);
-		++envp;
 	}
 	sort_envlist(env_list);
 	return (env_list);
@@ -43,7 +46,7 @@ char	**env_to_char(t_list *env_list)
 	envp = (char **)malloc(sizeof(char *));
 	if (!envp)
 		exit(MALLOC_FAILURE);
-	cur = env_list->head->next;
+	cur = env_list->head->next->next;
 	idx = 0;
 	while (cur->next)
 	{
@@ -69,7 +72,7 @@ void	sort_envlist(t_list *env_list)
 	t_node	*cur2;
 	t_env	*tmp;
 
-	cur1 = env_list->head->next;
+	cur1 = env_list->head->next->next;
 	while (cur1->next)
 	{
 		cur2 = cur1->next;
