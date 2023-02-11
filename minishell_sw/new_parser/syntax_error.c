@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 15:40:00 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/11 19:33:31 by jdoh             ###   ########seoul.kr  */
+/*   Created: 2023/02/11 19:26:26 by jdoh              #+#    #+#             */
+/*   Updated: 2023/02/11 19:27:04 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	make_token_list(t_list **token_list, t_list *env_list, char const *str)
+void	*error_manage(t_node *cur_token, t_tree *root, t_list *stack)
 {
-	*token_list = make_list(LEX);
-	while (*str)
-		push_node(get_pseudo_token(&str), *token_list);
-	if (pseudo_expand_env(*token_list) == FAILURE)
-	{
-		write(STDERR_FILENO, "MINI: syntax error: quote is not closed\n", 40);
-		return (FAILURE);
-	}
-	del_quotes(*token_list);
-	group_compound(*token_list);
-	del_whitespace(*token_list);
-	return (SUCCESS);
+	while (!stack_empty(stack))
+		pop(stack);
+	free_tree(root);
+	return (NULL);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   del_unused.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/11 14:15:55 by jdoh              #+#    #+#             */
+/*   Updated: 2023/02/11 14:15:55 by jdoh             ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 void	del_quotes(t_list *token_list)
@@ -20,21 +32,13 @@ void	del_quotes(t_list *token_list)
 	}
 }
 
-int	del_whitespace(t_list *token_list)
+void	del_whitespace(t_list *token_list)
 {
 	t_node *cur_token;
-	int		parentheses_cnt;
 
-	parentheses_cnt = 0;
 	cur_token = token_list->head->next;
 	while (cur_token->next != NULL)
 	{
-		if (cur_token->lex == LEX_PARENTHESIS_OPEN)
-			++parentheses_cnt;
-		else if (cur_token->lex == LEX_PARENTHESIS_CLOSE)
-			--parentheses_cnt;
-		if (parentheses_cnt < 0)
-			return (FAILURE);
 		if (cur_token->lex == LEX_WHITE)
 		{
 			cur_token = cur_token->prev;
@@ -42,7 +46,4 @@ int	del_whitespace(t_list *token_list)
 		}
 		cur_token = cur_token->next;
 	}
-	if (parentheses_cnt != 0)
-		return (FAILURE);
-	return (SUCCESS);
 }

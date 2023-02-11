@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/07 17:23:29 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/11 19:28:43 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef enum e_symbol
 	AST_E6,
 	AST_E7,
 	AST_E8,
-	AST_EPSILON,
 	AST_COMPOUND,
 	AST_OR,
 	AST_AND,
@@ -43,7 +42,10 @@ typedef enum e_symbol
 	AST_REDIRECT_IN,
 	AST_REDIRECT_OUT,
 	AST_HERE_DOC,
-	AST_REDIRECT_APPEND
+	AST_REDIRECT_APPEND,
+	AST_EOF,
+	AST_EPSILON,
+	AST_PARENTHESESES
 }	t_symbol;
 
 typedef enum e_table
@@ -73,14 +75,15 @@ typedef struct s_tree
 {
 	struct s_tree	*left_child;
 	struct s_tree	*right_child;
-	t_symbol			symbol;
+	void			*val;
+	t_symbol		symbol;
 }	t_tree;
 
 /*---------------------------------tokenize---------------------------------*/
 t_node	*get_pseudo_token(char const **str);
 int		pseudo_expand_env(t_list *token_list);
 void	del_quotes(t_list *token_list);
-int		del_whitespace(t_list *token_list);
+void	del_whitespace(t_list *token_list);
 void	group_compound(t_list *token_list);
 
 /*----------------------------------stack-----------------------------------*/
@@ -92,5 +95,10 @@ t_node	*top(t_list *stack);
 /*-----------------------------------tree-----------------------------------*/
 t_tree	*make_tree(t_symbol symbol);
 void	*free_tree(t_tree *root);
+
+/*--------------------------------syntax_tree-------------------------------*/
+t_tree	*make_syntax_tree(t_list *token_list, char **table);
+void	production(t_list *stack, t_tree *cur_tree, t_table table_result);
+void	*error_manage(t_node *cur_token, t_tree *root, t_list *stack);
 
 #endif

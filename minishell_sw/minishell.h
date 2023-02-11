@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/07 21:08:06 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:09:17 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,20 @@ typedef enum e_lex
 {
 	LEX_SINGLE_QUOTE,
 	LEX_DOUBLE_QUOTE,
+	LEX_ENV,
+	LEX_WILD,
+	LEX_WORD,
+	LEX_WHITE,
+	LEX_COMPOUND,
+	LEX_OR,
+	LEX_AND,
+	LEX_PIPE,
+	LEX_PARENTHESIS_OPEN,
+	LEX_PARENTHESIS_CLOSE,
 	LEX_REDIRECT_IN,
 	LEX_REDIRECT_OUT,
 	LEX_HERE_DOC,
-	LEX_REDIRECT_APP,
-	LEX_PIPE,
-	LEX_ENV,
-	LEX_AND,
-	LEX_OR,
-	LEX_WILD,
-	LEX_WORD,
-	LEX_PARENTHESIS_OPEN,
-	LEX_PARENTHESIS_CLOSE,
-	LEX_WHITE,
-	LEX_COMPOUND
+	LEX_REDIRECT_APP
 }			t_lex;
 
 enum e_sbool

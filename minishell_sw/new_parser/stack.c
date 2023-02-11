@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/11 14:16:16 by jdoh              #+#    #+#             */
+/*   Updated: 2023/02/11 15:06:30 by jdoh             ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 void	pop(t_list *stack)
@@ -7,6 +19,9 @@ void	pop(t_list *stack)
 	popped = stack->head->next;
 	popped->prev->next = popped->next;
 	popped->next->prev = popped->prev;
+	if (((t_tree *)(popped->val))->symbol == AST_PARENTHESES_CLOSE
+		|| ((t_tree *)(popped->val))->symbol == AST_PARENTHESES_OPEN)
+		free_tree(popped->val);
 	free(popped);
 	--(stack->size);
 }
