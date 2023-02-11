@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 20:25:49 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/11 23:02:41 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,25 +80,31 @@ typedef struct s_tree
 }	t_tree;
 
 /*---------------------------------tokenize---------------------------------*/
-t_node	*get_pseudo_token(char const **str);
-int		pseudo_expand_env(t_list *token_list);
-void	del_quotes(t_list *token_list);
-void	del_whitespace(t_list *token_list);
-void	group_compound(t_list *token_list);
+t_node		*get_pseudo_token(char const **str);
+int			pseudo_expand_env(t_list *token_list);
+void		del_quotes(t_list *token_list);
+void		del_whitespace(t_list *token_list);
+void		group_compound(t_list *token_list);
 
 /*----------------------------------stack-----------------------------------*/
-void	pop(t_list *stack);
-void	push(t_list *stack, t_tree *tree_node);
-int		stack_empty(t_list *stack);
-t_node	*top(t_list *stack);
+void		pop(t_list *stack);
+void		push(t_list *stack, t_tree *tree_node);
+int			stack_empty(t_list *stack);
+t_node		*top(t_list *stack);
 
 /*-----------------------------------tree-----------------------------------*/
-t_tree	*make_tree(t_symbol symbol);
-void	*free_tree(t_tree *root);
+t_tree		*make_tree(t_symbol symbol);
+void		*free_tree(t_tree *root);
 
 /*--------------------------------syntax_tree-------------------------------*/
-t_tree	*make_syntax_tree(t_list *token_list, char **table);
-void	production(t_list *stack, t_tree *cur_tree, t_table table_result);
-void	*error_manage(t_node *cur_token, t_tree *root, t_list *stack);
+t_tree		*make_syntax_tree(t_list *token_list, char **table);
+void		production(t_list *stack, t_tree *cur_tree, t_table table_result);
+void		*error_manage(t_node *cur_token, t_tree *root, t_list *stack);
+t_node		*init(char **table, t_list **stack, t_tree **root,
+				t_list *token_list);
+t_symbol	lex_to_symbol(t_lex lex);
+int			is_terminal(t_symbol symbol);
+int			table_idx(t_lex lex);
+void		insert_and_pop(t_list *stack, t_tree *cur_tree, t_node *cur_token);
 
 #endif

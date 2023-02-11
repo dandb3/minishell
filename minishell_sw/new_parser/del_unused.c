@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:15:55 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 14:15:55 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/11 23:02:02 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	del_quotes(t_list *token_list)
 
 void	del_whitespace(t_list *token_list)
 {
-	t_node *cur_token;
+	t_node	*cur_token;
 
 	cur_token = token_list->head->next;
 	while (cur_token->next != NULL)
@@ -42,7 +42,7 @@ void	del_whitespace(t_list *token_list)
 		if (cur_token->lex == LEX_WHITE)
 		{
 			cur_token = cur_token->prev;
-			del_node(cur_token->next,LEX);
+			del_node(cur_token->next, LEX);
 		}
 		cur_token = cur_token->next;
 	}

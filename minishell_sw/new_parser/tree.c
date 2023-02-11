@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:16:44 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 19:23:06 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/11 23:02:56 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_tree	*make_tree(t_symbol symbol)
 	new_tree->left_child = NULL;
 	new_tree->right_child = NULL;
 	new_tree->symbol = symbol;
+	new_tree->val = NULL;
 	return (new_tree);
 }
 

@@ -6,10 +6,11 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:30:20 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 15:30:48 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/11 23:02:43 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <readline/readline.h>
 #include "parser.h"
 
 static void	pop_push_exception(t_list *stack, t_tree *cur_tree)
@@ -53,10 +54,7 @@ static void	production_exception(t_list *stack, t_tree *cur_tree,
 	if (table_result == E8_REDIRECT_APPEND)
 		pop_push2(stack, cur_tree, AST_REDIRECT_APPEND, AST_COMPOUND);
 	if (table_result == E8_HERE_DOC)
-	{
 		pop_push2(stack, cur_tree, AST_HERE_DOC, AST_COMPOUND);
-		//히어독 입력받기;
-	}
 	if (table_result == E5_PARENTHESES)
 		pop_push_exception(stack, cur_tree);
 }
