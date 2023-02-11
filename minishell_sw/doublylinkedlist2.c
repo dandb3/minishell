@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doublylinkedlist2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:10:57 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/07 21:05:00 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:57:01 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,21 @@ void	free_node(t_node *node, t_type type)
 	}
 	free(node->val);
 	free(node);
+}
+
+int	get_list_length(t_list *list)
+{
+	t_node	*cur;
+	int		len;
+
+	cur = list->head;
+	if (list->type == ENV)
+		cur = cur->next;
+	len = 0;
+	while (cur->next)
+	{
+		++len;
+		cur = cur->next;
+	}
+	return (len);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/07 21:08:06 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:57:17 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void		insert_node(t_node *insert_point, t_node *node);
 long long	free_nodes(t_list *list, long long ret, t_type type);
 long long	free_list(t_list *list, long long ret, t_type type);
 void		sort_list(t_list *list);
+int			get_list_length(t_list *list);
 
 /*------------------------------- node list -------------------------------*/
 t_node		*make_node(void *val, t_lex lex);

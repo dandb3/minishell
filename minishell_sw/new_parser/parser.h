@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/07 17:23:29 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/11 19:28:30 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef enum e_symbol
 	AST_E6,
 	AST_E7,
 	AST_E8,
-	AST_EPSILON,
 	AST_COMPOUND,
 	AST_OR,
 	AST_AND,
@@ -43,7 +42,10 @@ typedef enum e_symbol
 	AST_REDIRECT_IN,
 	AST_REDIRECT_OUT,
 	AST_HERE_DOC,
-	AST_REDIRECT_APPEND
+	AST_REDIRECT_APPEND,
+	AST_EOF,
+	AST_EPSILON,
+	AST_PARENTHESESES
 }	t_symbol;
 
 typedef enum e_table
@@ -73,7 +75,8 @@ typedef struct s_tree
 {
 	struct s_tree	*left_child;
 	struct s_tree	*right_child;
-	t_symbol			symbol;
+	t_symbol		symbol;
+	void			*val;
 }	t_tree;
 
 /*---------------------------------tokenize---------------------------------*/
