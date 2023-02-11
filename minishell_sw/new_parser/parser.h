@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 19:28:30 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/11 20:25:49 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,15 @@ typedef struct s_tree
 {
 	struct s_tree	*left_child;
 	struct s_tree	*right_child;
-	t_symbol		symbol;
 	void			*val;
+	t_symbol		symbol;
 }	t_tree;
 
 /*---------------------------------tokenize---------------------------------*/
 t_node	*get_pseudo_token(char const **str);
 int		pseudo_expand_env(t_list *token_list);
 void	del_quotes(t_list *token_list);
-int		del_whitespace(t_list *token_list);
+void	del_whitespace(t_list *token_list);
 void	group_compound(t_list *token_list);
 
 /*----------------------------------stack-----------------------------------*/
@@ -95,5 +95,10 @@ t_node	*top(t_list *stack);
 /*-----------------------------------tree-----------------------------------*/
 t_tree	*make_tree(t_symbol symbol);
 void	*free_tree(t_tree *root);
+
+/*--------------------------------syntax_tree-------------------------------*/
+t_tree	*make_syntax_tree(t_list *token_list, char **table);
+void	production(t_list *stack, t_tree *cur_tree, t_table table_result);
+void	*error_manage(t_node *cur_token, t_tree *root, t_list *stack);
 
 #endif
