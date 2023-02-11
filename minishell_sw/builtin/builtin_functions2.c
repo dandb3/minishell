@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:20:12 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/06 15:00:20 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/09 19:25:36 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ int	builtin_export(char **cmds, t_list **env_list)
 {
 	t_node	*cur;
 	t_env	*env;
+	int		exit_code;
 
+	exit_code = 0;
 	if (!*(++cmds))
 		return (print_envlist(*env_list, "declare -x "));
 	while (*cmds)
@@ -72,7 +74,10 @@ int	builtin_export(char **cmds, t_list **env_list)
 		cur = (*env_list)->head->next;
 		env = make_env(*cmds++, TRUE);
 		if (!env)
-			return (EXIT_FAILURE);
+		{
+			exit_code = 1;
+			continue ;
+		}
 		while (cur)
 		{
 			if (push_environ(env, cur) == SUCCESS)
@@ -80,14 +85,14 @@ int	builtin_export(char **cmds, t_list **env_list)
 			cur = cur->next;
 		}
 	}
-	return (EXIT_SUCCESS);
+	return (exit_code);
 }
 
 int	builtin_env(char **cmds, t_list **env_list)
 {
 	if (cmds[1] != NULL)
 	{
-		ft_printf("env: %s: No such file or directory\n", cmds[1]);
+		ft_printf("env: env does not need arguments\n");
 		return (EXIT_FAILURE);
 	}
 	print_envlist(*env_list, NULL);
@@ -97,20 +102,21 @@ int	builtin_env(char **cmds, t_list **env_list)
 int	builtin_unset(char **cmds, t_list **env_list)
 {
 	t_node	*cur;
-	size_t	len;
+	int		exit_code;
 
+	exit_code = 0;
 	while (*(++cmds))
 	{
 		if (check_valid_keyname(*cmds) == FALSE)
 		{
-			ft_printf("MINI: unset: '%s': not a valid identifier", *cmds);
-			return (EXIT_FAILURE);
+			ft_printf("MINI: unset: '%s': not a valid identifier\n", *cmds);
+			exit_code = 1;
+			continue ;
 		}
 		cur = (*env_list)->head->next;
 		while (cur->next)
 		{
-			len = envlen(*cmds);
-			if (!ft_strncmp(*cmds, ((t_env *)cur->val)->key, len))
+			if (!ft_strncmp(*cmds, ((t_env *)cur->val)->key, envlen(*cmds)))
 			{
 				del_node(cur, ENV);
 				break ;
@@ -118,5 +124,5 @@ int	builtin_unset(char **cmds, t_list **env_list)
 			cur = cur->next;
 		}
 	}
-	return (EXIT_SUCCESS);
+	return (exit_code);
 }

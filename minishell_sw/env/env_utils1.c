@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:55:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/07 17:23:00 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:06:30 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	push_environ(t_env *env, t_node *cur)
 		((t_env *)(cur->val))->val = ft_strdup(env->val);
 		if (!(((t_env *)(cur->val))->val))
 			exit(EXIT_FAILURE);
-		return (free_ret(env->key, env, NULL, SUCCESS));
+		return (free_ret(env->val, env->key, env, SUCCESS));
 	}
 	else if (cmp < 0)
 	{
@@ -106,7 +106,7 @@ int	print_envlist(t_list *list, const char *pre)
 
 	if (list == 0)
 		return (FAILURE);
-	cur = list->head->next;
+	cur = list->head->next->next;
 	while (cur->next)
 	{
 		if (cur->next == NULL)

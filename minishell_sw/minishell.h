@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/06 20:47:03 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/07 21:08:06 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ typedef enum e_lex
 	LEX_WORD,
 	LEX_PARENTHESIS_OPEN,
 	LEX_PARENTHESIS_CLOSE,
-	LEX_WHITE
+	LEX_WHITE,
+	LEX_COMPOUND
 }			t_lex;
 
 enum e_sbool
@@ -59,7 +60,7 @@ typedef enum e_type
 {
 	ENV = 0,
 	LEX = 1,
-	NAME = 0
+	NAME = 1
 }	t_type;
 
 typedef struct s_node
@@ -87,7 +88,7 @@ typedef struct s_list
 /*--------------------------------  main  ---------------------------------*/
 int			ft_signal(void);
 int			ft_terminal(void);
-int			wildcard(char *wstr, char *path);
+char		*wildcard(char *wstr, char *path);
 
 /*-------------------------------- builtin --------------------------------*/
 int			do_builtin(char **cmds, t_list **env_list);
@@ -109,6 +110,7 @@ void		free_node(t_node *node, t_type type);
 /*--------------------------------- utils ---------------------------------*/
 long long	free_ret(void *obj1, void *obj2, void *obj3, long long ret);
 long long	free_twoptr(char **ptr, long long ret);
+char		*ft_strjoin_and_free(char *s1, char *s2);
 
 /*--------------------------------- utils ---------------------------------*/
 size_t		envlen(const char *str);
@@ -119,6 +121,7 @@ int			print_envlist(t_list *list, const char *pre);
 t_list		*make_envlist(char **envp);
 char		**env_to_char(t_list *env_list);
 void		sort_envlist(t_list *env_list);
+char		*find_env(t_list *list, const char *to_find);
 
 /*lexer*/
 int			make_token_list(t_list **token_list, t_list *env_list, \
