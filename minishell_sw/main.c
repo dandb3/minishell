@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:32:49 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/07 20:15:52 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/12 13:26:33 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,14 @@ void	print_tokenlist(t_list *token_list)
 int	main(int ac, char **av)
 {
 	extern char	**environ;
-	t_list		*env_list;
 
 //	atexit(leaks);
 	(void) ac;
 	(void) av;
 	ft_signal();
 	ft_terminal();
-	env_list = make_envlist(environ);
-	prompt(env_list);
+	g_env_list = make_envlist(environ);
+	prompt();
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_pseudo_token.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:40:50 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/03 20:35:51 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/12 10:51:09 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	one_len_lexeme(t_node **new_token, char const **str)
 	else if (**str == '*')
 		*new_token = make_node(ft_strdup("*"), LEX_WILD);
 	else if (**str == '\'')
-		*new_token = make_node(ft_strdup("\''"), LEX_SINGLE_QUOTE);
+		*new_token = make_node(ft_strdup("\'"), LEX_SINGLE_QUOTE);
 	else if (**str == '\"')
 		*new_token = make_node(ft_strdup("\""), LEX_DOUBLE_QUOTE);
 	else

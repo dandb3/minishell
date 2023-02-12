@@ -5,7 +5,9 @@
 		"minishell.h": "c",
 		"prompt.h": "c",
 		"signal.h": "c",
-		"parser.h": "c"
+		"parser.h": "c",
+		"wait.h": "c",
+		"execute.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

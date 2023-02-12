@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:20:12 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/09 19:25:36 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/12 19:56:43 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	builtin_exit(char **cmds)
 	exit((unsigned char)ret);
 }
 
-int	builtin_export(char **cmds, t_list **env_list)
+int	builtin_export(char **cmds)
 {
 	t_node	*cur;
 	t_env	*env;
@@ -68,10 +68,10 @@ int	builtin_export(char **cmds, t_list **env_list)
 
 	exit_code = 0;
 	if (!*(++cmds))
-		return (print_envlist(*env_list, "declare -x "));
+		return (print_envlist("declare -x "));
 	while (*cmds)
 	{
-		cur = (*env_list)->head->next;
+		cur = (*g_env_list)->head->next;
 		env = make_env(*cmds++, TRUE);
 		if (!env)
 		{
@@ -88,18 +88,18 @@ int	builtin_export(char **cmds, t_list **env_list)
 	return (exit_code);
 }
 
-int	builtin_env(char **cmds, t_list **env_list)
+int	builtin_env(char **cmds)
 {
 	if (cmds[1] != NULL)
 	{
 		ft_printf("env: env does not need arguments\n");
 		return (EXIT_FAILURE);
 	}
-	print_envlist(*env_list, NULL);
+	print_envlist(NULL);
 	return (EXIT_SUCCESS);
 }
 
-int	builtin_unset(char **cmds, t_list **env_list)
+int	builtin_unset(char **cmds)
 {
 	t_node	*cur;
 	int		exit_code;
@@ -113,10 +113,10 @@ int	builtin_unset(char **cmds, t_list **env_list)
 			exit_code = 1;
 			continue ;
 		}
-		cur = (*env_list)->head->next;
+		cur = (*g_env_list)->head->next->next;
 		while (cur->next)
 		{
-			if (!ft_strncmp(*cmds, ((t_env *)cur->val)->key, envlen(*cmds)))
+			if (!ft_strncmp(*cmds, ((t_env *)cur->val)->key, get_envlen(*cmds)))
 			{
 				del_node(cur, ENV);
 				break ;

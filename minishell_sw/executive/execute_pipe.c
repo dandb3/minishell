@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:58:07 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/11 19:43:33 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/12 13:50:23 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ static void	child_process(t_pipe_info *info, int idx)
 	close_all(info);
 	if (close(fd_stdin) < 0)
 		perror_msg(NULL, 1);
-	//파일 리스트를 순회하면서 쭉 파일 열고 dup2 수행.
-	//execve
-	//perror_msg(파일 이름, 126);
+	// 파일 리스트를 순회하면서 쭉 파일 열고 dup2 수행.
+	// do_builtin
+	// builtin이 성공하면 exit()
+	// execve
+	// perror_msg(파일 이름, 126);
 }
 
 /*-------malloc on "info" finished-------*/

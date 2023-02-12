@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pseudo_expand_env.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:40:44 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/07 20:44:53 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/12 19:55:40 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-static size_t	get_env_len(const char *str)
-{
-	size_t	idx;
-
-	idx = -1;
-	if (*str == '?')
-		return (1);
-	while (str[++idx])
-	{
-		if (((!ft_isalnum(str[idx]) && idx != 0) || \
-			(!ft_isalpha(str[idx]) && idx == 0)) && \
-			str[idx] != '_')
-			return (idx);
-	}
-	return (idx);
-}
 
 static void	env_val(t_node *cur_token)
 {
@@ -35,7 +18,7 @@ static void	env_val(t_node *cur_token)
 	char	*tmp1;
 	char	*tmp2;
 
-	idx = get_env_len(cur_token->next->val);
+	idx = get_envlen(cur_token->next->val);
 	if (idx == 0)
 	{
 		cur_token->lex = LEX_WORD;

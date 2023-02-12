@@ -3,36 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_char.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:40:44 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/03 20:35:39 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/12 20:20:21 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static char	*find_env_val(t_list *env_list, char const *key)
-{
-	t_node	*cur_env;
-	char	*ret;
-
-	cur_env = env_list->head->next;
-	while (cur_env->next != NULL)
-	{
-		if (!ft_strcmp(((t_env *)(cur_env->val))->key, key))
-		{
-			ret = ft_strdup(((t_env *)(cur_env->val))->val);
-			if (ret == NULL)
-				exit(MALLOC_FAILURE);
-			return (ret);
-		}
-		cur_env = cur_env->next;
-	}
-	return (NULL);
-}
-
-static void	substitute_env(t_node *cur_token, t_list *env_list, t_flag flag)
+static void	substitute_env(t_node *cur_token, t_flag flag)
 {
 	cur_token->lex = LEX_WORD;
 	if (cur_token->next->next == NULL)
@@ -43,14 +23,14 @@ static void	substitute_env(t_node *cur_token, t_list *env_list, t_flag flag)
 	else if (cur_token->next->lex == LEX_WORD)
 	{
 		free(cur_token->val);
-		cur_token->val = find_env_val(env_list, cur_token->next->val);
+		cur_token->val = find_env_val(g_env_list, cur_token->next->val);
 		del_node(cur_token->next, LEX);
 		if (cur_token->val == NULL)
 			del_node(cur_token, LEX);
 	}
 }
 
-int	expand_env(t_list *token_list, t_list *env_list)
+int	expand_env(t_list *token_list)
 {
 	t_node	*cur_token;
 	t_flag	flag;
@@ -68,7 +48,7 @@ int	expand_env(t_list *token_list, t_list *env_list)
 			flag = UN_QUOTED;
 		else if ((flag == UN_QUOTED || flag == DOUBLE_QUOTED)
 			&& cur_token->lex == LEX_ENV)
-			substitute_env(cur_token, env_list, flag);
+			substitute_env(cur_token, g_env_list, flag);
 		cur_token = cur_token->next;
 	}
 	if (flag != UN_QUOTED)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/03 19:06:48 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/12 13:28:44 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef enum s_flag
 
 /*---------------------------------tokenize---------------------------------*/
 t_node	*get_pseudo_token(char const **str);
-int		expand_env(t_list *token_list, t_list *env_list);
+int		expand_env(t_list *token_list);
 void	expand_quotes(t_list *token_list);
 void	merge_words(t_list *token_list);
 void	merge_two_words(t_node *w1, t_node *w2);

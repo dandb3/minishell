@@ -3,29 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:55:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/09 18:06:30 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/12 19:54:16 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-size_t	envlen(const char *str)
+size_t	get_envlen(const char *str)
 {
-	size_t	len;
+	size_t	idx;
 
-	len = 0;
-	if (!str)
-		return (0);
-	while (*str)
+	idx = -1;
+	if (*str == '?')
+		return (1);
+	while (str[++idx])
 	{
-		if (*str++ == '=')
-			return (len);
-		++len;
+		if (((!ft_isalnum(str[idx]) && idx != 0) || \
+			(!ft_isalpha(str[idx]) && idx == 0)) && \
+			str[idx] != '_')
+			return (idx);
 	}
-	return (len);
+	return (idx);
 }
 
 int	check_valid_keyname(const char *str)
@@ -51,7 +52,7 @@ int	check_valid_keyname(const char *str)
 t_env	*make_env(const char *str, int to_check)
 {
 	t_env			*newenv;
-	const size_t	len = envlen(str);
+	const size_t	len = get_envlen(str);
 
 	if (to_check && !check_valid_keyname(str))
 	{
@@ -100,13 +101,13 @@ int	push_environ(t_env *env, t_node *cur)
 	return (FAILURE);
 }
 
-int	print_envlist(t_list *list, const char *pre)
+int	print_envlist(const char *pre)
 {
 	t_node	*cur;
 
-	if (list == 0)
+	if (g_env_list == 0)
 		return (FAILURE);
-	cur = list->head->next->next;
+	cur = g_env_list->head->next->next;
 	while (cur->next)
 	{
 		if (cur->next == NULL)
