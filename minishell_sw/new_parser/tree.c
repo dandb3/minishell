@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/11 14:16:44 by jdoh              #+#    #+#             */
+/*   Updated: 2023/02/11 19:23:06 by jdoh             ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 t_tree	*make_tree(t_symbol symbol)
@@ -19,6 +31,8 @@ void	*free_tree(t_tree *root)
 		return (NULL);
 	free_tree(root->left_child);
 	free_tree(root->right_child);
+	if (root->symbol == AST_HERE_DOC)
+		free(root->val);
 	free(root);
 	return (NULL);
 }
