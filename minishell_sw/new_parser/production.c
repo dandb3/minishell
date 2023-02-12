@@ -6,11 +6,10 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:30:20 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 23:02:43 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/12 16:39:15 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
 #include "parser.h"
 
 static void	pop_push_exception(t_list *stack, t_tree *cur_tree)
@@ -20,7 +19,7 @@ static void	pop_push_exception(t_list *stack, t_tree *cur_tree)
 	pop(stack);
 	cur_tree->right_child = make_tree(AST_E4);
 	push(stack, cur_tree->right_child);
-	cur_tree->left_child = make_tree(AST_E0);
+	cur_tree->left_child = make_tree(-1);
 	nulltree = cur_tree->left_child;
 	nulltree->right_child = make_tree(AST_PARENTHESESES);
 	nulltree->left_child = make_tree(AST_E0);

@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   doublylinkedlist3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 15:40:00 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/12 16:37:38 by jdoh             ###   ########seoul.kr  */
+/*   Created: 2023/02/12 12:28:12 by jdoh              #+#    #+#             */
+/*   Updated: 2023/02/12 12:34:45 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minishell.h"
 
-int	make_token_list(t_list **token_list, t_list *env_list, char const *str)
+t_list	*copy_list(t_list *list)
 {
-	*token_list = make_list(LEX);
-	while (*str)
-		push_node(get_pseudo_token(&str), *token_list);
-	if (pseudo_expand_env(*token_list) == FAILURE)
+	t_list	*new_list;
+	t_node	*cur_token;
+
+	if (list->type != COMPOUND)
+		return (NULL);
+	new_list = make_list(COMPOUND);
+	cur_token = list->head->next;
+	while (cur_token->next != NULL)
 	{
-		write(STDERR_FILENO, "MINI: syntax error: quote is not closed\n", 40);
-		return (FAILURE);
+		push_node(make_node(cur_token->val, cur_token->lex), new_list);
+		cur_token = cur_token->next;
 	}
-	group_compound(*token_list);
-	del_whitespace(*token_list);
-	return (SUCCESS);
 }

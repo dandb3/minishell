@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 23:02:41 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/12 16:07:57 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ t_symbol	lex_to_symbol(t_lex lex);
 int			is_terminal(t_symbol symbol);
 int			table_idx(t_lex lex);
 void		insert_and_pop(t_list *stack, t_tree *cur_tree, t_node *cur_token);
+char		*extract_pure_word(t_list *compound_list);
 
 #endif

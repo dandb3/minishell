@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 19:57:08 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 23:02:05 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/12 13:00:02 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static t_node	*compound_end(t_node *end_token)
 	while (end_token->next != NULL)
 	{
 		if (end_token->lex != LEX_WORD && end_token->lex != LEX_WILD \
-			&& end_token->lex != LEX_ENV)
+			&& end_token->lex != LEX_ENV && end_token->lex != LEX_DOUBLE_QUOTE \
+			&& end_token->lex != LEX_SINGLE_QUOTE)
 			break ;
 		end_token = end_token->next;
 	}
@@ -34,7 +35,8 @@ void	group_compound(t_list *token_list)
 	while (cur_token->next != NULL)
 	{
 		if (cur_token->lex == LEX_WORD || cur_token->lex == LEX_WILD \
-			|| cur_token->lex == LEX_ENV)
+			|| cur_token->lex == LEX_ENV || cur_token->lex == LEX_DOUBLE_QUOTE
+			|| cur_token->lex == LEX_SINGLE_QUOTE)
 		{
 			new_token = make_node(make_list(LEX), LEX_COMPOUND);
 			end_token = compound_end(cur_token);

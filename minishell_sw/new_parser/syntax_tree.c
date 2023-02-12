@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:16:21 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 23:02:54 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/12 12:23:49 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_tree	*make_syntax_tree(t_list *token_list, char **table)
 			pop(stack);
 		else if (cur_tree->symbol == lex_to_symbol(cur_token->lex))
 		{
-			pop(stack);
+			insert_and_pop(stack, cur_tree, cur_token);
 			cur_token = cur_token->next;
 		}
 		else if (is_terminal(cur_tree->symbol)

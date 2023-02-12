@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax_tree_utils.c                                :+:      :+:    :+:   */
+/*   parser_utils1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:19:54 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 23:02:51 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/12 16:08:43 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,3 @@ int	table_idx(t_lex lex)
 	return (lex - 6);
 }
 
-void	insert_and_pop(t_list *stack, t_tree *cur_tree, t_node *cur_token)
-{
-	cur_tree->val = cur_token->val;
-	pop(stack);
-}
