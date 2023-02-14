@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 19:25:41 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/14 20:54:42 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ typedef enum e_table
 	E5_E7_E6,
 	E6_E7_E6,
 	E6_EPSILON,
-	E7_COMP_E8,
+	E7_COMP,
+	E7_E8,
 	E8_REDIRECT_IN,
 	E8_REDIRECT_OUT,
 	E8_HERE_DOC,
