@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/13 20:48:22 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/14 14:11:19 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ void		*free_tree(t_tree *root);
 t_tree		*make_syntax_tree(t_list *token_list, char **table);
 void		production(t_list *stack, t_tree *cur_tree, t_table table_result);
 void		*error_manage(t_node *cur_token, t_tree *root, t_list *stack);
+
+/*------------------------------------ast-----------------------------------*/
+t_tree		*make_ast(t_list *token_list);
+t_tree		*make_empty_tree(t_node **cur_token);
+t_tree		*make_expression(t_node **cur_token);
 
 /*-----------------------------------utils----------------------------------*/
 int			is_compound_redirect(t_lex lex);
