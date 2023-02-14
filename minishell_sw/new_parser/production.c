@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:30:20 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 15:59:34 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/14 19:16:57 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static void	production_exception(t_list *stack,	t_table table_result)
 	if (table_result == E5_PARENTHESES)
 	{
 		pop_tree(stack);
-		push(stack, AST_E4);
-		push(stack, AST_PARENTHESES_CLOSE);
-		push(stack, AST_E0);
-		push(stack, AST_PARENTHESES_OPEN);
+		push(stack, make_tree(AST_E4));
+		push(stack, make_tree(AST_PARENTHESES_CLOSE));
+		push(stack, make_tree(AST_E0));
+		push(stack, make_tree(AST_PARENTHESES_OPEN));
 	}
 }
 

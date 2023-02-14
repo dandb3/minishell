@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:16:44 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 16:57:45 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/14 19:15:07 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_tree	*make_tree(t_symbol symbol)
 void	free_tree(t_tree *root)
 {
 	if (root == NULL)
-		return (NULL);
+		return ;
 	free_tree(root->left_child);
 	free_tree(root->right_child);
 	if (root->symbol == AST_HERE_DOC)

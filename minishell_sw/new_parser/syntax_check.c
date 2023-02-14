@@ -6,13 +6,13 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:16:21 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 16:05:51 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/14 19:21:45 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	syntax_check(t_list *token_list, char **table)
+int	syntax_check(t_list *token_list, char *table[9])
 {
 	t_list	*stack;
 	t_tree	*cur_tree;
@@ -28,7 +28,7 @@ int	syntax_check(t_list *token_list, char **table)
 			pop_tree(stack);
 		else if (cur_tree->symbol == lex_to_symbol(cur_token->lex))
 		{
-			here_doc_or_pop(stack, &cur_token, cur_tree->symbol);
+			here_doc_or_pop(stack, cur_token, cur_tree->symbol);
 			cur_token = cur_token->next;
 		}
 		else if (is_terminal(cur_tree->symbol)

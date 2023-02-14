@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 16:57:54 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/14 19:19:18 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void		free_tree(t_tree *root);
 
 /*--------------------------------syntax_tree-------------------------------*/
 void		syntax_init(t_node **cur_token, t_list **stack, t_list *token_list);
-int			syntax_check(t_list *token_list, char **table);
+int			syntax_check(t_list *token_list, char *table[9]);
 void		production(t_list *stack, t_table table_result);
 int			error_manage(t_node *cur_token, t_list *stack);
 
