@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 15:04:28 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/07 19:54:53 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:01:37 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,17 @@ char	*ft_strjoin_and_free(char *s1, char *s2)
 	ft_strlcat(result, s2, s1_len + s2_len + 1);
 	free(s1);
 	return (result);
+}
+
+void	error_msg(char *str, int status)
+{
+	if (write(STDERR_FILENO, str, ft_strlen(str)) == FAILURE)
+		perror_msg("write", 1);
+	exit(status);
+}
+
+void	perror_msg(char *str, int status)
+{
+	perror(str);
+	exit(status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:36:47 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/09 18:05:56 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/12 20:19:55 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	builtin_pwd(void)
 	return (EXIT_SUCCESS);
 }
 
-static int	export_pwd(char *nxtpwd, char *oldpwd, t_list **env_list)
+static int	export_pwd(char *nxtpwd, char *oldpwd)
 {
 	char	**cmds;
 	char	*pwd;
@@ -39,13 +39,13 @@ static int	export_pwd(char *nxtpwd, char *oldpwd, t_list **env_list)
 	cmds[3] = NULL;
 	if (!cmds[0] || !cmds[1] || !cmds[2])
 		exit(MALLOC_FAILURE);
-	builtin_export(cmds, env_list);
+	builtin_export(cmds);
 	free_ret(cmds[0], cmds[1], cmds[2], 0);
 	free(nxtpwd);
 	return (free_ret(cmds, oldpwd, pwd, 0));
 }
 
-int	builtin_cd(char **cmds, t_list **env_list)
+int	builtin_cd(char **cmds)
 {
 	char		*oldpwd;
 	char		*nxtpwd;
@@ -53,7 +53,7 @@ int	builtin_cd(char **cmds, t_list **env_list)
 	nxtpwd = NULL;
 	if (!(*(++cmds)))
 	{
-		nxtpwd = find_env(*env_list, "HOME");
+		nxtpwd = find_env_val("HOME");
 		if (!nxtpwd)
 			return ((ft_printf("MINI: cd: HOME not set\n") & 0) | 1);
 	}
@@ -70,7 +70,7 @@ int	builtin_cd(char **cmds, t_list **env_list)
 		perror(nxtpwd);
 		return (free_ret(nxtpwd, oldpwd, NULL, EXIT_FAILURE));
 	}
-	return (export_pwd(nxtpwd, oldpwd, env_list));
+	return (export_pwd(nxtpwd, oldpwd));
 }
 
 static int	check_n(char *str)

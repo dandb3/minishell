@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:43:15 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/09 14:59:40 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:16:44 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_list	*make_envlist(char **envp)
 	return (env_list);
 }
 
-char	**env_to_char(t_list *env_list)
+char	**env_to_char(void)
 {
 	char	**envp;
 	size_t	idx;
@@ -46,7 +46,7 @@ char	**env_to_char(t_list *env_list)
 	envp = (char **)malloc(sizeof(char *));
 	if (!envp)
 		exit(MALLOC_FAILURE);
-	cur = env_list->head->next->next;
+	cur = g_env_list->head->next->next;
 	idx = 0;
 	while (cur->next)
 	{
@@ -74,7 +74,7 @@ void	sort_envlist(t_list *env_list)
 
 	cur1 = env_list->head->next->next;
 	while (cur1->next)
-	{
+	{	
 		cur2 = cur1->next;
 		while (cur2->next)
 		{
@@ -91,16 +91,36 @@ void	sort_envlist(t_list *env_list)
 	}
 }
 
-char	*find_env(t_list *list, const char *to_find)
+char	*find_env_val(char const *key)
 {
-	t_node	*cur;
+	t_node	*cur_env;
+	char	*ret;
 
-	cur = list->head->next;
-	while (cur->next)
+	if (key == NULL)
+		return (NULL);
+	cur_env = g_env_list->head->next;
+	while (cur_env->next != NULL)
 	{
-		if (!ft_strcmp(((t_env *)(cur->val))->key, to_find))
-			return (((t_env *)(cur->val))->val);
-		cur = cur->next;
+		if (!ft_strcmp(((t_env *)(cur_env->val))->key, key))
+		{
+			ret = ft_strdup(((t_env *)(cur_env->val))->val);
+			if (ret == NULL)
+				exit(MALLOC_FAILURE);
+			return (ret);
+		}
+		cur_env = cur_env->next;
 	}
 	return (NULL);
+}
+
+short	set_exitcode(int exit_code, long long ret)
+{
+	char	*code;
+
+	code = ft_itoa(exit_code);
+	if (!code)
+		exit(MALLOC_FAILURE);
+	free(((t_env *)g_env_list->head->next->val)->val);
+	((t_env *)g_env_list->head->next->val)->val = code;
+	return (ret);
 }

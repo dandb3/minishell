@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:59:29 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/11 19:39:13 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:45:08 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,26 @@ typedef struct s_pipe_info
 	int		process_cnt;
 }	t_pipe_info;
 
-void	perror_msg(char *msg, int exit_status);
-void	error_msg(char *msg, int exit_status);
+typedef struct s_here_doc
+{
+	
+}	t_here_doc;
 
-int		get_next_line(int fd, char **result);
-void	read_file(char *filename);
-void	write_file(char *filename);
-void	append_file(char *filename);
+// execute_utils
+char		**compound_to_char_twoptr(t_list *list);
+
+// execute_pipe
+t_pipe_info	*init_pipeinfo(t_tree *cur);
+
+// redirect
+int			manage_redirect(t_tree *cur);
+
+// open_file
+void		read_file(char *filename);
+void		write_file(char *filename);
+void		append_file(char *filename);
+
+// here_doc
+int			here_doc(char *word, int to_del);
 
 #endif

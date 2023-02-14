@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/09 16:21:05 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:10:21 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	eof_exit(void)
 	exit(EXIT_SUCCESS);
 }
 
-int	prompt(t_list *env_list)
+int	prompt(void)
 {
 	char	*cmd;
 	char	**cmds;
@@ -35,7 +35,7 @@ int	prompt(t_list *env_list)
 			if (!cmds)
 				exit(MALLOC_FAILURE);
 			if (*cmds)
-				do_builtin(cmds, &env_list);
+				do_builtin(cmds);
 			free_twoptr(cmds, 0);
 		}
 		free(cmd);

@@ -12,27 +12,7 @@
 
 #include "parser.h"
 
-static char	*find_env_val(t_list *env_list, char const *key)
-{
-	t_node	*cur_env;
-	char	*ret;
-
-	cur_env = env_list->head->next;
-	while (cur_env->next != NULL)
-	{
-		if (!ft_strcmp(((t_env *)(cur_env->val))->key, key))
-		{
-			ret = ft_strdup(((t_env *)(cur_env->val))->val);
-			if (ret == NULL)
-				exit(MALLOC_FAILURE);
-			return (ret);
-		}
-		cur_env = cur_env->next;
-	}
-	return (NULL);
-}
-
-static void	substitute_env(t_list *env_list, t_node *compound_token)
+static void	substitute_env(t_node *compound_token)
 {
 	t_node	*cur_token;
 	char	*env_val;
@@ -42,7 +22,7 @@ static void	substitute_env(t_list *env_list, t_node *compound_token)
 	{
 		if (cur_token->lex == LEX_ENV)
 		{
-			env_val = find_env_val(env_list, cur_token->val);
+			env_val = find_env_val(g_env_list, cur_token->val);
 			free(cur_token->val);
 			cur_token->val = env_val;
 			if (cur_token->val == NULL)
@@ -86,9 +66,9 @@ void	merge_words(t_node *compound_token)
 	}
 }
 
-static void	compound_to_word(t_node *compound_token, t_list *env_list)
+static void	compound_to_word(t_node *compound_token)
 {
-	substitute_env(env_list, compound_token);
+	substitute_env(g_env_list, compound_token);
 	merge_words(compound_token);
 	exchange_token(cur_token);
 }
