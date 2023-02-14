@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/12 18:23:48 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:04:52 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,8 @@ static int	execute_compound(t_tree *cur)
 	pid_t	pid;
 	int		status;
 
-	if (cur->left)
-		manage_redirect(cur->left);
-	cmds = compound_to_char_twoptr(cur->val);
+	manage_redirect(cur->left_child);
+	cmds = compound_to_char_twoptr(cur->right_child->val);
 	if (do_builtin(cmds) == SUCCESS)
 		return (get_exitcode());
 	pid = fork();

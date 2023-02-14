@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/12 13:38:49 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:37:18 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	prompt(void)
 			if (!cmds)
 				exit(MALLOC_FAILURE);
 			if (*cmds)
-				do_builtin(cmds, &g_env_list);
+				do_builtin(cmds);
 			free_twoptr(cmds, 0);
 		}
 		free(cmd);

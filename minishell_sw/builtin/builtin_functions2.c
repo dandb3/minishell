@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:20:12 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/12 19:56:43 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:38:43 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	builtin_export(char **cmds)
 		return (print_envlist("declare -x "));
 	while (*cmds)
 	{
-		cur = (*g_env_list)->head->next;
+		cur = g_env_list->head->next;
 		env = make_env(*cmds++, TRUE);
 		if (!env)
 		{
@@ -113,7 +113,7 @@ int	builtin_unset(char **cmds)
 			exit_code = 1;
 			continue ;
 		}
-		cur = (*g_env_list)->head->next->next;
+		cur = g_env_list->head->next->next;
 		while (cur->next)
 		{
 			if (!ft_strncmp(*cmds, ((t_env *)cur->val)->key, get_envlen(*cmds)))
