@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/12 16:07:57 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/13 20:48:22 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ typedef enum e_symbol
 	AST_REDIRECT_APPEND,
 	AST_EOF,
 	AST_EPSILON,
-	AST_PARENTHESESES
+	AST_PARENTHESESES,
+	AST_COMMAND
 }	t_symbol;
 
 typedef enum e_table
@@ -100,6 +101,9 @@ void		*free_tree(t_tree *root);
 t_tree		*make_syntax_tree(t_list *token_list, char **table);
 void		production(t_list *stack, t_tree *cur_tree, t_table table_result);
 void		*error_manage(t_node *cur_token, t_tree *root, t_list *stack);
+
+/*-----------------------------------utils----------------------------------*/
+int			is_compound_redirect(t_lex lex);
 t_node		*init(char **table, t_list **stack, t_tree **root,
 				t_list *token_list);
 t_symbol	lex_to_symbol(t_lex lex);

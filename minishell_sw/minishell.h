@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/12 12:39:31 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/13 20:59:15 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int			prompt(t_list *env_list);
 /*--------------------------- doubly linked list --------------------------*/
 t_list		*make_list(t_type type);
 t_list		*copy_list(t_list *list);
+void		*copy_val(t_node *node);
 void		push_node(t_node *node, t_list *list);
 void		insert_node(t_node *insert_point, t_node *node);
 long long	free_nodes(t_list *list, long long ret, t_type type);
