@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:03:28 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 16:54:42 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/14 23:52:20 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	env_to_word(t_node *env_token)
 
 	env_token->lex = LEX_WORD;
 	tmp = ft_strjoin("$", env_token->val);
+	if (tmp == NULL)
+		exit(MALLOC_FAILURE);
 	free(env_token->val);
 	env_token->val = tmp;
 }

@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:30:20 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 20:55:39 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/14 23:51:23 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static void	pop_push2(t_list *stack, t_symbol s1, t_symbol s2)
 {
 	pop_tree(stack);
-	if (s2 >= 0)
+	if (s2 != -1)
 		push(stack, make_tree(s2));
-	if (s1 >= 0)
+	if (s1 != -1)
 		push(stack, make_tree(s1));
 }
 
