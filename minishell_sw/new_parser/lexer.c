@@ -28,7 +28,6 @@ int	make_token_list(t_list **token_list, char const *str)
 		write(STDERR_FILENO, "MINI: syntax error: quote is not closed\n", 40);
 		return (FAILURE);
 	}
-	del_quotes(*token_list);
 	group_compound(*token_list);
 	del_whitespace(*token_list);
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:30:20 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 15:30:48 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/12 16:39:15 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	pop_push_exception(t_list *stack, t_tree *cur_tree)
 	pop(stack);
 	cur_tree->right_child = make_tree(AST_E4);
 	push(stack, cur_tree->right_child);
-	cur_tree->left_child = make_tree(AST_E0);
+	cur_tree->left_child = make_tree(-1);
 	nulltree = cur_tree->left_child;
 	nulltree->right_child = make_tree(AST_PARENTHESESES);
 	nulltree->left_child = make_tree(AST_E0);
@@ -53,10 +53,7 @@ static void	production_exception(t_list *stack, t_tree *cur_tree,
 	if (table_result == E8_REDIRECT_APPEND)
 		pop_push2(stack, cur_tree, AST_REDIRECT_APPEND, AST_COMPOUND);
 	if (table_result == E8_HERE_DOC)
-	{
 		pop_push2(stack, cur_tree, AST_HERE_DOC, AST_COMPOUND);
-		//히어독 입력받기;
-	}
 	if (table_result == E5_PARENTHESES)
 		pop_push_exception(stack, cur_tree);
 }

@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:15:58 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 14:16:01 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/12 14:07:58 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	substitute_env(t_node *compound_token)
 	}
 }
 
-static void	merge_two_words(t_node *prev_token, t_node *cur_token)
+void	merge_two_words(t_node *prev_token, t_node *cur_token)
 {
 	char	*merged_word;
 
@@ -51,7 +51,7 @@ static void	merge_two_words(t_node *prev_token, t_node *cur_token)
 	del_node(prev_token, LEX);
 }
 
-static void	merge_words(t_node *compound_token)
+void	merge_words(t_node *compound_token)
 {
 	t_node	*cur_token;
 
