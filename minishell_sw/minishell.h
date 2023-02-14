@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/12 20:58:52 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:16:58 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int			push_environ(t_env *env, t_node *cur);
 int			print_envlist(const char *pre);
 t_list		*make_envlist(char **envp);
 char		**env_to_char(void);
-void		sort_envlist(void);
+void		sort_envlist(t_list *env_list);
 char		*find_env_val(const char *key);
 short		set_exitcode(int exit_code, long long ret);
 short		get_exitcode(void);

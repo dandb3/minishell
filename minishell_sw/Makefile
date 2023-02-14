@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+         #
+#    By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 19:25:02 by jdoh              #+#    #+#              #
-#    Updated: 2023/02/09 15:16:27 by sunwsong         ###   ########.fr        #
+#    Updated: 2023/02/14 14:09:36 by sunwsong         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,6 @@ SRCS_M		=	main.c prompt.c minishell_utils.c terminal.c \
 				builtin/builtin_functions1.c builtin/builtin_functions2.c \
 				builtin/builtin.c env/env_utils1.c env/env_utils2.c\
 				doublylinkedlist1.c doublylinkedlist2.c \
-				parser/expand_char.c parser/lexer.c parser/get_pseudo_token.c \
-				parser/lexer_utils.c parser/syntax_error.c \
 				signal.c wildcard/wildcard.c
 				
 OBJS_M		=	$(SRCS_M:.c=.o)

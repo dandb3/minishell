@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:43:15 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/13 19:39:25 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:16:44 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_list	*make_envlist(char **envp)
 		node = make_node(env, -1);
 		push_node(node, env_list);
 	}
-	sort_envlist();
+	sort_envlist(env_list);
 	return (env_list);
 }
 
@@ -66,15 +66,15 @@ char	**env_to_char(void)
 	return (envp);
 }
 
-void	sort_envlist(void)
+void	sort_envlist(t_list *env_list)
 {
 	t_node	*cur1;
 	t_node	*cur2;
 	t_env	*tmp;
 
-	cur1 = g_env_list->head->next->next;
+	cur1 = env_list->head->next->next;
 	while (cur1->next)
-	{
+	{	
 		cur2 = cur1->next;
 		while (cur2->next)
 		{
