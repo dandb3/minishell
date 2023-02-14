@@ -6,13 +6,13 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:16:21 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 19:21:45 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/14 19:25:37 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	syntax_check(t_list *token_list, char *table[9])
+int	syntax_check(t_list *token_list, char **table)
 {
 	t_list	*stack;
 	t_tree	*cur_tree;

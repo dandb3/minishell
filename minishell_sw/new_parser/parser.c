@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 18:07:55 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 19:19:50 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/14 19:25:59 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_tree	*parser(char const *input)
 
 	if (make_token_list(&token_list, input) == FAILURE)
 		return (NULL);
-	if (syntax_check(token_list, table) == FAILURE)
+	if (syntax_check(token_list, (char **)table) == FAILURE)
 		return ((void *)free_list(token_list, 0, LEX));
 	abstract_syntax_tree = make_ast(token_list);
 	free_list(token_list, 0, LEX);
