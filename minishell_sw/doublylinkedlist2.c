@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doublylinkedlist2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:10:57 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/11 16:57:01 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:26:55 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ void	free_node(t_node *node, t_type type)
 		free(((t_env *)(node->val))->val);
 		free(((t_env *)(node->val))->key);
 	}
-	free(node->val);
+	if (node->lex == LEX_COMPOUND)
+		free_list(node->val, 0, LEX);
+	else
+		free(node->val);
 	free(node);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 14:11:19 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/14 16:57:54 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 # define PARSER_H
 
 # include "../minishell.h"
+# define T0 "\1\0\0\0\1\0\1\1\1\1\0"
+# define T1 "\0\2\3\0\0\4\0\0\0\0\4"
+# define T2 "\5\0\0\0\5\0\5\5\5\5\0"
+# define T3 "\0\7\7\6\0\7\0\0\0\0\7"
+# define T4 "\0\11\11\11\0\11\10\10\10\10\11"
+# define T5 "\13\0\0\0\12\0\13\13\13\13\0"
+# define T6 "\14\15\15\15\0\15\14\14\14\14\15"
+# define T7 "\16\0\0\0\0\0\17\17\17\17\0"
+# define T8 "\0\0\0\0\0\0\20\21\22\23\0"
 
 typedef enum e_flag
 {
@@ -89,18 +98,20 @@ void		group_compound(t_list *token_list);
 
 /*----------------------------------stack-----------------------------------*/
 void		pop(t_list *stack);
+void		pop_tree(t_list *stack);
 void		push(t_list *stack, t_tree *tree_node);
 int			stack_empty(t_list *stack);
 t_node		*top(t_list *stack);
 
 /*-----------------------------------tree-----------------------------------*/
 t_tree		*make_tree(t_symbol symbol);
-void		*free_tree(t_tree *root);
+void		free_tree(t_tree *root);
 
 /*--------------------------------syntax_tree-------------------------------*/
-t_tree		*make_syntax_tree(t_list *token_list, char **table);
-void		production(t_list *stack, t_tree *cur_tree, t_table table_result);
-void		*error_manage(t_node *cur_token, t_tree *root, t_list *stack);
+void		syntax_init(t_node **cur_token, t_list **stack, t_list *token_list);
+int			syntax_check(t_list *token_list, char **table);
+void		production(t_list *stack, t_table table_result);
+int			error_manage(t_node *cur_token, t_list *stack);
 
 /*------------------------------------ast-----------------------------------*/
 t_tree		*make_ast(t_list *token_list);
@@ -109,12 +120,11 @@ t_tree		*make_expression(t_node **cur_token);
 
 /*-----------------------------------utils----------------------------------*/
 int			is_compound_redirect(t_lex lex);
-t_node		*init(char **table, t_list **stack, t_tree **root,
-				t_list *token_list);
+int			is_redirect(t_lex lex);
 t_symbol	lex_to_symbol(t_lex lex);
 int			is_terminal(t_symbol symbol);
 int			table_idx(t_lex lex);
-void		insert_and_pop(t_list *stack, t_tree *cur_tree, t_node *cur_token);
+void		here_doc_or_pop(t_list *stack, t_node *cur_token, t_symbol symbol);
 char		*extract_pure_word(t_list *compound_list);
 
 #endif
