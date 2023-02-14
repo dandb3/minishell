@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 18:07:55 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 23:02:28 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/14 14:36:32 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,16 @@ static void	make_parsing_table(char **table)
 	table[AST_E8] = "\0\0\0\0\0\0\20\21\22\23\0";
 }
 
-t_tree	*parser(t_list *env_list, char const *input)
+t_tree	*parser(char const *input)
 {
 	t_list	*token_list;
 	t_tree	*syntax_tree;
 	char	*table[9];
 
-	if (make_token_list(&token_list, env_list, input) == FAILURE)
+	if (make_token_list(&token_list, g_env_list, input) == FAILURE)
 		return (NULL);
 	make_parsing_table(table);
 	syntax_tree = make_syntax_tree(token_list, table);
 	if (syntax_tree == NULL)
+		(void) input;
 }

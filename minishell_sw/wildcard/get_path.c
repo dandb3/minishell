@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wildcard.h                                         :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/06 17:53:27 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/14 21:16:48 by sunwsong         ###   ########.fr       */
+/*   Created: 2023/02/14 21:08:49 by sunwsong          #+#    #+#             */
+/*   Updated: 2023/02/14 21:16:24 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WILDCARD_H
-# define WILDCARD_H
+#include "wildcard.h"
 
-# include <dirent.h>
-# include "../minishell.h"
-
-typedef struct s_wild{
-	char	*wstr;
-	char	*name;
-	size_t	wlen;
-	size_t	nlen;
-}	t_wild;
-
-#endif
+char	*get_path()
+{
+	
+}

@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/13 19:04:52 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:31:37 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,18 @@ static int	execute_pipe(t_tree *cur)
 	t_pipe_info	info;
 
 	info = init_pipeinfo(cur);
+	// pipe 설정
+	// fork떠서 실행
 	return (pipe_process(info));
 }
 
 static int	execute_parentheses(t_tree *cur)
 {
-	t_tree	*to_exec;
-	pid_t	pid;
-	int		status;
+	t_redir_fds	red_info;
+	pid_t		pid;
+	int			status;
 
-	to_exec = cur->left;
-	if (cur->right)
-	{
-		manage_redirect(to_exec);
-		to_exec = cur->right;
-	}
+	ft_memset(&red_info, 0, sizeof(t_redir_fds));
 	pid = fork();
 	if (pid < 0)
 		perror_msg(NULL, 1);
@@ -43,22 +40,22 @@ static int	execute_parentheses(t_tree *cur)
 			return ((status >> 8) & 0xff);
 		else if ((status & 0xff) != 0xff && (status & 0xff) != 0)
 			return (128 + (status & 0xff));
+		else
+			return (status >> 8);
 	}
-	else
-		return (execute(to_exec));
+	return (execute(cur->left));
 }
 
-// where is redirect?
 static int	execute_compound(t_tree *cur)
 {
 	char	**cmds;
-	pid_t	pid;
 	int		status;
+	pid_t	pid;
 
-	manage_redirect(cur->left_child);
 	cmds = compound_to_char_twoptr(cur->right_child->val);
 	if (do_builtin(cmds) == SUCCESS)
-		return (get_exitcode());
+		return (close_redirect(&red_info, -1, -1) + \
+			free_twoptr(cmds, 0) + get_exitcode());
 	pid = fork();
 	if (pid < 0)
 		perror_msg(NULL, 1);
@@ -68,7 +65,22 @@ static int	execute_compound(t_tree *cur)
 	else
 		if (execve(cmds[idx][0], cmds[idx], env_to_char()) == -1)
 			perror_msg(cmds[idx][0], 126);
+	free_twoptr(cmds, 0);
 	return (status);
+}
+
+static int	execute_command(t_tree *cur)
+{
+	t_redir_fds	red_info;
+
+	ft_memset(&red_info, 0, sizeof(t_redir_fds));
+	manage_redirect(cur->left_child, &red_info);
+	if (cur->right_child->symbol == AST_PARENTHESESES)
+		execute_parentheses(cur->right_child);
+	else
+		execute_compound(cur->right_child);
+	close_redirect(&red_info, -1, -1);
+	return (SUCCESS);
 }
 
 int	execute(t_tree *cur, int prev_status)
@@ -89,7 +101,7 @@ int	execute(t_tree *cur, int prev_status)
 	}
 	else if (cur->symbol == AST_PARENTHESESES)
 		status = execute_parentheses(cur);
-	else if (cur->symbol == AST_COMPOUND)
-		status = execute_compound(cur);
+	else if (cur->symbol == AST_COMMAND)
+		status = execute_command(cur);
 	return (status);
 }

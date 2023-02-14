@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:44:19 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/13 17:51:52 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:42:09 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ static void	make_here_doc_tmp_file(char *word, int open_fd)
 	write(open_fd, word + prev, idx - prev + 1);
 }
 
-static int	del_here_doc(const char *tmp_dir, int file_num)
+static int	del_here_doc(const char *tmp_dir, int *file_num)
 {
 	char	*file_num_to_a;
 	char	*tmp_file;
 	int		idx;
 
 	idx = -1;
-	while (++idx < file_num)
+	while (++idx < *file_num)
 	{
 		file_num_to_a = ft_itoa(idx);
 		if (!file_num_to_a)
@@ -59,6 +59,7 @@ static int	del_here_doc(const char *tmp_dir, int file_num)
 		unlink(tmp_file);
 		free(tmp_file);
 	}
+	*file_num = 0;
 	return (SUCCESS);
 }
 
@@ -71,7 +72,7 @@ int	here_doc(char *word, int to_del)
 	int			open_fd;
 
 	if (to_del)
-		return (del_here_doc(tmp_dir, file_num));
+		return (del_here_doc(tmp_dir, &file_num));
 	file_num_to_a = ft_itoa(file_num++);
 	if (!file_num_to_a)
 		exit(MALLOC_FAILURE);
