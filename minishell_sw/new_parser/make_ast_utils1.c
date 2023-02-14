@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:06:13 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 16:34:39 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/14 17:52:48 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,15 @@ static t_tree	*make_subshell(t_tree *subroot, t_node **cur_token)
 static void	add_redirect(t_tree *subroot, t_node **cur_token)
 {
 	t_tree	*new_tree;
+	t_lex	lex;
 
 	new_tree = make_tree(lex_to_symbol((*cur_token)->lex));
+	lex = (*cur_token)->lex;
 	*cur_token = (*cur_token)->next;
-	new_tree->val = copy_val(*cur_token);
+	if (lex == LEX_HERE_DOC)
+		new_tree->val = copy_val(*cur_token);
+	else
+		new_tree->val = copy_list((*cur_token)->val);
 	new_tree->left_child = subroot->left_child;
 	subroot->left_child = new_tree;
 	*cur_token = (*cur_token)->next;
@@ -38,7 +43,7 @@ static void	add_compound(t_tree *subroot, t_node **cur_token)
 	t_tree	*new_tree;
 
 	new_tree = make_tree(AST_COMPOUND);
-	new_tree->val = copy_val(*cur_token);
+	new_tree->val = copy_list((*cur_token)->val);
 	new_tree->right_child = subroot->right_child;
 	subroot->right_child = new_tree;
 	*cur_token = (*cur_token)->next;
