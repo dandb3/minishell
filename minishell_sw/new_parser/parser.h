@@ -33,6 +33,7 @@ typedef enum e_flag
 
 typedef enum e_symbol
 {
+	AST_UNUSED = -1,
 	AST_E0,
 	AST_E1,
 	AST_E2,
