@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:16:21 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 19:25:37 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/15 21:46:14 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	syntax_check(t_list *token_list, char **table)
 		else
 			production(stack, table[cur_tree->symbol][token_idx]);
 	}
+	if (cur_token->next != NULL)
+		return (error_manage(cur_token, stack));
 	free_list(stack, 0, LEX);
 	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pseudo_expand_env.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:40:44 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 23:02:45 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/15 22:12:23 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 static void	env_val(t_node *cur_token)
 {
-	size_t	idx;
-	char	*tmp1;
-	char	*tmp2;
+	const size_t	idx = get_envlen(cur_token->next->val);
+	char			*tmp1;
+	char			*tmp2;
 
-	idx = get_envlen(cur_token->next->val);
 	if (idx == 0)
 	{
 		cur_token->lex = LEX_WORD;
@@ -30,13 +29,14 @@ static void	env_val(t_node *cur_token)
 		cur_token->val = cur_token->next->val;
 		cur_token->next->val = NULL;
 		del_node(cur_token->next, LEX);
+		return ;
 	}
 	tmp1 = ft_substr(cur_token->next->val, 0, idx);
-	tmp2 = ft_substr(cur_token->next->val, idx, -1);
+	tmp2 = ft_substr(cur_token->next->val, idx,
+			ft_strlen(cur_token->next->val));
 	if (tmp1 == NULL || tmp2 == NULL)
 		exit(MALLOC_FAILURE);
-	free(cur_token->next->val);
-	free(cur_token->val);
+	free_ret(cur_token->next->val, cur_token->val, NULL, 0);
 	cur_token->val = tmp1;
 	cur_token->next->val = tmp2;
 }
