@@ -3,73 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 19:25:02 by jdoh              #+#    #+#              #
-#    Updated: 2023/02/14 14:09:36 by sunwsong         ###   ########.fr        #
+#    Updated: 2023/02/15 20:40:14 by jdoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
-SRCS_M		=	main.c prompt.c minishell_utils.c terminal.c \
-				builtin/builtin_functions1.c builtin/builtin_functions2.c \
-				builtin/builtin.c env/env_utils1.c env/env_utils2.c\
-				doublylinkedlist1.c doublylinkedlist2.c \
-				signal.c wildcard/wildcard.c
-				
-OBJS_M		=	$(SRCS_M:.c=.o)
-HEADER_M	=	minishell prompt builtin/builtin
+SRCS_M		=	del_unused.c get_pseudo_token.c group_compound.c lexer.c make_ast_utils1.c \
+				make_ast_utils2.c make_ast.c parser_utils1.c parser_utils2.c parser.c production.c \
+				pseudo_expand_env.c stack.c syntax_check_utils.c syntax_check.c syntax_error.c tree.c
+SRCS		=	$(addprefix new_parser/, $(SRCS_M))
+ELEARN		=	doublylinkedlist1.c doublylinkedlist2.c doublylinkedlist3.c libft.a minishell_utils.c test.c \
+				env/env_utils1.c env/env_utils2.c env/env_utils3.c
 
-# SRCS_B		=	main_bonus.c init_bonus.c error_bonus.c parsing_bonus.c \
-# 				pipex_bonus.c process_bonus.c get_next_line_bonus.c \
-# 				fileopen_bonus.c
-# OBJS_B		=	$(SRCS_B:.c=.o)
-# HEADER_B	=	pipex_bonus.h
+all : $(NAME)
 
-LIBFT		=	libft/libft.a
-LIBFT_DIR	=	libft
-
-RL_LINK_FLAG	= -lreadline -L $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/lib
-RL_COMP_FLAG	= -I $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/include
-
-CFLAGS		=	-Werror -Wextra -Wall
-BONUS_MODE	=	$(findstring bonus, $(MAKECMDGOALS))
-
-ifeq (bonus, $(BONUS_MODE))
-	SRCS	=	$(SRCS_B)
-	OBJS	=	$(OBJS_B)
-	HEADER	=	$(HEADER_B)
-else
-	SRCS	=	$(SRCS_M)
-	OBJS	=	$(OBJS_M)
-	HEADER	=	$(HEADER_M)
-endif
-
-all			:	$(NAME)
-bonus		:	$(NAME)
-
-$(NAME)		:	$(OBJS)
-	$(CC) $(CFLAGS) $(RL_LINK_FLAG) $(OBJS) libft.a -lreadline -o $@
-	
-
-# $(NAME)		:	$(OBJS) $(LIBFT)
-# 	$(CC) $(CFLAGS) $(OBJS) -L $(LIBFT_DIR) -lft -lreadline -o $@
-
-$(LIBFT)	:
-	make -C $(LIBFT_DIR) bonus
-
-%.o			:	%.c
-	$(CC) $(CFLAGS) $(RL_COMP_FLAG) -c $< -o $@
-
-clean		:
-	rm -rf $(OBJS_M) $(OBJS_B)
-#	make -C $(LIBFT_DIR) fclean
-
-fclean		:	clean
-	rm -rf $(NAME)
-
-re			:
-	make fclean
-	make all
-
-.PHONY		:	all bonus clean fclean re
+$(NAME) :
+	$(CC) $(SRCS) $(ELEARN) -lreadline -g -o testshell

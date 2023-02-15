@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+         #
+#    By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/19 17:38:04 by sunwsong          #+#    #+#              #
-#    Updated: 2023/01/29 20:22:00 by sunwsong         ###   ########.fr        #
+#    Updated: 2023/02/15 20:39:30 by jdoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS	= 	ft_isalpha.c ft_isdigit.c\
 
 OBJS	= ${SRCS:.c=.o}
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= #-Wall -Wextra -Werror
 
 NAME	= libft.a
 
