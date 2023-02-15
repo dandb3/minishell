@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:46:23 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/15 15:51:55 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:14:15 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,27 @@ static void	merge_two_words(t_node *prev_token, t_node *cur_token)
 	del_node(prev_token, LEX);
 }
 
-static void	replace_asterisk(char *str)
+static void	replace_asterisk(t_node *cur_token, size_t wlen, int *is_wild)
 {
-	while (*str)
+	const size_t	len = ft_strlen(cur_token->val);
+	size_t			idx;
+	char			*val;
+
+	*is_wild = TRUE;
+	val = (char *)(cur_token->val);
+	idx = len - wlen;
+	while (idx < len)
 	{
-		if (*str == '*')
-			*str = '\0';
-		++str;
+		if (val[idx] == '*')
+			val[idx] = 0;
+		++idx;
 	}
 }
 
 char	*expand_char(t_list *compound_list)
 {
 	t_node	*cur_token;
+	size_t	len;
 	char	*ret;
 	int		is_wild;
 
@@ -68,12 +76,11 @@ char	*expand_char(t_list *compound_list)
 		if (cur_token->lex == LEX_ENV)
 			expand_env(cur_token);
 		if (cur_token->lex == LEX_WILD)
-		{
-			is_wild = TRUE;
-			replace_asterisk(cur_token->val);
-		}
+			len = ft_strlen(cur_token->val);
 		if (cur_token->prev->lex != -1)
 			merge_two_words(cur_token->prev, cur_token);
+		if (cur_token->lex == LEX_WILD)
+			replace_asterisk(cur_token, len, &is_wild);
 		cur_token = cur_token->next;
 	}
 	if (is_wild == TRUE)

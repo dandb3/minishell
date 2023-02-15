@@ -6,11 +6,24 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/15 12:12:09 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:24:18 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
+
+static int	get_status(pid_t pid)
+{
+	int	status;
+
+	if (waitpid(pid, &status, 0) == -1)
+		perror_msg(NULL, 1);
+	if ((status & 0xff) == 0)
+		return ((status >> 8) & 0xff);
+	if ((status & 0xff) != 0xff && (status & 0xff) != 0)
+		return (128 + (status & 0xff));
+	return (status >> 8);
+}
 
 static int	execute_pipe(t_tree *cur)
 {
@@ -33,39 +46,33 @@ static int	execute_parentheses(t_tree *cur)
 	if (pid < 0)
 		perror_msg(NULL, 1);
 	if (pid != 0)
-	{
-		if (waitpid(pid, &status, 0) == -1)
-			perror_msg(NULL, 1);
-		if ((status & 0xff) == 0)
-			return ((status >> 8) & 0xff);
-		if ((status & 0xff) != 0xff && (status & 0xff) != 0)
-			return (128 + (status & 0xff));
-		return (status >> 8);
-	}
+		return (get_status(pid));
 	return (execute(cur->left));
 }
 
 static int	execute_compound(t_tree *cur)
 {
 	char	**cmds;
-	int		status;
 	pid_t	pid;
 
 	cmds = compound_to_char_twoptr(cur->right_child->val);
 	if (do_builtin(cmds) == SUCCESS)
-		return (close_redirect(&red_info, -1, -1) + \
-			free_twoptr(cmds, 0) + get_exitcode());
+	{
+		close_redirect(&red_info, -1, -1);
+		free_twoptr(cmds, 0)
+		return (get_exitcode());
+	}
 	pid = fork();
 	if (pid < 0)
 		perror_msg(NULL, 1);
 	if (pid != 0)
-		if (waitpid(pid, &status, 0) == -1)
-			perror_msg(NULL, 1);
+	{
+		free_twoptr(cmds);
+		return (get_status(pid));
+	}
 	else
 		if (execve(cmds[idx][0], cmds[idx], env_to_char()) == -1)
 			perror_msg(cmds[idx][0], 126);
-	free_twoptr(cmds, 0);
-	return (status);
 }
 
 static int	execute_command(t_tree *cur)

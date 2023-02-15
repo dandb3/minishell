@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:43:15 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/14 14:16:44 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:21:50 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char	*find_env_val(char const *key)
 	return (NULL);
 }
 
-short	set_exitcode(int exit_code, long long ret)
+int	set_exitcode(int exit_code, long long ret)
 {
 	char	*code;
 
