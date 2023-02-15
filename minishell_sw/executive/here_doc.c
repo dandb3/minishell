@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 17:44:19 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/14 15:42:09 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/15 13:13:00 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static int	del_here_doc(const char *tmp_dir, int *file_num)
 		if (!file_num_to_a)
 			exit(MALLOC_FAILURE);
 		tmp_file = ft_strjoin(tmp_dir, file_num_to_a);
+		free(file_num_to_a);
 		if (!tmp_file)
 			exit(MALLOC_FAILURE);
 		unlink(tmp_file);

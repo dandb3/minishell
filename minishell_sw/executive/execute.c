@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/14 18:31:37 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/15 12:12:09 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ static int	execute_parentheses(t_tree *cur)
 			perror_msg(NULL, 1);
 		if ((status & 0xff) == 0)
 			return ((status >> 8) & 0xff);
-		else if ((status & 0xff) != 0xff && (status & 0xff) != 0)
+		if ((status & 0xff) != 0xff && (status & 0xff) != 0)
 			return (128 + (status & 0xff));
-		else
-			return (status >> 8);
+		return (status >> 8);
 	}
 	return (execute(cur->left));
 }

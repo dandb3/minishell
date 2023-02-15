@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 13:06:42 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/14 20:35:04 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:49:43 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	close_redirect(t_redir_fds *red_info, t_symbol symbol, int new_fd)
 
 int	manage_redirect(t_tree *cur, t_redir_fds *red_info)
 {
-	const char	*val = expand_char(extract_pure_word((t_list *)(cur->val)));
+	const char	*val = expand_char(cur->val);
 
 	if (!cur)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 17:47:12 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/14 16:43:47 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/15 13:10:19 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	read_file(char *filename)
 {
 	int	open_fd;
 
-	if (!filename)
-		return ;
 	open_fd = open(filename, O_RDONLY);
 	if (open_fd < 0)
 		perror_msg(filename, 1);
