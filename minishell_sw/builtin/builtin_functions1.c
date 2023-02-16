@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:36:47 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/12 20:19:55 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:49:46 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	builtin_pwd(void)
 
 	pwd = getcwd(NULL, UINT32_MAX);
 	if (pwd == NULL)
-		return (EXIT_FAILURE);
+		exit(MALLOC_FAILURE);
 	ft_printf("%s\n", pwd);
 	free(pwd);
 	return (EXIT_SUCCESS);
