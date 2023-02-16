@@ -17,37 +17,33 @@
 # include "../new_parser/parser.h"
 # include <sys/wait.h>
 
+# define COMMAND_NOT_FOUND "command not found\n"
+
 typedef struct s_pipe_info
 {
-	char	***cmds;
+	pid_t	*pid_table;
 	int		(*fds)[2];
 	int		process_cnt;
 }	t_pipe_info;
 
-typedef struct s_redir_fds
-{
-	int	in_fd;
-	int	out_fd;
-	int	append_fd;
-	int	heredoc_fd;
-}	t_redir_fds;
-
 // execute_utils
-char		**compound_to_char_twoptr(t_list *list);
+char		**compound_to_char_twoptr(t_tree *cur);
+char		*expand_char(t_list *compound_list);
+void		find_path(char **cmd);
+void		access_check(char *cmd, char mode);
 
 // execute_pipe
-t_pipe_info	*init_pipeinfo(t_tree *cur);
+void		init_pipeinfo(t_pipe_info *info, t_tree *cur);
 
 // redirect
-int			manage_redirect(t_tree *cur, t_redir_fds *red_info);
-int			close_redirect(t_redir_fds *red_info, t_symbol symbol, int new_fd);
+void		manage_redirect(t_tree *cur);
 
 // open_file
-int			read_file(char *filename);
-int			write_file(char *filename);
-int			append_file(char *filename);
+void		read_file(char *filename);
+void		write_file(char *filename);
+void		append_file(char *filename);
 
 // here_doc
-int			here_doc(char *word, int to_del);
+void		here_doc(char *word, int to_del);
 
 #endif

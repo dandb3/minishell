@@ -29,10 +29,11 @@ static int	execute_pipe(t_tree *cur)
 {
 	t_pipe_info	info;
 
-	info = init_pipeinfo(cur);
-	// pipe 설정
-	// fork떠서 실행
-	return (pipe_process(info));
+	init_pipeinfo(&info, cur);
+	pipe_process(&info, cur);
+	free(info.fds);
+	free(info.pid_table);
+	return (SUCCESS);
 }
 
 static int	execute_parentheses(t_tree *cur)

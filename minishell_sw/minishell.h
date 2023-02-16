@@ -23,6 +23,8 @@
 # include "libft/libft.h"
 
 # define MALLOC_FAILURE 2
+# define SHELL "MINI: "
+# define SHELL_LEN 6
 
 enum	e_bool
 {

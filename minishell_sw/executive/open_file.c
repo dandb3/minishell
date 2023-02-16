@@ -12,7 +12,7 @@
 
 #include "execute.h"
 
-int	read_file(char *filename)
+void	read_file(char *filename)
 {
 	int	open_fd;
 
@@ -23,10 +23,9 @@ int	read_file(char *filename)
 		perror_msg(NULL, 1);
 	if (close(open_fd) < 0)
 		perror_msg(NULL, 1);
-	return (open_fd);
 }
 
-int	write_file(char *filename)
+void	write_file(char *filename)
 {
 	int	open_fd;
 
@@ -37,10 +36,9 @@ int	write_file(char *filename)
 		perror_msg(NULL, 1);
 	if (close(open_fd) < 0)
 		perror_msg(NULL, 1);
-	return (open_fd);
 }
 
-int	append_file(char *filename)
+void	append_file(char *filename)
 {
 	int	open_fd;
 
@@ -51,5 +49,4 @@ int	append_file(char *filename)
 		perror_msg(NULL, 1);
 	if (close(open_fd) < 0)
 		perror_msg(NULL, 1);
-	return (open_fd);
 }
