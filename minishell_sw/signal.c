@@ -6,14 +6,14 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 14:28:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/14 14:09:58 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:39:20 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include "prompt.h"
 
-void	handler(int sig)
+static void	handler1(int sig)
 {
 	ft_printf("\n");
 	rl_on_new_line();
@@ -21,6 +21,29 @@ void	handler(int sig)
 	rl_redisplay();
 	set_exitcode(1, SUCCESS);
 	(void) sig;
+}
+
+void	set_signal(int mode)
+{
+	if (mode == SG_RUN)
+	{
+		signal(SIGINT, handler1);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (mode == SG_STOP)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (mode == SG_HEREDOC_PARENT)
+	{
+		return ;
+	}
+	else if (mode == SG_HEREDOC_CHILD)
+	{
+		signal(SIGINT, SIG_DFL);
+		return ;
+	}
 }
 
 int	ft_signal(void)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/14 14:16:58 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:44:31 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include "libft/libft.h"
 
 # define MALLOC_FAILURE 2
+# define SHELL "MINI: "
+# define SHELL_LEN 6
 
 enum	e_bool
 {
@@ -65,6 +67,13 @@ typedef enum e_type
 	COMPOUND = 2
 }	t_type;
 
+enum e_signal_state
+{
+	SG_RUN = 0,
+	SG_STOP,
+	SG_HEREDOC
+};
+
 typedef struct s_node
 {
 	void			*val;
@@ -92,7 +101,7 @@ t_list		*g_env_list;
 /*--------------------------------  main  ---------------------------------*/
 int			ft_signal(void);
 int			ft_terminal(void);
-char		*wildcard(char *wstr, char *path);
+char		*wildcard(char *wstr);
 
 /*-------------------------------- builtin --------------------------------*/
 int			do_builtin(char **cmds);
@@ -119,6 +128,7 @@ long long	free_twoptr(char **ptr, long long ret);
 char		*ft_strjoin_and_free(char *s1, char *s2);
 void		error_msg(char *str, int status);
 void		perror_msg(char *str, int status);
+char		*extract_pure_word(t_list *compound_list);
 
 /*------------------------------- env utils -------------------------------*/
 size_t		get_envlen(const char *str);
@@ -130,10 +140,12 @@ t_list		*make_envlist(char **envp);
 char		**env_to_char(void);
 void		sort_envlist(t_list *env_list);
 char		*find_env_val(const char *key);
-short		set_exitcode(int exit_code, long long ret);
-short		get_exitcode(void);
+int			set_exitcode(int exit_code, long long ret);
+int			get_exitcode(void);
 
 /*lexer*/
 int			make_token_list(t_list **token_list, char const *str);
+/*-------------------------------- signal ---------------------------------*/
+void		set_signal(int mode);
 
 #endif

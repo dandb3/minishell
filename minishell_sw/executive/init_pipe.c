@@ -25,33 +25,19 @@ static int	count_process(t_tree *cur)
 	return (process_cnt);
 }
 
-static char	***put_cmds(t_tree *cur, int process_cnt)
+void	init_pipeinfo(t_pipe_info *info, t_tree *cur)
 {
-	int		idx;
-	char	***cmds;
+	int	idx;
 
-	cmds = (char ***)ft_calloc(process_cnt + 1, sizeof(char **));
-	if (!cmds)
+	info->process_cnt = count_process(cur);
+	info->fds = (int (*)[2]) malloc(sizeof(int[2]) * (info->process_cnt - 1));
+	info->pid_table = (pid_t *) malloc(sizeof(pid_t) * info->process_cnt);
+	if (info->fds == NULL || info->pid_table == NULL)
 		exit(MALLOC_FAILURE);
 	idx = -1;
-	while (cur && cur->symbol == AST_PIPE)
+	while (++idx < info->process_cnt - 1)
 	{
-		cmds[++idx] = compound_to_char_twoptr((t_list *)cur->left_child->val);
-		cur = cur->right_child;
+		if (pipe(info->fds[idx]) == FAILURE)
+			perror_msg(NULL, 1);
 	}
-	cmds[++idx] = compound_to_char_twoptr((t_list *)cur->right_child->val);
-	cur = cur->right_child;
-	return (cmds);
-}
-
-t_pipe_info	*init_pipeinfo(t_tree *cur)
-{
-	t_pipe_info	*info;
-
-	info = (t_pipe_info *)ft_calloc(1, sizeof(t_pipe_info));
-	if (!info)
-		exit(MALLOC_FAILURE);
-	info->process_cnt = count_process(cur);
-	info->cmds = put_cmds(cur, process_cnt);
-	return (info);
 }

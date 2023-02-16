@@ -6,12 +6,12 @@
 #    By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 19:25:02 by jdoh              #+#    #+#              #
-#    Updated: 2023/02/14 14:09:36 by sunwsong         ###   ########.fr        #
+#    Updated: 2023/02/14 20:25:22 by sunwsong         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
-SRCS_M		=	main.c prompt.c minishell_utils.c terminal.c \
+SRCS_M		=	main.c prompt.c minishell_utils1.c minishell_utils2.c terminal.c \
 				builtin/builtin_functions1.c builtin/builtin_functions2.c \
 				builtin/builtin.c env/env_utils1.c env/env_utils2.c\
 				doublylinkedlist1.c doublylinkedlist2.c \
