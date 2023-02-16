@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/15 20:24:18 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:29:16 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static int	execute_compound(t_tree *cur)
 	else
 		if (execve(cmds[idx][0], cmds[idx], env_to_char()) == -1)
 			perror_msg(cmds[idx][0], 126);
+	return (FAILURE);
 }
 
 static int	execute_command(t_tree *cur)
