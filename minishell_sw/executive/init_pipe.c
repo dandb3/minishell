@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   init_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 17:37:31 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/12 10:44:42 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/16 21:54:17 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
+
+char	**make_path_split(void)
+{
+	char	**result;
+	char	*path;
+
+	path = find_env_val("PATH");
+	if (path == NULL)
+		return (NULL);
+	result = ft_split(path, ':');
+	if (result == NULL)
+		exit(MALLOC_FAILURE);
+	free(path);
+	return (result);
+}
 
 static int	count_process(t_tree *cur)
 {
@@ -29,8 +44,9 @@ void	init_pipeinfo(t_pipe_info *info, t_tree *cur)
 {
 	int	idx;
 
+	info->path_split = make_path_split();
 	info->process_cnt = count_process(cur);
-	info->fds = (int (*)[2]) malloc(sizeof(int[2]) * (info->process_cnt - 1));
+	info->fds = (int (*)[2]) malloc(sizeof(int [2]) * (info->process_cnt - 1));
 	info->pid_table = (pid_t *) malloc(sizeof(pid_t) * info->process_cnt);
 	if (info->fds == NULL || info->pid_table == NULL)
 		exit(MALLOC_FAILURE);

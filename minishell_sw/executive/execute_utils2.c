@@ -1,19 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_utils2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/16 21:24:06 by jdoh              #+#    #+#             */
+/*   Updated: 2023/02/16 21:51:19 by jdoh             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "execute.h"
-
-static char	**make_path_split(void)
-{
-	char	**result;
-	char	*path;
-
-	path = find_env_val("PATH");
-	if (path == NULL)
-		return (NULL);
-	result = ft_split(path, ':');
-	if (result == NULL)
-		exit(MALLOC_FAILURE);
-	free(path);
-	return (result);
-}
 
 static char	*strjoin_slash(char *s1, char *s2)
 {
@@ -28,12 +25,12 @@ static char	*strjoin_slash(char *s1, char *s2)
 	return (tmp);
 }
 
-void	find_path(char **cmd)
+static void	find_path(char **cmd, char **path_split)
 {
-	char	**path_split;
 	char	*merged_path;
 
-	path_split = make_path_split();
+	if (path_split == NULL)
+		return ;
 	while (*path_split)
 	{
 		merged_path = strjoin_slash(*path_split, cmd[0]);
@@ -43,14 +40,17 @@ void	find_path(char **cmd)
 			cmd[0] = merged_path;
 			merged_path = NULL;
 			if (access(cmd[0], X_OK) == SUCCESS)
+			{
+				free_twoptr(path_split, 0);
 				return ;
+			}
 		}
 		free(merged_path);
 		++path_split;
 	}
 }
 
-void	access_check(char *cmd, char mode)
+static void	access_check(char *cmd, char mode)
 {
 	if (access(cmd, F_OK) == FAILURE)
 	{
@@ -68,5 +68,16 @@ void	access_check(char *cmd, char mode)
 	{
 		write(STDERR_FILENO, SHELL, SHELL_LEN);
 		perror_msg(cmd, 126);
+	}
+}
+
+void	add_path_and_access_check(char **path_split, char **cmd)
+{
+	if (ft_strchr(cmd[0], '/') != NULL)
+		access_check(cmd[0], '/');
+	else
+	{
+		find_path(cmd, path_split);
+		access_check(cmd[0], '\0');
 	}
 }
