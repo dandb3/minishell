@@ -6,11 +6,11 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/14 14:10:21 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:36:25 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prompt.h"
+#include "minishell.h"
 
 static void	eof_exit(void)
 {

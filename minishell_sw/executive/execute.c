@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/16 19:42:14 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:41:59 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	get_status(pid_t pid)
 
 static int	execute_pipe(t_tree *cur)
 {
-	t_pipe_info	*info;
+	t_pipe_info	info;
 
 	init_pipeinfo(&info, cur);
 	pipe_process(&info, cur);
@@ -38,11 +38,9 @@ static int	execute_pipe(t_tree *cur)
 
 static int	execute_parentheses(t_tree *cur)
 {
-	t_redir_fds	red_info;
 	pid_t		pid;
 	int			status;
 
-	ft_memset(&red_info, 0, sizeof(t_redir_fds));
 	pid = fork();
 	if (pid < 0)
 		perror_msg(NULL, 1);
@@ -87,15 +85,11 @@ static int	execute_compound(t_tree *cur)
 
 static int	execute_command(t_tree *cur)
 {
-	t_redir_fds	red_info;
-
-	ft_memset(&red_info, 0, sizeof(t_redir_fds));
-	manage_redirect(cur->left_child, &red_info);
+	manage_redirect(cur->left_child);
 	if (cur->right_child->symbol == AST_PARENTHESESES)
 		execute_parentheses(cur->right_child);
 	else
 		execute_compound(cur->right_child);
-	close_redirect(&red_info, -1, -1);
 	return (SUCCESS);
 }
 
@@ -103,6 +97,7 @@ int	execute(t_tree *cur, int prev_status)
 {
 	int	status;
 
+	status = prev_status;
 	if (!cur)
 		return (prev_status);
 	if (cur->symbol == AST_PIPE)

@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:58:07 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/12 13:50:23 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:56:28 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ static void	child_process(t_pipe_info *info, int idx, t_tree *command_tree)
 
 void	pipe_process(t_pipe_info *info, t_tree *cur_tree)
 {
-	pid_t	pid;
 	int		idx;
 
 	idx = -1;

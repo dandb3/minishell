@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/16 18:44:31 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:55:25 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <limits.h>
 # include <errno.h>
 # include "libft/libft.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # define MALLOC_FAILURE 2
 # define SHELL "MINI: "
@@ -53,6 +55,34 @@ typedef enum e_lex
 	LEX_REDIRECT_APP
 }			t_lex;
 
+typedef enum e_symbol
+{
+	AST_UNUSED = -1,
+	AST_E0,
+	AST_E1,
+	AST_E2,
+	AST_E3,
+	AST_E4,
+	AST_E5,
+	AST_E6,
+	AST_E7,
+	AST_E8,
+	AST_COMPOUND,
+	AST_OR,
+	AST_AND,
+	AST_PIPE,
+	AST_PARENTHESES_OPEN,
+	AST_PARENTHESES_CLOSE,
+	AST_REDIRECT_IN,
+	AST_REDIRECT_OUT,
+	AST_HERE_DOC,
+	AST_REDIRECT_APPEND,
+	AST_EOF,
+	AST_EPSILON,
+	AST_PARENTHESESES,
+	AST_COMMAND
+}	t_symbol;
+
 enum e_sbool
 {
 	FAILURE = -1,
@@ -71,7 +101,8 @@ enum e_signal_state
 {
 	SG_RUN = 0,
 	SG_STOP,
-	SG_HEREDOC
+	SG_HEREDOC_PARENT,
+	SG_HEREDOC_CHILD
 };
 
 typedef struct s_node
@@ -96,16 +127,26 @@ typedef struct s_list
 	t_type			type;
 }	t_list;
 
+typedef struct s_tree
+{
+	struct s_tree	*left_child;
+	struct s_tree	*right_child;
+	void			*val;
+	t_symbol		symbol;
+}	t_tree;
+
 t_list		*g_env_list;
 
 /*--------------------------------  main  ---------------------------------*/
 int			ft_signal(void);
 int			ft_terminal(void);
 char		*wildcard(char *wstr);
+t_tree		*parser(char const *input);
+int			prompt(void);
+int			execute(t_tree *cur, int prev_status);
 
 /*-------------------------------- builtin --------------------------------*/
 int			do_builtin(char **cmds);
-int			prompt(void);
 
 /*--------------------------- doubly linked list --------------------------*/
 t_list		*make_list(t_type type);
