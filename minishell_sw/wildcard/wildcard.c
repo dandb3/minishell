@@ -6,9 +6,11 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:07:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/15 15:12:06 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:04:16 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "wildcard.h"
 
 static char	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 {

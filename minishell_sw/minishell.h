@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/15 20:21:45 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:44:31 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@ typedef enum e_type
 	NAME = 0,
 	COMPOUND = 2
 }	t_type;
+
+enum e_signal_state
+{
+	SG_RUN = 0,
+	SG_STOP,
+	SG_HEREDOC
+};
 
 typedef struct s_node
 {
@@ -135,5 +142,8 @@ int			get_exitcode(void);
 
 /*lexer*/
 int			make_token_list(t_list **token_list, char const *str);
+
+/*-------------------------------- signal ---------------------------------*/
+void		set_signal(int mode);
 
 #endif

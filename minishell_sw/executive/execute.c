@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/16 12:29:16 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:42:14 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	get_status(pid_t pid)
 
 static int	execute_pipe(t_tree *cur)
 {
-	t_pipe_info	info;
+	t_pipe_info	*info;
 
 	info = init_pipeinfo(cur);
 	// pipe 설정
@@ -46,20 +46,25 @@ static int	execute_parentheses(t_tree *cur)
 	if (pid < 0)
 		perror_msg(NULL, 1);
 	if (pid != 0)
-		return (get_status(pid));
-	return (execute(cur->left));
+	{
+		set_signal(SG_STOP);
+		status = get_status(pid);
+		set_signal(SG_RUN);
+		return (status);
+	}
+	return (execute(cur->left_child, 0));
 }
 
 static int	execute_compound(t_tree *cur)
 {
 	char	**cmds;
 	pid_t	pid;
+	int		status;
 
 	cmds = compound_to_char_twoptr(cur->right_child->val);
 	if (do_builtin(cmds) == SUCCESS)
 	{
-		close_redirect(&red_info, -1, -1);
-		free_twoptr(cmds, 0)
+		free_twoptr(cmds, 0);
 		return (get_exitcode());
 	}
 	pid = fork();
@@ -67,12 +72,15 @@ static int	execute_compound(t_tree *cur)
 		perror_msg(NULL, 1);
 	if (pid != 0)
 	{
-		free_twoptr(cmds);
-		return (get_status(pid));
+		set_signal(SG_STOP);
+		free_twoptr(cmds, 0);
+		status = get_status(pid);
+		set_signal(SG_RUN);
+		return (status);
 	}
 	else
-		if (execve(cmds[idx][0], cmds[idx], env_to_char()) == -1)
-			perror_msg(cmds[idx][0], 126);
+		if (execve(cmds[0], cmds, env_to_char()) == -1)
+			perror_msg(cmds[0], 126);
 	return (FAILURE);
 }
 
