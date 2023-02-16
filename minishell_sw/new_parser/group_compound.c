@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 19:57:08 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/12 13:00:02 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/14 16:39:03 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	group_compound(t_list *token_list)
 	while (cur_token->next != NULL)
 	{
 		if (cur_token->lex == LEX_WORD || cur_token->lex == LEX_WILD \
-			|| cur_token->lex == LEX_ENV || cur_token->lex == LEX_DOUBLE_QUOTE
+			|| cur_token->lex == LEX_ENV || cur_token->lex == LEX_DOUBLE_QUOTE \
 			|| cur_token->lex == LEX_SINGLE_QUOTE)
 		{
-			new_token = make_node(make_list(LEX), LEX_COMPOUND);
+			new_token = make_node(make_list(COMPOUND), LEX_COMPOUND);
 			end_token = compound_end(cur_token);
 			cur_token->prev->next = new_token;
 			new_token->prev = cur_token->prev;

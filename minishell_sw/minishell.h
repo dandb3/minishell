@@ -34,6 +34,7 @@ enum	e_bool
 
 typedef enum e_lex
 {
+	LEX_UNUSED = -1,
 	LEX_SINGLE_QUOTE,
 	LEX_DOUBLE_QUOTE,
 	LEX_ENV,
@@ -144,7 +145,6 @@ int			get_exitcode(void);
 
 /*lexer*/
 int			make_token_list(t_list **token_list, char const *str);
-
 /*-------------------------------- signal ---------------------------------*/
 void		set_signal(int mode);
 

@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:16:44 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/12 12:45:04 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/14 19:15:07 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,16 @@ t_tree	*make_tree(t_symbol symbol)
 	return (new_tree);
 }
 
-void	*free_tree(t_tree *root)
+void	free_tree(t_tree *root)
 {
 	if (root == NULL)
-		return (NULL);
+		return ;
 	free_tree(root->left_child);
 	free_tree(root->right_child);
-	if (root->symbol == AST_HERE_DOC || root->symbol == AST_REDIRECT_APPEND
-		|| root->symbol == AST_REDIRECT_IN || root->symbol == AST_REDIRECT_OUT)
+	if (root->symbol == AST_HERE_DOC)
 		free(root->val);
-	else if (root->symbol == AST_COMPOUND)
+	else if (root->symbol == AST_COMPOUND || root->symbol == AST_REDIRECT_APPEND
+		|| root->symbol == AST_REDIRECT_IN || root->symbol == AST_REDIRECT_OUT)
 		free_list(root->val, 0, LEX);
 	free(root);
-	return (NULL);
 }

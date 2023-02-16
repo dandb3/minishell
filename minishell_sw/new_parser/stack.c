@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:16:16 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 23:02:47 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/14 17:34:38 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ void	pop(t_list *stack)
 	--(stack->size);
 }
 
+void	pop_tree(t_list *stack)
+{
+	t_node	*popped;
+
+	popped = stack->head->next;
+	popped->prev->next = popped->next;
+	popped->next->prev = popped->prev;
+	free(popped->val);
+	free(popped);
+	--(stack->size);
+}
+
 void	push(t_list *stack, t_tree *tree_node)
 {
 	t_node	*new_node;
@@ -33,6 +45,7 @@ void	push(t_list *stack, t_tree *tree_node)
 	new_node = (t_node *) malloc(sizeof(t_node));
 	if (new_node == NULL)
 		exit(MALLOC_FAILURE);
+	new_node->lex = LEX_WORD;
 	new_node->val = tree_node;
 	new_node->prev = stack->head;
 	new_node->next = stack->head->next;
