@@ -41,7 +41,7 @@ static void	make_here_doc_tmp_file(char *word, int open_fd)
 	write(open_fd, word + prev, idx - prev + 1);
 }
 
-static int	del_here_doc(const char *tmp_dir, int *file_num)
+static void	del_here_doc(const char *tmp_dir, int *file_num)
 {
 	char	*file_num_to_a;
 	char	*tmp_file;
@@ -61,10 +61,9 @@ static int	del_here_doc(const char *tmp_dir, int *file_num)
 		free(tmp_file);
 	}
 	*file_num = 0;
-	return (SUCCESS);
 }
 
-int	here_doc(char *word, int to_del)
+void	here_doc(char *word, int to_del)
 {
 	const char	*tmp_dir = "/tmp/";
 	char		*file_num_to_a;
@@ -73,7 +72,10 @@ int	here_doc(char *word, int to_del)
 	int			open_fd;
 
 	if (to_del)
-		return (del_here_doc(tmp_dir, &file_num));
+	{
+		del_here_doc(tmp_dir, &file_num);
+		return ;
+	}
 	file_num_to_a = ft_itoa(file_num++);
 	if (!file_num_to_a)
 		exit(MALLOC_FAILURE);
@@ -87,5 +89,5 @@ int	here_doc(char *word, int to_del)
 	if (close(open_fd) < 0)
 		perror_msg(NULL, 1);
 	read_file(tmp_file);
-	return (free_ret(file_num_to_a, tmp_file, NULL, SUCCESS));
+	free_ret(file_num_to_a, tmp_file, NULL, SUCCESS);
 }

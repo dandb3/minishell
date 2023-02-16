@@ -35,61 +35,66 @@ static void	parent_process(t_pipe_info *info)
 	close_all(info);
 	while (++idx < info->process_cnt)
 	{
-		if (wait(&status) < 0)
+		if (waitpid(info->pid_table[idx], &status, 0) < 0)
 			perror_msg(NULL, 1);
 	}
-	//here_doc 리스트 순회하면서 unlink를 해주는데 에러 처리는 하지 말 것.
-	if ((status << 24) != 0)
-		exit((status << 24 >> 24) + 128);
+	here_doc(NULL, TRUE);
+	if ((status & 0xFF) != 0)
+		exit((status & 0xFF) + 128);
 	else
-		exit(status >> 8);
+		exit((status >> 8) & 0xFF);
 }
 
-static void	child_process(t_pipe_info *info, int idx)
+static void	connect_pipe(t_pipe_info *info, int idx)
 {
-	t_list	*lst;
-	int		fd_stdin;
-
-	lst = NULL;
-	fd_stdin = dup(STDIN_FILENO);
-	if (fd_stdin < 0)
+	if (idx != 0 && dup2(info->fds[idx - 1][0], STDIN_FILENO) == FAILURE)
 		perror_msg(NULL, 1);
-	if (idx != 0)
-		dup2(info->fds[idx - 1][0], STDIN_FILENO);
-	if (idx + 1 != info->process_cnt)
-		dup2(info->fds[idx][1], STDIN_FILENO);
-	close_all(info);
-	if (close(fd_stdin) < 0)
+	if (idx != info->process_cnt - 1 \
+		&& dup2(info->fds[idx][1], STDOUT_FILENO) == FAILURE)
 		perror_msg(NULL, 1);
-	// 파일 리스트를 순회하면서 쭉 파일 열고 dup2 수행.
-	// do_builtin
-	// builtin이 성공하면 exit()
-	// execve
-	// perror_msg(파일 이름, 126);
 }
 
-/*-------malloc on "info" finished-------*/
-void	pipe_process(t_pipe_info *info)
+static void	child_process(t_pipe_info *info, int idx, t_tree *command_tree)
+{
+	char	**cmd;
+
+	connect_pipe(info, idx);
+	close_all(info);
+	cmd = compound_to_char_twoptr(command_tree->right_child);
+	manage_redirect(command_tree->left_child);
+	if (do_builtin(cmd) == SUCCESS)
+		exit(EXIT_SUCCESS);
+	if (ft_strchr(cmd[0], '/') != NULL)
+		access_check(cmd[0], '/');
+	else
+	{
+		find_path(cmd);
+		access_check(cmd[0], '\0');
+	}
+	execve(cmd[0], cmd, env_to_char());
+	write(STDERR_FILENO, SHELL, SHELL_LEN);
+	perror_msg(cmd[0], 1);
+}
+
+void	pipe_process(t_pipe_info *info, t_tree *cur_tree)
 {
 	pid_t	pid;
 	int		idx;
 
-	//here_doc 지울 거 리스트로 저장
-	idx = -1;
-	while (++idx < info->process_cnt - 1)
-		if (pipe(info->fds[idx]) < 0)
-			perror_msg(NULL, 1);
 	idx = -1;
 	while (++idx < info->process_cnt)
 	{
-		pid = fork();
-		if (pid < 0)
+		info->pid_table[idx] = fork();
+		if (info->pid_table[idx] < 0)
 			perror_msg(NULL, 1);
-		if (pid == 0)
-			break ;
+		if (info->pid_table[idx] == 0)
+		{
+			if (cur_tree->symbol == AST_PIPE)
+				child_process(info, idx, cur_tree->left_child);
+			else
+				child_process(info, idx, cur_tree);
+		}
+		cur_tree = cur_tree->right_child;
 	}
-	if (pid == 0)
-		child_process(info, idx);
-	else
-		parent_process(info); //here_doc 지울 거 리스트 인자로 전달
+	parent_process(info);
 }

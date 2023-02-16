@@ -30,10 +30,10 @@ char	**compound_to_char_twoptr(t_tree *cur)
 	char	**cmd;
 	int		depth;
 
+	depth = get_compound_tree_depth(cur);
 	cmd = (char **)ft_calloc(depth + 1, sizeof(char *));
 	if (!cmd)
 		exit(MALLOC_FAILURE);
-	depth = get_compound_tree_depth(cur);
 	while (depth--)
 	{
 		cmd[depth] = expand_char(cur->val);
