@@ -96,15 +96,13 @@ static int	execute_compound(t_tree *cur)
 
 static int	execute_command(t_tree *cur)
 {
-	t_redir_fds	red_info;
-
-	ft_memset(&red_info, 0, sizeof(t_redir_fds));
-	manage_redirect(cur->left_child, &red_info);
+	manage_redirect(cur->left_child);
+	if (cur->right_child == NULL)
+		return (SUCCESS);
 	if (cur->right_child->symbol == AST_PARENTHESESES)
 		execute_parentheses(cur->right_child);
 	else
 		execute_compound(cur->right_child);
-	close_redirect(&red_info, -1, -1);
 	return (SUCCESS);
 }
 
