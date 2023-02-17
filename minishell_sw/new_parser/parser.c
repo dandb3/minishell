@@ -19,7 +19,7 @@ t_tree	*parser(char const *input)
 	static char const	*table[9] = {T0, T1, T2, T3, T4, T5, T6, T7, T8};
 
 	if (make_token_list(&token_list, input) == FAILURE)
-		return (NULL);
+		return ((void *)free_list(token_list, 0, LEX));
 	if (syntax_check(token_list, (char **)table) == FAILURE)
 		return ((void *)free_list(token_list, 0, LEX));
 	abstract_syntax_tree = make_ast(token_list);
