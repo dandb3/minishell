@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/16 20:41:59 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 11:15:19 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	execute_pipe(t_tree *cur)
 
 	init_pipeinfo(&info, cur);
 	pipe_process(&info, cur);
+	free_twoptr(info.path_split, 0);
 	free(info.fds);
 	free(info.pid_table);
 	return (SUCCESS);
@@ -57,15 +58,13 @@ static int	execute_parentheses(t_tree *cur)
 static int	execute_compound(t_tree *cur)
 {
 	char	**cmds;
+	char	**path_split;
 	pid_t	pid;
 	int		status;
 
-	cmds = compound_to_char_twoptr(cur->right_child->val);
+	cmds = compound_to_char_twoptr(cur->right_child);
 	if (do_builtin(cmds) == SUCCESS)
-	{
-		free_twoptr(cmds, 0);
-		return (get_exitcode());
-	}
+		return (get_exitcode() + free_twoptr(cmds, 0));
 	pid = fork();
 	if (pid < 0)
 		perror_msg(NULL, 1);
@@ -77,10 +76,11 @@ static int	execute_compound(t_tree *cur)
 		set_signal(SG_RUN);
 		return (status);
 	}
-	else
-		if (execve(cmds[0], cmds, env_to_char()) == -1)
-			perror_msg(cmds[0], 126);
-	return (FAILURE);
+	path_split = make_path_split();
+	add_path_and_access_check(path_split, cmds);
+	execve(cmds[0], cmds, env_to_char());
+	perror_msg(cmds[0], 1);
+	return (SUCCESS);
 }
 
 static int	execute_command(t_tree *cur)

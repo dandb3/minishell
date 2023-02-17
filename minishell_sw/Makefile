@@ -6,7 +6,7 @@
 #    By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 19:25:02 by jdoh              #+#    #+#              #
-#    Updated: 2023/02/16 20:43:02 by sunwsong         ###   ########.fr        #
+#    Updated: 2023/02/17 09:34:24 by sunwsong         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRCS_M		=	main.c prompt.c minishell_utils1.c minishell_utils2.c terminal.c \
 				builtin/builtin_functions1.c builtin/builtin_functions2.c \
 				builtin/builtin.c env/env_utils1.c env/env_utils2.c env/env_utils3.c\
 				doublylinkedlist1.c doublylinkedlist2.c doublylinkedlist3.c\
-				signal.c wildcard/wildcard.c \
+				signal.c \
 				new_parser/del_unused.c new_parser/get_pseudo_token.c \
 				new_parser/group_compound.c new_parser/lexer.c new_parser/make_ast_utils1.c \
 				new_parser/make_ast_utils2.c new_parser/make_ast.c new_parser/parser_utils1.c \
@@ -24,7 +24,7 @@ SRCS_M		=	main.c prompt.c minishell_utils1.c minishell_utils2.c terminal.c \
 				new_parser/syntax_check_utils.c new_parser/syntax_check.c \
 				new_parser/syntax_error.c new_parser/tree.c \
 				executive/execute.c executive/execute_utils2.c executive/open_file.c \
-				executive/execute.h executive/expand.c executive/redirect.c \
+				executive/expand.c executive/redirect.c \
 				executive/execute_pipe.c executive/here_doc.c \
 				executive/execute_utils1.c executive/init_pipe.c \
 				wildcard/wildcard.c wildcard/wildcard_utils.c wildcard/discriminate.c

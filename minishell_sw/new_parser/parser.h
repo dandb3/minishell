@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/16 20:55:18 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 09:35:16 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int			is_redirect(t_lex lex);
 t_symbol	lex_to_symbol(t_lex lex);
 int			is_terminal(t_symbol symbol);
 int			table_idx(t_lex lex);
-void		here_doc_or_pop(t_list *stack, t_node *cur_token, t_symbol symbol);
 char		*extract_pure_word(t_list *compound_list);
 
 #endif

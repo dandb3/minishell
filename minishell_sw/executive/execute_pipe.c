@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:58:07 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/16 20:56:28 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 09:02:36 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,8 @@ static void	child_process(t_pipe_info *info, int idx, t_tree *command_tree)
 	cmd = compound_to_char_twoptr(command_tree->right_child);
 	manage_redirect(command_tree->left_child);
 	if (do_builtin(cmd) == SUCCESS)
-		exit(EXIT_SUCCESS);
-	if (ft_strchr(cmd[0], '/') != NULL)
-		access_check(cmd[0], '/');
-	else
-	{
-		find_path(cmd);
-		access_check(cmd[0], '\0');
-	}
+		exit(get_exitcode());
+	add_path_and_access_check(info->path_split, cmd);
 	execve(cmd[0], cmd, env_to_char());
 	write(STDERR_FILENO, SHELL, SHELL_LEN);
 	perror_msg(cmd[0], 1);

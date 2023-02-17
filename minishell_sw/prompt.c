@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/16 20:36:25 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 09:43:29 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,54 @@ static void	eof_exit(void)
 int	prompt(void)
 {
 	char	*cmd;
-	char	**cmds;
+	t_tree	*parse_tree;
 
 	while (1)
 	{
-		ft_signal();
 		cmd = readline("MINI$ ");
 		if (!cmd)
 			eof_exit();
 		if (ft_strlen(cmd))
 		{
 			add_history(cmd);
-			cmds = ft_split(cmd, ' ');
-			if (!cmds)
-				exit(MALLOC_FAILURE);
-			if (*cmds)
-				do_builtin(cmds);
-			free_twoptr(cmds, 0);
+			parse_tree = parser(cmd);
+			printf("parse tree fin\n");
+			execute(parse_tree, 0);
+			printf("execute fin\n");
 		}
 		free(cmd);
-		system("leaks minishell");
 	}
 	clear_history();
 	return (0);
 }
+
+
+// int	prompt(void)
+// {
+// 	char	*cmd;
+// 	char	**cmds;
+
+// 	//ft_signal();
+// 	while (1)
+// 	{
+// 		cmd = readline("MINI$ ");
+// 		if (!cmd)
+// 			eof_exit();
+// 		if (ft_strlen(cmd))
+// 		{
+// 			add_history(cmd);
+// 			cmds = ft_split(cmd, ' ');
+// 			if (!cmds)
+// 				exit(MALLOC_FAILURE);
+// 			if (*cmds)
+// 			{
+// 				do_builtin(cmds);
+// 			}
+// 			free_twoptr(cmds, 0);
+// 		}
+// 		free(cmd);
+// 		system("leaks minishell");
+// 	}
+// 	clear_history();
+// 	return (0);
+// }
