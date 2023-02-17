@@ -6,7 +6,7 @@
 #    By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 19:25:02 by jdoh              #+#    #+#              #
-#    Updated: 2023/02/17 09:34:24 by sunwsong         ###   ########.fr        #
+#    Updated: 2023/02/17 18:21:03 by sunwsong         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ LIBFT_DIR	=	libft
 RL_LINK_FLAG	= -lreadline -L $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/lib
 RL_COMP_FLAG	= -I $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/include
 
-CFLAGS		=	-Werror -Wextra -Wall
+CFLAGS		=	-Werror -Wextra -Wall -g3
 BONUS_MODE	=	$(findstring bonus, $(MAKECMDGOALS))
 
 ifeq (bonus, $(BONUS_MODE))

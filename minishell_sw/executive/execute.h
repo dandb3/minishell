@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:59:29 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 09:33:37 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:35:43 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char		**compound_to_char_twoptr(t_tree *cur);
 char		*expand_char(t_list *compound_list);
 void		add_path_and_access_check(char **path_split, char **cmd);
 char		**make_path_split(void);
+void		merge_wild(t_node *prev_token, t_node *cur_token, size_t len1);
 
 // execute_pipe
 void		init_pipeinfo(t_pipe_info *info, t_tree *cur);

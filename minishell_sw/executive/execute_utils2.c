@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 21:24:06 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/17 12:41:33 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:57:09 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,29 @@ void	add_path_and_access_check(char **path_split, char **cmd)
 		find_path(cmd, path_split);
 		access_check(cmd[0], '\0');
 	}
+}
+
+void	merge_wild(t_node *prev_token, t_node *cur_token, size_t len1)
+{
+	size_t	len2;
+	size_t	idx;
+	char	*str1;
+	char	*str2;
+	char	*merged_word;
+
+	str1 = (char *)(prev_token->val);
+	str2 = (char *)(cur_token->val);
+	len2 = 0;
+	if (str2)
+		len2 = ft_strlen(str2);
+	merged_word = (char *)ft_calloc(len1 + len2 + 1, sizeof(char));
+	idx = -1;
+	while (++idx < len1)
+		merged_word[idx] = str1[idx];
+	idx = -1;
+	while (++idx < len2)
+		merged_word[len1 + idx] = str2[idx];
+	free(cur_token->val);
+	cur_token->val = merged_word;
+	del_node(prev_token, LEX);
 }
