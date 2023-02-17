@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:43:15 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/15 20:21:50 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 13:09:01 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_list	*make_envlist(char **envp)
 		exit(MALLOC_FAILURE);
 	node = make_node(env, -1);
 	push_node(node, env_list);
+	--(env_list->size);
 	while (*envp)
 	{
 		env = make_env(*envp++, TRUE);
@@ -43,7 +44,7 @@ char	**env_to_char(void)
 	size_t	idx;
 	t_node	*cur;
 
-	envp = (char **)malloc(sizeof(char *));
+	envp = (char **)ft_calloc(g_env_list->size + 1, sizeof(char *));
 	if (!envp)
 		exit(MALLOC_FAILURE);
 	cur = g_env_list->head->next->next;
@@ -55,7 +56,7 @@ char	**env_to_char(void)
 			envp[idx] = ft_strjoin(((t_env *)cur->val)->key, "=");
 			if (!envp[idx])
 				exit(MALLOC_FAILURE);
-			envp[idx] = ft_strjoin(envp[idx], ((t_env *)cur->val)->val);
+			envp[idx] = ft_strjoin_and_free(envp[idx], ((t_env *)cur->val)->val);
 		}
 		else
 			envp[idx] = ft_strdup(((t_env *)cur->val)->key);

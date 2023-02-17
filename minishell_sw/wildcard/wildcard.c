@@ -6,11 +6,19 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:07:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/16 20:29:05 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:31:40 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcard.h"
+
+void	print_wild(t_wild *wild)
+{
+	printf("wild->wstr: %s\n", wild->wstr);
+	printf("wild->name: %s\n", wild->name);
+	printf("wild->wlen: %zu\n", wild->wlen);
+	printf("wild->nlen: %zu\n", wild->nlen);
+}
 
 static char	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 {
@@ -26,7 +34,7 @@ static char	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 	{
 		wild->name = (char *)(cur->val);
 		wild->nlen = ft_strlen(wild->name);
-		free_and_realloc(wild, dp);
+		free_and_realloc_dp(wild, dp);
 		if (disc(wild, dp, 0, 0))
 		{
 			res = ft_strjoin_and_free(res, wild->name);
@@ -37,20 +45,20 @@ static char	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 	return (res);
 }
 
-static char	*check_list_names(char *wstr, t_list *file_list)
+static char	*check_list_names(char *wstr, size_t wlen, t_list *file_list)
 {
 	t_wild	wild;
 	char	**dp;
 	char	*res;
 
-	wild.wstr = wstr;
-	wild.wlen = ft_strlen(wstr);
+	wild.wstr = wilddup(wstr, wlen);
+	wild.wlen = wlen;
 	dp = (char **)ft_calloc(wild.wlen + 1, sizeof(char *));
 	if (!dp)
 		exit(MALLOC_FAILURE);
 	res = iterate_list(dp, &wild, file_list);
+	free(wild.wstr);
 	free_twoptr(dp, 0);
-	free_list(file_list, 0, NAME);
 	return (res);
 }
 
@@ -73,11 +81,12 @@ static void	set_file_list(DIR *dir_ptr, t_list **file_list)
 	}
 }
 
-char	*wildcard(char *wstr)
+char	*wildcard(char *wstr, size_t wlen)
 {
 	DIR		*dir_ptr;
 	t_list	*file_list;
 	char	*path;
+	char	*res;
 
 	path = getcwd(NULL, UINT32_MAX);
 	if (!path)
@@ -90,5 +99,9 @@ char	*wildcard(char *wstr)
 	set_file_list(dir_ptr, &file_list);
 	sort_list(file_list);
 	closedir(dir_ptr);
-	return (check_list_names(wstr, file_list));
+	res = check_list_names(wstr, wlen, file_list);
+	printf("res: %s\n", res);
+	printf("free list go\n");
+	free_list(file_list, 0, NAME);
+	return (res);
 }
