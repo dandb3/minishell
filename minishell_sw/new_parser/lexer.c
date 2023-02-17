@@ -20,6 +20,7 @@ int	make_token_list(t_list **token_list, char const *str)
 	if (pseudo_expand_env(*token_list) == FAILURE)
 	{
 		write(STDERR_FILENO, "MINI: syntax error: quote is not closed\n", 40);
+		set_exitcode(258, 0);
 		return (FAILURE);
 	}
 	group_compound(*token_list);
