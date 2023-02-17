@@ -28,12 +28,21 @@ static int	get_status(pid_t pid)
 static int	execute_pipe(t_tree *cur)
 {
 	t_pipe_info	info;
+	pid_t		pid;
+	int			status;
 
+	pid = fork();
+	if (pid < 0)
+		perror_msg(NULL, 1);
+	if (pid != 0)
+	{
+		set_signal(SG_STOP);
+		status = get_status(pid);
+		set_signal(SG_RUN);
+		return (status);
+	}
 	init_pipeinfo(&info, cur);
 	pipe_process(&info, cur);
-	free_twoptr(info.path_split, 0);
-	free(info.fds);
-	free(info.pid_table);
 	return (SUCCESS);
 }
 
