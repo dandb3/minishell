@@ -64,7 +64,7 @@ static int	execute_compound(t_tree *cur)
 	pid_t	pid;
 	int		status;
 
-	cmds = compound_to_char_twoptr(cur->right_child);
+	cmds = compound_to_char_twoptr(cur);
 	if (do_builtin(cmds) == SUCCESS)
 		return (get_exitcode() + free_twoptr(cmds, 0));
 	pid = fork();
