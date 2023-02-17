@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 19:25:02 by jdoh              #+#    #+#              #
-#    Updated: 2023/02/17 18:21:03 by sunwsong         ###   ########.fr        #
+#    Updated: 2023/02/17 21:00:11 by jdoh             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,11 @@ HEADER_M	=	minishell builtin/builtin executive/execute wildcard/wildcard \
 LIBFT		=	libft/libft.a
 LIBFT_DIR	=	libft
 
-RL_LINK_FLAG	= -lreadline -L $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/lib
-RL_COMP_FLAG	= -I $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/include
+#RL_LINK_FLAG	= -lreadline -L $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/lib
+#RL_COMP_FLAG	= -I $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/include
+
+RL_LINK_FLAG	= -lreadline -L/opt/homebrew/opt/readline/lib
+RL_COMP_FLAG	= -I/opt/homebrew/opt/readline/include
 
 CFLAGS		=	-Werror -Wextra -Wall -g3
 BONUS_MODE	=	$(findstring bonus, $(MAKECMDGOALS))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:03:28 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/17 09:37:17 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 21:04:15 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ static char	*read_here_doc(char *here_doc_end)
 	return (total_line);
 }
 
-void	here_doc_or_pop(t_list *stack, t_node **cur_token, t_symbol symbol)
+void	here_doc_or_pop(t_list *stack, t_node **cur_token)
 {
 	char	*here_doc_end;
 
-	if ((*cur_token)->lex == LEX_COMPOUND && (*cur_token)->prev->lex == LEX_HERE_DOC)
+	if ((*cur_token)->lex == LEX_COMPOUND \
+		&& (*cur_token)->prev->lex == LEX_HERE_DOC)
 	{
 		del_quotes((*cur_token)->val);
 		here_doc_end = extract_pure_word((*cur_token)->val);
