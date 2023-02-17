@@ -64,13 +64,13 @@ static char	*read_here_doc(char *here_doc_end)
 	total_line = ft_strdup("");
 	if (total_line == NULL)
 		exit(MALLOC_FAILURE);
-	cur_line = readline("< ");
+	cur_line = readline("> ");
 	while (cur_line != NULL && ft_strcmp(here_doc_end, cur_line))
 	{
 		total_line = ft_strjoin_and_free(total_line, cur_line);
 		total_line = ft_strjoin_and_free(total_line, "\n");
 		free(cur_line);
-		cur_line = readline("< ");
+		cur_line = readline("> ");
 	}
 	free(cur_line);
 	return (total_line);
