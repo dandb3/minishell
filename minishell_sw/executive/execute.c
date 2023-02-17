@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 13:01:26 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 20:38:37 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ static int	execute_compound(t_tree *cur)
 	cmds = compound_to_char_twoptr(cur);
 	if (do_builtin(cmds) == SUCCESS)
 		return (get_exitcode() + free_twoptr(cmds, 0));
+	set_signal(SG_STOP);
 	printf("fork go\n");
 	pid = fork();
 	if (pid < 0)
 		perror_msg(NULL, 1);
 	if (pid != 0)
 	{
-		set_signal(SG_STOP);
 		free_twoptr(cmds, 0);
 		status = get_status(pid);
 		set_signal(SG_RUN);

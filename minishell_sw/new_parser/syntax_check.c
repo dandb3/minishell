@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:16:21 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/15 21:46:14 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/17 19:44:39 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	syntax_check(t_list *token_list, char **table)
 		if (cur_tree->symbol == AST_EPSILON)
 			pop_tree(stack);
 		else if (cur_tree->symbol == lex_to_symbol(cur_token->lex))
-			here_doc_or_pop(stack, cur_token, cur_tree->symbol);
+			here_doc_or_pop(stack, &cur_token, cur_tree->symbol);
 		else if (is_terminal(cur_tree->symbol)
 			|| table[cur_tree->symbol][token_idx] == SYNTAX_ERROR)
 			return (error_manage(cur_token, stack));

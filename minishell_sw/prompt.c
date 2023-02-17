@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 18:16:59 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 20:39:18 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	eof_exit(void)
 {
+	printf("exit\n");
 	exit(EXIT_SUCCESS);
 }
 
@@ -40,8 +41,8 @@ int	prompt(void)
 		{
 			add_history(cmd);
 			parse_tree = parser(cmd);
-			execute(parse_tree, 0);
-			system("leaks minishell");
+			set_exitcode(execute(parse_tree, 0), 0);
+		//	system("leaks minishell");
 		}
 		free(cmd);
 	}

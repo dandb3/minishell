@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:03:28 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/17 09:37:17 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:44:04 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	here_doc_or_pop(t_list *stack, t_node **cur_token, t_symbol symbol)
 {
 	char	*here_doc_end;
 
+	(void) symbol;
 	if ((*cur_token)->lex == LEX_COMPOUND && (*cur_token)->prev->lex == LEX_HERE_DOC)
 	{
 		del_quotes((*cur_token)->val);
