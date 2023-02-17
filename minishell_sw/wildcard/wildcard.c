@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:07:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 18:31:40 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:41:34 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 	cur = file_list->head->next;
 	while (cur->next)
 	{
-		wild->name = (char *)(cur->val);
+		wild->name = copy_val(cur);
 		wild->nlen = ft_strlen(wild->name);
 		free_and_realloc_dp(wild, dp);
 		if (disc(wild, dp, 0, 0))
@@ -40,6 +40,7 @@ static char	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 			res = ft_strjoin_and_free(res, wild->name);
 			res = ft_strjoin_and_free(res, " ");
 		}
+		free(wild->name);
 		cur = cur->next;
 	}
 	return (res);

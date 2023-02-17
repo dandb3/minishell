@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 18:34:32 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 19:41:35 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef enum e_type
 {
 	ENV = 0,
 	LEX = 1,
-	NAME = 0,
+	NAME = 1,
 	COMPOUND = 2
 }	t_type;
 
