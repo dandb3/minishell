@@ -28,12 +28,21 @@ static int	get_status(pid_t pid)
 static int	execute_pipe(t_tree *cur)
 {
 	t_pipe_info	info;
+	pid_t		pid;
+	int			status;
 
+	pid = fork();
+	if (pid < 0)
+		perror_msg(NULL, 1);
+	if (pid != 0)
+	{
+		set_signal(SG_STOP);
+		status = get_status(pid);
+		set_signal(SG_RUN);
+		return (status);
+	}
 	init_pipeinfo(&info, cur);
 	pipe_process(&info, cur);
-	free_twoptr(info.path_split, 0);
-	free(info.fds);
-	free(info.pid_table);
 	return (SUCCESS);
 }
 
@@ -62,7 +71,7 @@ static int	execute_compound(t_tree *cur)
 	pid_t	pid;
 	int		status;
 
-	cmds = compound_to_char_twoptr(cur->right_child);
+	cmds = compound_to_char_twoptr(cur);
 	if (do_builtin(cmds) == SUCCESS)
 		return (get_exitcode() + free_twoptr(cmds, 0));
 	pid = fork();
@@ -86,6 +95,8 @@ static int	execute_compound(t_tree *cur)
 static int	execute_command(t_tree *cur)
 {
 	manage_redirect(cur->left_child);
+	if (cur->right_child == NULL)
+		return (SUCCESS);
 	if (cur->right_child->symbol == AST_PARENTHESESES)
 		execute_parentheses(cur->right_child);
 	else

@@ -27,10 +27,7 @@ int	syntax_check(t_list *token_list, char **table)
 		if (cur_tree->symbol == AST_EPSILON)
 			pop_tree(stack);
 		else if (cur_tree->symbol == lex_to_symbol(cur_token->lex))
-		{
 			here_doc_or_pop(stack, cur_token, cur_tree->symbol);
-			cur_token = cur_token->next;
-		}
 		else if (is_terminal(cur_tree->symbol)
 			|| table[cur_tree->symbol][token_idx] == SYNTAX_ERROR)
 			return (error_manage(cur_token, stack));
