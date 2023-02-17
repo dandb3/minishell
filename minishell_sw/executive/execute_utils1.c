@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_utils.c                                    :+:      :+:    :+:   */
+/*   execute_utils1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 19:39:43 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/15 15:49:10 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 11:14:37 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	get_compound_tree_depth(t_tree *cur)
 {
 	int	idx;
 
-	idx = 0;
+	idx = 1;
 	while (cur)
 	{
 		cur = cur->right_child;

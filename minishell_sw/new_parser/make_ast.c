@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:12:46 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 14:09:12 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/16 20:29:20 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_tree	*make_ast(t_list *token_list)
 {
-	t_tree	*root;
 	t_node	*cur_token;
 	char	*val;
 

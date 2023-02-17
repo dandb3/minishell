@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:59:29 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/16 21:54:35 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/17 09:33:37 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char		**make_path_split(void);
 
 // execute_pipe
 void		init_pipeinfo(t_pipe_info *info, t_tree *cur);
+void		pipe_process(t_pipe_info *info, t_tree *cur_tree);
 
 // redirect
 void		manage_redirect(t_tree *cur);

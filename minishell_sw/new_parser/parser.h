@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 20:54:42 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/17 09:35:16 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,34 +30,6 @@ typedef enum e_flag
 	SINGLE_QUOTED,
 	DOUBLE_QUOTED
 }		t_flag;
-
-typedef enum e_symbol
-{
-	AST_UNUSED = -1,
-	AST_E0,
-	AST_E1,
-	AST_E2,
-	AST_E3,
-	AST_E4,
-	AST_E5,
-	AST_E6,
-	AST_E7,
-	AST_E8,
-	AST_COMPOUND,
-	AST_OR,
-	AST_AND,
-	AST_PIPE,
-	AST_PARENTHESES_OPEN,
-	AST_PARENTHESES_CLOSE,
-	AST_REDIRECT_IN,
-	AST_REDIRECT_OUT,
-	AST_HERE_DOC,
-	AST_REDIRECT_APPEND,
-	AST_EOF,
-	AST_EPSILON,
-	AST_PARENTHESESES,
-	AST_COMMAND
-}	t_symbol;
 
 typedef enum e_table
 {
@@ -83,13 +55,6 @@ typedef enum e_table
 	E8_REDIRECT_APPEND
 }	t_table;
 
-typedef struct s_tree
-{
-	struct s_tree	*left_child;
-	struct s_tree	*right_child;
-	void			*val;
-	t_symbol		symbol;
-}	t_tree;
 
 /*---------------------------------tokenize---------------------------------*/
 t_node		*get_pseudo_token(char const **str);
@@ -126,7 +91,6 @@ int			is_redirect(t_lex lex);
 t_symbol	lex_to_symbol(t_lex lex);
 int			is_terminal(t_symbol symbol);
 int			table_idx(t_lex lex);
-void		here_doc_or_pop(t_list *stack, t_node *cur_token, t_symbol symbol);
 char		*extract_pure_word(t_list *compound_list);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/16 22:08:39 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/17 11:15:19 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,9 @@ static int	execute_pipe(t_tree *cur)
 
 static int	execute_parentheses(t_tree *cur)
 {
-	t_redir_fds	red_info;
 	pid_t		pid;
 	int			status;
 
-	ft_memset(&red_info, 0, sizeof(t_redir_fds));
 	pid = fork();
 	if (pid < 0)
 		perror_msg(NULL, 1);
@@ -110,6 +108,7 @@ int	execute(t_tree *cur, int prev_status)
 {
 	int	status;
 
+	status = prev_status;
 	if (!cur)
 		return (prev_status);
 	if (cur->symbol == AST_PIPE)

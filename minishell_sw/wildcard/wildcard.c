@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:07:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/16 19:04:16 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:29:05 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,11 @@ static void	set_file_list(DIR *dir_ptr, t_list **file_list)
 
 char	*wildcard(char *wstr)
 {
-	DIR				*dir_ptr;
-	t_list			*file_list;
-	const char		*path = getcwd(NULL, UINT32_MAX);
+	DIR		*dir_ptr;
+	t_list	*file_list;
+	char	*path;
 
+	path = getcwd(NULL, UINT32_MAX);
 	if (!path)
 		exit(EXIT_FAILURE);
 	dir_ptr = opendir(path);
