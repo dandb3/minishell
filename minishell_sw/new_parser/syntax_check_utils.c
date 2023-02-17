@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:03:28 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/17 21:04:15 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/17 22:27:16 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	here_doc_or_pop(t_list *stack, t_node **cur_token)
 		here_doc_end = extract_pure_word((*cur_token)->val);
 		free_list((*cur_token)->val, 0, LEX);
 		(*cur_token)->val = read_here_doc(here_doc_end);
+		(*cur_token)->lex = LEX_WORD;
 		free(here_doc_end);
 	}
 	*cur_token = (*cur_token)->next;
