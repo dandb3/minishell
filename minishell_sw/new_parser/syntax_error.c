@@ -43,6 +43,7 @@ int	error_manage(t_node *cur_token, t_list *stack)
 	write(STDERR_FILENO, front_msg, ft_strlen(front_msg));
 	write(STDERR_FILENO, token_val, ft_strlen(token_val));
 	write(STDERR_FILENO, back_msg, ft_strlen(back_msg));
+	set_exitcode(258, 0);
 	free_list(stack, 0, LEX);
 	free(token_val);
 	return (FAILURE);
