@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 21:24:06 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/16 21:51:19 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/17 12:41:33 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ static char	*strjoin_slash(char *s1, char *s2)
 	if (tmp == NULL)
 		exit(MALLOC_FAILURE);
 	tmp = ft_strjoin_and_free(tmp, s2);
-	if (tmp == NULL)
-		exit(MALLOC_FAILURE);
 	return (tmp);
 }
 
 static void	find_path(char **cmd, char **path_split)
 {
+	char	**tmp;
 	char	*merged_path;
 
 	if (path_split == NULL)
 		return ;
+	tmp = path_split;
 	while (*path_split)
 	{
 		merged_path = strjoin_slash(*path_split, cmd[0]);
@@ -41,7 +41,7 @@ static void	find_path(char **cmd, char **path_split)
 			merged_path = NULL;
 			if (access(cmd[0], X_OK) == SUCCESS)
 			{
-				free_twoptr(path_split, 0);
+				free_twoptr(tmp, 0);
 				return ;
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 11:15:19 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 13:01:26 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,16 @@ static int	execute_parentheses(t_tree *cur)
 	return (execute(cur->left_child, 0));
 }
 
+void	print_chartwoptr(char **cmds)
+{
+	printf("print char two ptr go\n");
+	while (*cmds)
+	{
+		printf("%s\n", *cmds);
+		++cmds;
+	}
+}
+
 static int	execute_compound(t_tree *cur)
 {
 	char	**cmds;
@@ -62,9 +72,10 @@ static int	execute_compound(t_tree *cur)
 	pid_t	pid;
 	int		status;
 
-	cmds = compound_to_char_twoptr(cur->right_child);
+	cmds = compound_to_char_twoptr(cur);
 	if (do_builtin(cmds) == SUCCESS)
 		return (get_exitcode() + free_twoptr(cmds, 0));
+	printf("fork go\n");
 	pid = fork();
 	if (pid < 0)
 		perror_msg(NULL, 1);
@@ -80,7 +91,7 @@ static int	execute_compound(t_tree *cur)
 	add_path_and_access_check(path_split, cmds);
 	execve(cmds[0], cmds, env_to_char());
 	perror_msg(cmds[0], 1);
-	return (SUCCESS);
+	return (FAILURE);
 }
 
 static int	execute_command(t_tree *cur)

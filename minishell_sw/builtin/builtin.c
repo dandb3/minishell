@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:55:16 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/12 13:46:43 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:23:34 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int	do_builtin(char **cmds)
 	else if (!ft_strcmp(*cmds, "env"))
 		exit_code = builtin_env(cmds);
 	else
-		return (SUCCESS);
-	return (set_exitcode(exit_code, FAILURE));
+		return (FAILURE);
+	return (set_exitcode(exit_code, SUCCESS));
 }

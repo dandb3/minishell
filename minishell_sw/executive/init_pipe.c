@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 17:37:31 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/16 21:54:17 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/17 12:35:52 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ char	**make_path_split(void)
 	if (path == NULL)
 		return (NULL);
 	result = ft_split(path, ':');
+	free(path);
 	if (result == NULL)
 		exit(MALLOC_FAILURE);
-	free(path);
 	return (result);
 }
 

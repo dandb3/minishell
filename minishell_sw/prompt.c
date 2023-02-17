@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 09:43:29 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/17 12:35:16 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 static void	eof_exit(void)
 {
 	exit(EXIT_SUCCESS);
+}
+
+void	print_tree(t_tree *tree)
+{
+	if (!tree)
+		return ;
+	print_tree(tree->left_child);
+	printf("tree->val: %s", (char *)(((t_list *)(tree->val))->head->next->val));
+	print_tree(tree->right_child);
 }
 
 int	prompt(void)
@@ -31,9 +40,7 @@ int	prompt(void)
 		{
 			add_history(cmd);
 			parse_tree = parser(cmd);
-			printf("parse tree fin\n");
 			execute(parse_tree, 0);
-			printf("execute fin\n");
 		}
 		free(cmd);
 	}
