@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:07:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 19:43:07 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:56:00 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ char	*wildcard(char *wstr, size_t wlen)
 	sort_list(file_list);
 	closedir(dir_ptr);
 	res = check_list_names(wstr, wlen, file_list);
-	printf("res: %s\n", res);
-	printf("free list go\n");
 	free_list(file_list, 0, NAME);
 	return (res);
 }
