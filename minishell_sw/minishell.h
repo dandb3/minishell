@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 21:28:46 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/18 18:47:01 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ enum e_signal_state
 	SG_RUN = 0,
 	SG_STOP,
 	SG_HEREDOC_PARENT,
-	SG_HEREDOC_CHILD
+	SG_HEREDOC_CHILD,
+	SG_CHILD
 };
 
 typedef struct s_node
@@ -188,5 +189,8 @@ int			get_exitcode(void);
 int			make_token_list(t_list **token_list, char const *str);
 /*-------------------------------- signal ---------------------------------*/
 void		set_signal(int mode);
+
+/*-------------------------------- ...... ---------------------------------*/
+void		free_tree(t_tree *root);
 
 #endif

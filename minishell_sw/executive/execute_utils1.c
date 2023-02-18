@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 19:39:43 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 12:07:52 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:33:57 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	get_compound_tree_depth(t_tree *cur)
 char	**compound_to_char_twoptr(t_tree *cur)
 {
 	char	**cmd;
+	char	*str;
 	int		depth;
 
 	depth = get_compound_tree_depth(cur);
@@ -36,9 +37,15 @@ char	**compound_to_char_twoptr(t_tree *cur)
 		exit(MALLOC_FAILURE);
 	while (depth--)
 	{
-		cmd[depth] = expand_char(cur->val);
-		if (!cmd[depth])
-			exit(MALLOC_FAILURE);
+		str = expand_char(cur->val);
+		if (str == NULL)
+		{
+			cmd[depth] = ft_strdup("");
+			if (!cmd[depth])
+				exit(MALLOC_FAILURE);
+		}
+		else
+			cmd[depth] = str;
 		cur = cur->right_child;
 	}
 	return (cmd);

@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:20:12 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 11:42:02 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:44:52 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int	builtin_unset(char **cmds)
 			if (!ft_strncmp(*cmds, ((t_env *)cur->val)->key, get_envlen(*cmds)))
 			{
 				del_node(cur, ENV);
+				--(g_env_list->size);
 				break ;
 			}
 			cur = cur->next;

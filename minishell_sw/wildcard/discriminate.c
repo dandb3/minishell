@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:46:00 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 17:21:07 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:14:36 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // 	return (val);
 // }
 
-void	print_all(t_wild *wild, size_t widx, size_t nidx)
+void	print_all(t_wild *wild, size_t widx, size_t nidx) // 지우세용
 {
 	printf("wild->wstr: %s\n", wild->wstr);
 	printf("wild->name: %s\n", wild->name);

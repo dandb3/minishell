@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:07:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 13:08:05 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:15:20 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static char	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 		}
 		cur = cur->next;
 	}
+	res[ft_strlen(res) - 1] = '\0';
 	return (res);
 }
 

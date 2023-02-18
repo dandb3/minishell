@@ -6,16 +6,16 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 14:28:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/16 20:55:54 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 16:48:30 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <signal.h>
 
-static void	handler(int sig)
+static void	handler1(int sig)
 {
-	ft_printf("\n");
+	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 1);
 	rl_redisplay();
@@ -27,7 +27,7 @@ void	set_signal(int mode)
 {
 	if (mode == SG_RUN)
 	{
-		signal(SIGINT, handler);
+		signal(SIGINT, handler1);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (mode == SG_STOP)
@@ -44,6 +44,12 @@ void	set_signal(int mode)
 		signal(SIGINT, SIG_DFL);
 		return ;
 	}
+	else if (mode == SG_CHILD)
+	{
+		signal(SIGINT, handler1);
+		signal(SIGQUIT, SIG_DFL);
+		//signal(SIGQUIT, handler2);
+	}
 }
 
 int	ft_signal(void)
@@ -52,12 +58,12 @@ int	ft_signal(void)
 	struct sigaction	act_quit;
 
 	act_int.sa_flags = SA_RESTART;
-	act_int.__sigaction_u.__sa_handler = handler;
+	act_int.__sigaction_u.__sa_handler = handler1;
 	act_quit.sa_flags = SA_RESTART;
 	act_quit.__sigaction_u.__sa_handler = SIG_IGN;
 	if (sigaction(SIGINT, &act_int, NULL) | sigaction(SIGQUIT, &act_quit, NULL))
 	{
-		perror("");
+		perror(NULL);
 		exit(EXIT_FAILURE);
 	}
 	return (SUCCESS);
