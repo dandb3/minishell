@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 21:24:06 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/17 17:57:09 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 11:11:42 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ static void	access_check(char *cmd, char mode)
 
 void	add_path_and_access_check(char **path_split, char **cmd)
 {
+	if (path_split == NULL)
+		return ;
 	if (ft_strchr(cmd[0], '/') != NULL)
 		access_check(cmd[0], '/');
 	else
