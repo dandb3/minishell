@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:11:49 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/17 18:33:28 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 13:15:42 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_list	*make_list(t_type type)
 	if (type == ENV)
 	{
 		result->head = make_node(make_env("", FALSE), -1);
-		result->tail = make_node(make_env("\177", FALSE), -1);
+		result->tail = make_node(make_env("z", FALSE), -1);
+		*(((t_env *)(result->tail->val))->key) = '\177';
 	}
 	else
 	{

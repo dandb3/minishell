@@ -1,0 +1,34 @@
+total 536
+drwxr-xr-x  32 sunwsong  2022_seoul    1024 Feb 18 13:29 .
+drwxr-xr-x   5 sunwsong  2022_seoul     160 Feb 16 20:36 ..
+drwxr-xr-x   3 sunwsong  2022_seoul      96 Feb 16 20:20 .vscode
+-rw-r--r--   1 sunwsong  2022_seoul    3234 Feb 17 19:42 Makefile
+drwxr-xr-x   9 sunwsong  2022_seoul     288 Feb 18 13:17 builtin
+-rw-r--r--   1 sunwsong  2022_seoul    2414 Feb 18 13:15 doublylinkedlist1.c
+-rw-r--r--   1 sunwsong  2022_seoul    6088 Feb 18 13:17 doublylinkedlist1.o
+-rw-r--r--   1 sunwsong  2022_seoul    2180 Feb 17 11:58 doublylinkedlist2.c
+-rw-r--r--   1 sunwsong  2022_seoul    5584 Feb 18 13:17 doublylinkedlist2.o
+-rw-r--r--   1 sunwsong  2022_seoul    1396 Feb 17 11:58 doublylinkedlist3.c
+-rw-r--r--   1 sunwsong  2022_seoul    3920 Feb 18 13:17 doublylinkedlist3.o
+drwxr-xr-x   8 sunwsong  2022_seoul     256 Feb 18 13:17 env
+drwxr-xr-x  21 sunwsong  2022_seoul     672 Feb 18 13:17 executive
+-rw-r--r--   1 sunwsong  2022_seoul       0 Feb 18 13:29 infile
+drwxr-xr-x  52 sunwsong  2022_seoul    1664 Feb 16 14:06 libft
+-rw-r--r--   1 sunwsong  2022_seoul   44024 Feb 16 14:06 libft.a
+-rw-r--r--   1 sunwsong  2022_seoul    2101 Feb 18 13:16 main.c
+-rw-r--r--   1 sunwsong  2022_seoul    5392 Feb 18 13:17 main.o
+-rwxr-xr-x   1 sunwsong  2022_seoul  108608 Feb 18 13:17 minishell
+-rw-r--r--   1 sunwsong  2022_seoul    4649 Feb 18 11:08 minishell.h
+-rw-r--r--   1 sunwsong  2022_seoul    1845 Feb 16 20:20 minishell_utils1.c
+-rw-r--r--   1 sunwsong  2022_seoul    5880 Feb 18 13:17 minishell_utils1.o
+-rw-r--r--   1 sunwsong  2022_seoul    1841 Feb 16 20:20 minishell_utils2.c
+-rw-r--r--   1 sunwsong  2022_seoul    4636 Feb 18 13:17 minishell_utils2.o
+drwxr-xr-x  37 sunwsong  2022_seoul    1184 Feb 18 13:17 new_parser
+-rw-r--r--   1 sunwsong  2022_seoul    1987 Feb 18 13:16 prompt.c
+-rw-r--r--   1 sunwsong  2022_seoul    5112 Feb 18 13:17 prompt.o
+-rw-r--r--   1 sunwsong  2022_seoul    1803 Feb 17 11:58 signal.c
+-rw-r--r--   1 sunwsong  2022_seoul    6256 Feb 18 13:17 signal.o
+-rw-r--r--   1 sunwsong  2022_seoul    1171 Feb 11 14:03 terminal.c
+-rw-r--r--   1 sunwsong  2022_seoul    4136 Feb 18 13:17 terminal.o
+drwxr-xr-x   9 sunwsong  2022_seoul     288 Feb 18 13:17 wildcard
+[?2004hMINI$ sdddfjdfjcccdw[?2004l

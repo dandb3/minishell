@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 20:39:18 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 13:16:17 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static void	eof_exit(void)
 {
 	printf("exit\n");
-	exit(EXIT_SUCCESS);
+	exit(get_exitcode());
 }
 
-void	print_tree(t_tree *tree)
+void	print_tree(t_tree *tree) // 지우세용
 {
 	if (!tree)
 		return ;
@@ -50,7 +50,6 @@ int	prompt(void)
 	return (0);
 }
 
-
 // int	prompt(void)
 // {
 // 	char	*cmd;
@@ -69,13 +68,10 @@ int	prompt(void)
 // 			if (!cmds)
 // 				exit(MALLOC_FAILURE);
 // 			if (*cmds)
-// 			{
-// 				do_builtin(cmds);
-// 			}
+// 				set_exitcode(do_builtin(cmds), 0);
 // 			free_twoptr(cmds, 0);
 // 		}
 // 		free(cmd);
-// 		system("leaks minishell");
 // 	}
 // 	clear_history();
 // 	return (0);

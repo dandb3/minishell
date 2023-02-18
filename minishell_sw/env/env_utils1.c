@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:55:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/12 19:54:16 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 13:17:03 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,25 +77,26 @@ t_env	*make_env(const char *str, int to_check)
 int	push_environ(t_env *env, t_node *cur)
 {
 	t_node		*newnode;
-	const int	cmp = ft_strncmp(env->key, ((t_env *)(cur->val))->key, -1);
+	const int	cmp = ft_strcmp(env->key, ((t_env *)(cur->val))->key);
 
 	if (cmp == 0)
 	{
-		if (!(env->val))
+		if (env->val == NULL)
 			return (free_ret(env->key, env, NULL, SUCCESS));
 		free(((t_env *)(cur->val))->val);
 		((t_env *)(cur->val))->val = ft_strdup(env->val);
-		if (!(((t_env *)(cur->val))->val))
-			exit(EXIT_FAILURE);
+		if (((t_env *)(cur->val))->val == NULL)
+			exit(MALLOC_FAILURE);
 		return (free_ret(env->val, env->key, env, SUCCESS));
 	}
 	else if (cmp < 0)
 	{
 		newnode = (t_node *)ft_calloc(1, sizeof(t_node));
 		if (!newnode)
-			exit(EXIT_FAILURE);
+			exit(MALLOC_FAILURE);
 		newnode->val = env;
 		insert_node(cur->prev, newnode);
+		printf("insert node fin\n");
 		return (SUCCESS);
 	}
 	return (FAILURE);

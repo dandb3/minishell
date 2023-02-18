@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:20:12 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/13 19:38:43 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 11:42:02 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	builtin_exit(char **cmds)
 	if (!(*(++cmds)))
 	{
 		ft_printf("exit\n");
-		exit(EXIT_SUCCESS);
+		exit(get_exitcode());
 	}
 	ret = builtin_atoi(*cmds);
 	len = ft_strlen(*cmds);
@@ -71,7 +71,7 @@ int	builtin_export(char **cmds)
 		return (print_envlist("declare -x "));
 	while (*cmds)
 	{
-		cur = g_env_list->head->next;
+		cur = g_env_list->head->next->next;
 		env = make_env(*cmds++, TRUE);
 		if (!env)
 		{

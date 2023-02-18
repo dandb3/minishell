@@ -6,13 +6,13 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:07:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 10:56:00 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 13:08:05 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcard.h"
 
-void	print_wild(t_wild *wild)
+void	print_wild(t_wild *wild) // 지우세용
 {
 	printf("wild->wstr: %s\n", wild->wstr);
 	printf("wild->name: %s\n", wild->name);
