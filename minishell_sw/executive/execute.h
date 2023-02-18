@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:59:29 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 20:02:17 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:30:35 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void		init_pipeinfo(t_pipe_info *info, t_tree *cur);
 void		pipe_process(t_pipe_info *info, t_tree *cur_tree);
 
 // redirect
-void		manage_redirect(t_tree *cur);
+int			manage_redirect(t_tree *cur);
 
 // open_file
-void		read_file(char *filename);
-void		write_file(char *filename);
-void		append_file(char *filename);
+int			read_file(char *filename);
+int			write_file(char *filename);
+int			append_file(char *filename);
 
 // here_doc
-void		here_doc(char *word, int to_del);
+int			here_doc(char *word, int to_del);
 
 #endif
