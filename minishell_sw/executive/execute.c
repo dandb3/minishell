@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 13:01:26 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 10:58:55 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	execute_parentheses(t_tree *cur)
 	return (execute(cur->left_child, 0));
 }
 
-void	print_chartwoptr(char **cmds)
+void	print_chartwoptr(char **cmds) // 지우세용
 {
 	printf("print char two ptr go\n");
 	while (*cmds)
@@ -84,13 +84,12 @@ static int	execute_compound(t_tree *cur)
 	cmds = compound_to_char_twoptr(cur);
 	if (do_builtin(cmds) == SUCCESS)
 		return (get_exitcode() + free_twoptr(cmds, 0));
-	printf("fork go\n");
+	set_signal(SG_STOP);
 	pid = fork();
 	if (pid < 0)
 		perror_msg(NULL, 1);
 	if (pid != 0)
 	{
-		set_signal(SG_STOP);
 		free_twoptr(cmds, 0);
 		status = get_status(pid);
 		set_signal(SG_RUN);

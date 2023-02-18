@@ -14,10 +14,11 @@
 
 static void	eof_exit(void)
 {
-	exit(EXIT_SUCCESS);
+	printf("exit\n");
+	exit(get_exitcode());
 }
 
-void	print_tree(t_tree *tree)
+void	print_tree(t_tree *tree) // 지우세용
 {
 	if (!tree)
 		return ;
@@ -40,14 +41,14 @@ int	prompt(void)
 		{
 			add_history(cmd);
 			parse_tree = parser(cmd);
-			execute(parse_tree, 0);
+			set_exitcode(execute(parse_tree, 0), 0);
+		//	system("leaks minishell");
 		}
 		free(cmd);
 	}
 	clear_history();
 	return (0);
 }
-
 
 // int	prompt(void)
 // {
@@ -67,13 +68,10 @@ int	prompt(void)
 // 			if (!cmds)
 // 				exit(MALLOC_FAILURE);
 // 			if (*cmds)
-// 			{
-// 				do_builtin(cmds);
-// 			}
+// 				set_exitcode(do_builtin(cmds), 0);
 // 			free_twoptr(cmds, 0);
 // 		}
 // 		free(cmd);
-// 		system("leaks minishell");
 // 	}
 // 	clear_history();
 // 	return (0);

@@ -13,7 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h> // 지우세용
+# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -181,7 +181,7 @@ t_list		*make_envlist(char **envp);
 char		**env_to_char(void);
 void		sort_envlist(t_list *env_list);
 char		*find_env_val(const char *key);
-int			set_exitcode(int exit_code, long long ret);
+int			set_exitcode(int exit_code, int ret);
 int			get_exitcode(void);
 
 /*lexer*/

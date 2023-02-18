@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:43:15 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 13:09:01 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 12:35:53 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_list	*make_envlist(char **envp)
 	env_list = make_list(ENV);
 	env = make_env("?", FALSE);
 	env->val = ft_strdup("0");
-	if (!(env->val))
+	if (env->val == NULL)
 		exit(MALLOC_FAILURE);
 	node = make_node(env, -1);
 	push_node(node, env_list);
@@ -114,7 +114,7 @@ char	*find_env_val(char const *key)
 	return (NULL);
 }
 
-int	set_exitcode(int exit_code, long long ret)
+int	set_exitcode(int exit_code, int ret)
 {
 	char	*code;
 

@@ -36,7 +36,7 @@ static char	*read_here_doc(char *here_doc_end)
 void	here_doc_or_pop(t_list *stack, t_node **cur_token)
 {
 	char	*here_doc_end;
-
+  
 	if ((*cur_token)->lex == LEX_COMPOUND \
 		&& (*cur_token)->prev->lex == LEX_HERE_DOC)
 	{
