@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:58:07 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 09:02:36 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 16:49:12 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	parent_process(t_pipe_info *info)
 	int	idx;
 
 	idx = -1;
+	set_signal(SG_STOP);
 	close_all(info);
 	while (++idx < info->process_cnt)
 	{
@@ -65,6 +66,7 @@ static void	child_process(t_pipe_info *info, int idx, t_tree *command_tree)
 	if (do_builtin(cmd) == SUCCESS)
 		exit(get_exitcode());
 	add_path_and_access_check(info->path_split, cmd);
+	set_signal(SG_CHILD);
 	execve(cmd[0], cmd, env_to_char());
 	write(STDERR_FILENO, SHELL, SHELL_LEN);
 	perror_msg(cmd[0], 1);

@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 10:58:55 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 16:47:26 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static int	execute_pipe(t_tree *cur)
 	}
 	init_pipeinfo(&info, cur);
 	pipe_process(&info, cur);
+	set_signal(SG_RUN);
 	return (SUCCESS);
 }
 
@@ -84,12 +85,12 @@ static int	execute_compound(t_tree *cur)
 	cmds = compound_to_char_twoptr(cur);
 	if (do_builtin(cmds) == SUCCESS)
 		return (get_exitcode() + free_twoptr(cmds, 0));
-	set_signal(SG_STOP);
 	pid = fork();
 	if (pid < 0)
 		perror_msg(NULL, 1);
 	if (pid != 0)
 	{
+		set_signal(SG_STOP);
 		free_twoptr(cmds, 0);
 		status = get_status(pid);
 		set_signal(SG_RUN);
@@ -97,6 +98,7 @@ static int	execute_compound(t_tree *cur)
 	}
 	path_split = make_path_split();
 	add_path_and_access_check(path_split, cmds);
+	set_signal(SG_CHILD);
 	execve(cmds[0], cmds, env_to_char());
 	perror_msg(cmds[0], 1);
 	return (FAILURE);
@@ -106,12 +108,10 @@ static int	execute_command(t_tree *cur)
 {
 	manage_redirect(cur->left_child);
 	if (cur->right_child == NULL)
-		return (SUCCESS);
+		return (SUCCESS); // ??
 	if (cur->right_child->symbol == AST_PARENTHESESES)
-		execute_parentheses(cur->right_child);
-	else
-		execute_compound(cur->right_child);
-	return (SUCCESS);
+		return (execute_parentheses(cur->right_child));
+	return (execute_compound(cur->right_child));
 }
 
 int	execute(t_tree *cur, int prev_status)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 11:21:23 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/18 17:29:23 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ int	prompt(void)
 		{
 			add_history(cmd);
 			parse_tree = parser(cmd);
-			set_exitcode(execute(parse_tree, 0), 0);
+			if (parse_tree)
+			{
+				set_exitcode(execute(parse_tree, 0), 0);
+				free_tree(parse_tree);
+			}
 		//	system("leaks minishell");
 		}
 		free(cmd);
