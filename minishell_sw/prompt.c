@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 21:28:56 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/18 11:21:23 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	prompt(void)
 			add_history(cmd);
 			parse_tree = parser(cmd);
 			execute(parse_tree, 0);
-			system("leaks minishell");
 		}
 		free(cmd);
 	}
