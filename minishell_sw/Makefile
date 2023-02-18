@@ -6,7 +6,7 @@
 #    By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 19:25:02 by jdoh              #+#    #+#              #
-#    Updated: 2023/02/17 21:00:11 by jdoh             ###   ########.fr        #
+#    Updated: 2023/02/18 17:51:08 by jdoh             ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,11 @@ LIBFT_DIR	=	libft
 #RL_LINK_FLAG	= -lreadline -L $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/lib
 #RL_COMP_FLAG	= -I $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/include
 
-RL_LINK_FLAG	= -lreadline -L/opt/homebrew/opt/readline/lib
-RL_COMP_FLAG	= -I/opt/homebrew/opt/readline/include
+#RL_LINK_FLAG	= -lreadline -L/opt/homebrew/opt/readline/lib
+#RL_COMP_FLAG	= -I/opt/homebrew/opt/readline/include
+
+RL_LINK_FLAG	=	-lreadline -L/Users/jdoh/.brew/opt/readline/lib
+RL_COMP_FLAG	=	-I/Users/jdoh/.brew/opt/readline/include
 
 CFLAGS		=	-Werror -Wextra -Wall -g3
 BONUS_MODE	=	$(findstring bonus, $(MAKECMDGOALS))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 10:58:55 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 20:16:02 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,42 +76,70 @@ void	print_chartwoptr(char **cmds) // 지우세용
 
 static int	execute_compound(t_tree *cur)
 {
-	char	**cmds;
+	char	**cmd;
 	char	**path_split;
 	pid_t	pid;
 	int		status;
 
-	cmds = compound_to_char_twoptr(cur);
-	if (do_builtin(cmds) == SUCCESS)
-		return (get_exitcode() + free_twoptr(cmds, 0));
+	cmd = compound_to_char_twoptr(cur);
+	if (do_builtin(cmd) == SUCCESS)
+		return (get_exitcode() + free_twoptr(cmd, 0));
 	set_signal(SG_STOP);
 	pid = fork();
 	if (pid < 0)
 		perror_msg(NULL, 1);
 	if (pid != 0)
 	{
-		free_twoptr(cmds, 0);
+		free_twoptr(cmd, 0);
 		status = get_status(pid);
 		set_signal(SG_RUN);
 		return (status);
 	}
 	path_split = make_path_split();
-	add_path_and_access_check(path_split, cmds);
-	execve(cmds[0], cmds, env_to_char());
-	perror_msg(cmds[0], 1);
+	add_path_and_access_check(path_split, cmd);
+	execve(cmd[0], cmd, env_to_char());
+	perror_msg(cmd[0], 1);
 	return (FAILURE);
+}
+
+static int	redirection_return(int red_in, int red_out, int ret)
+{
+	if (dup2(red_in, STDIN_FILENO) == FAILURE)
+		perror_msg(NULL, 1);
+	if (dup2(red_out, STDOUT_FILENO) == FAILURE)
+		perror_msg(NULL, 1);
+	if (close(red_in) == FAILURE)
+		perror_msg(NULL, 1);
+	if (close(red_out) == FAILURE)
+		perror_msg(NULL, 1);
+	return (ret);
+}
+
+static void	redirection_set(int *red_in, int *red_out)
+{
+	*red_in = dup(STDIN_FILENO);
+	*red_out = dup(STDOUT_FILENO);
+	if (*red_in == FAILURE || *red_out == FAILURE)
+		perror_msg(NULL, 1);
 }
 
 static int	execute_command(t_tree *cur)
 {
-	manage_redirect(cur->left_child);
+	int	red_in;
+	int	red_out;
+	int	status;
+
+	redirection_set(&red_in, &red_out);
+	status = manage_redirect(cur->left_child);
+	if (status != SUCCESS)
+		return (redirection_return(red_in, red_out, status));
 	if (cur->right_child == NULL)
-		return (SUCCESS);
+		return (redirection_return(red_in, red_out, SUCCESS));
 	if (cur->right_child->symbol == AST_PARENTHESESES)
 		execute_parentheses(cur->right_child);
 	else
 		execute_compound(cur->right_child);
-	return (SUCCESS);
+	return (redirection_return(red_in, red_out, SUCCESS));
 }
 
 int	execute(t_tree *cur, int prev_status)

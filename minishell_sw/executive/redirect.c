@@ -3,21 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 13:06:42 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 20:33:43 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 20:28:09 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-void	manage_redirect(t_tree *cur)
+int	manage_redirect(t_tree *cur)
 {
 	char	*val;
+	int		status;
 
+	status = 0;
 	if (!cur)
-		return ;
+		return (SUCCESS);
+	if (manage_redirect(cur->left_child) == 1)
+		return (1);
 	if (cur->symbol == AST_HERE_DOC)
 	{
 		val = cur->val;
@@ -25,14 +29,14 @@ void	manage_redirect(t_tree *cur)
 	}
 	else
 		val = expand_char(cur->val);
-	manage_redirect(cur->left_child);
 	if (cur->symbol == AST_REDIRECT_IN)
-		read_file(val);
+		status = read_file(val);
 	else if (cur->symbol == AST_REDIRECT_OUT)
-		write_file(val);
+		status = write_file(val);
 	else if (cur->symbol == AST_REDIRECT_APPEND)
-		append_file(val);
+		status = append_file(val);
 	else if (cur->symbol == AST_HERE_DOC)
-		here_doc(val, FALSE);
+		status = here_doc(val, FALSE);
 	free(val);
+	return (status);
 }
