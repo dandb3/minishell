@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:55:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 13:17:03 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:43:52 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	push_environ(t_env *env, t_node *cur)
 			exit(MALLOC_FAILURE);
 		newnode->val = env;
 		insert_node(cur->prev, newnode);
-		printf("insert node fin\n");
+		++(g_env_list->size);
 		return (SUCCESS);
 	}
 	return (FAILURE);

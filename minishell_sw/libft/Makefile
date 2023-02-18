@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sunwsong <sunwsong@student.42.fr>          +#+  +:+       +#+         #
+#    By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/19 17:38:04 by sunwsong          #+#    #+#              #
-#    Updated: 2023/01/29 20:22:00 by sunwsong         ###   ########.fr        #
+#    Updated: 2023/02/18 19:22:30 by sunwsong         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

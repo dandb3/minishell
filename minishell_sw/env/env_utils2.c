@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:43:15 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 17:10:09 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:42:00 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ char	**env_to_char(void)
 		if (!envp[idx++])
 			exit(MALLOC_FAILURE);
 		cur = cur->next;
+	}
+	if ((int)idx != g_env_list->size)
+	{
+		printf("g_env_list->size: %d, idx: %zu\n", g_env_list->size, idx);
 	}
 	return (envp);
 }

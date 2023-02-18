@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:46:23 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 19:52:14 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:27:32 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ static size_t	expand_env(t_node *env_token)
 
 	val = find_env_val(env_token->val);
 	free(env_token->val);
-	len = ft_strlen(val);
 	env_token->val = val;
+	if (val == NULL)
+		return (0);
+	len = ft_strlen(val);
 	return (len);
 }
 

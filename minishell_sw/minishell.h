@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 15:55:56 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/18 18:47:01 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,5 +189,8 @@ int			get_exitcode(void);
 int			make_token_list(t_list **token_list, char const *str);
 /*-------------------------------- signal ---------------------------------*/
 void		set_signal(int mode);
+
+/*-------------------------------- ...... ---------------------------------*/
+void		free_tree(t_tree *root);
 
 #endif
