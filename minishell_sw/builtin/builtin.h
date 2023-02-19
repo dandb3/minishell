@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:59:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/12 13:26:06 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:19:32 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <dirent.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+
+# define HOME_NOT_SET "MINI: cd: HOME not set\n"
 
 int		builtin_pwd(void);
 int		builtin_cd(char **cmds);

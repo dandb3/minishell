@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:20:12 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 19:44:52 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:22:51 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static long long	builtin_atoi(const char *str)
 		num = num * 10 + (str[idx++] - '0');
 	if ((str[idx] != 0 && (str[idx] < '0' || '9' < str[idx])) || idx >= 21)
 	{
-		ft_printf("exit\nMINI: exit: %s: numeric argument required\n", str);
+		print_err("exit\nMINI: exit: ", str, ": numeric argument required\n");
 		exit(255);
 	}
 	return (num * sign);
@@ -52,7 +52,8 @@ void	builtin_exit(char **cmds)
 	{
 		if ((*cmds)[len - 1] - '0' != (ret % 10) * ((ret > 0) * 2 - 1))
 		{
-			ft_printf("exit\nMINI: exit: %s: numeric argument required\n", *cmds);
+			print_err("exit\nMINI: exit: ",
+				*cmds, ": numeric argument required\n");
 			exit(255);
 		}
 	}
@@ -92,7 +93,7 @@ int	builtin_env(char **cmds)
 {
 	if (cmds[1] != NULL)
 	{
-		ft_printf("env: env does not need arguments\n");
+		print_err("env: env does not need arguments\n", NULL, NULL);
 		return (EXIT_FAILURE);
 	}
 	print_envlist(NULL);
@@ -109,7 +110,7 @@ int	builtin_unset(char **cmds)
 	{
 		if (check_valid_keyname(*cmds) == FALSE)
 		{
-			ft_printf("MINI: unset: '%s': not a valid identifier\n", *cmds);
+			print_err("MINI: unset: `", *cmds, "\': not a valid identifier\n");
 			exit_code = 1;
 			continue ;
 		}

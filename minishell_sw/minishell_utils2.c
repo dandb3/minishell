@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:24:55 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/14 21:05:56 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:20:39 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,14 @@ char	*extract_pure_word(t_list *compound_list)
 	ret = compound_list->head->next->val;
 	compound_list->head->next->val = NULL;
 	return (ret);
+}
+
+void	print_err(char *str1, char *str2, char *str3)
+{
+	if (str1 != NULL)
+		write(STDERR_FILENO, str1, ft_strlen(str1));
+	if (str2 != NULL)
+		write(STDERR_FILENO, str2, ft_strlen(str2));
+	if (str3 != NULL)
+		write(STDERR_FILENO, str3, ft_strlen(str3));
 }
