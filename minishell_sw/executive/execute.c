@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/19 11:20:38 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/19 12:35:34 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static int	execute_compound(t_tree *cur)
 	add_path_and_access_check(path_split, cmd);
 	set_signal(SG_CHILD);
 	execve(cmd[0], cmd, env_to_char());
-	perror_msg(cmd[0], 1);
+	perror_msg(cmd[0], 127);
 	return (FAILURE);
 }
 
