@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 20:59:01 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/19 11:20:38 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ static void	redirection_set(int *red_in, int *red_out)
 		perror_msg(NULL, 1);
 }
 
-static int	execute_command(t_tree *cur)
+int	execute_command(t_tree *cur)
 {
 	int	red_in;
 	int	red_out;

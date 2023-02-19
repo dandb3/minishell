@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:59:29 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 19:30:35 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/19 11:21:03 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ typedef struct s_pipe_info
 	int		(*fds)[2];
 	int		process_cnt;
 }	t_pipe_info;
+
+// execute
+int			execute_command(t_tree *cur);
 
 // execute_utils
 char		**compound_to_char_twoptr(t_tree *cur);
