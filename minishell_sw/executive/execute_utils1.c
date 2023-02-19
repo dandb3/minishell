@@ -6,47 +6,61 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 19:39:43 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 19:33:57 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:48:18 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-static int	get_compound_tree_depth(t_tree *cur)
+static void	append_to_list(t_list *ori_list, t_list *expanded_list)
 {
-	int	idx;
+	t_node	*cur;
+	char	*str;
 
-	idx = 0;
-	while (cur)
+	cur = expanded_list->tail->prev;
+	while (cur->prev)
 	{
-		cur = cur->right_child;
-		++idx;
+		str = ft_strdup(cur->val);
+		if (str == NULL)
+			exit(MALLOC_FAILURE);
+		push_node(make_node(str, -1), ori_list);
+		cur = cur->prev;
 	}
-	return (idx);
+	free_list(expanded_list, 0, NAME);
+}
+
+static char	**list_to_char_twoptr(t_list *list)
+{
+	t_node	*cur;
+	size_t	idx;
+	char	**cmd;
+
+	cmd = (char **)ft_calloc(list->size + 1, sizeof(char *));
+	if (cmd == NULL)
+		exit(MALLOC_FAILURE);
+	cur = list->tail->prev;
+	idx = -1;
+	while (cur->prev)
+	{
+		cmd[++idx] = ft_strdup(cur->val);
+		if (!cmd[idx])
+			exit(MALLOC_FAILURE);
+		cur = cur->prev;
+	}
+	return (cmd);
 }
 
 char	**compound_to_char_twoptr(t_tree *cur)
 {
-	char	**cmd;
-	char	*str;
-	int		depth;
+	t_list	*list;
+	t_list	*expanded_list;
 
-	depth = get_compound_tree_depth(cur);
-	cmd = (char **)ft_calloc(depth + 1, sizeof(char *));
-	if (!cmd)
-		exit(MALLOC_FAILURE);
-	while (depth--)
+	list = make_list(NAME);
+	while (cur)
 	{
-		str = expand_char(cur->val);
-		if (str == NULL)
-		{
-			cmd[depth] = ft_strdup("");
-			if (!cmd[depth])
-				exit(MALLOC_FAILURE);
-		}
-		else
-			cmd[depth] = str;
+		expanded_list = expand_char(cur->val);
 		cur = cur->right_child;
+		append_to_list(list, expanded_list);
 	}
-	return (cmd);
+	return (list_to_char_twoptr(list));
 }

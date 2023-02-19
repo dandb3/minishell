@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:07:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 19:15:20 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:59:25 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,12 @@ void	print_wild(t_wild *wild) // 지우세용
 	printf("wild->nlen: %zu\n", wild->nlen);
 }
 
-static char	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
+static t_list	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 {
 	t_node	*cur;
-	char	*res;
+	t_list	*res;
 
-	res = (char *)malloc(sizeof(char));
-	if (!res)
-		exit(MALLOC_FAILURE);
-	*res = 0;
+	res = make_list(NAME);
 	cur = file_list->head->next;
 	while (cur->next)
 	{
@@ -36,21 +33,18 @@ static char	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 		wild->nlen = ft_strlen(wild->name);
 		free_and_realloc_dp(wild, dp);
 		if (disc(wild, dp, 0, 0))
-		{
-			res = ft_strjoin_and_free(res, wild->name);
-			res = ft_strjoin_and_free(res, " ");
-		}
+			push_node(make_node(wild->name, -1), res);
 		cur = cur->next;
 	}
-	res[ft_strlen(res) - 1] = '\0';
 	return (res);
 }
 
-static char	*check_list_names(char *wstr, size_t wlen, t_list *file_list)
+static t_list	*check_list_names(char *wstr, size_t wlen, t_list *file_list)
 {
 	t_wild	wild;
 	char	**dp;
-	char	*res;
+	char	*wstr_dup;
+	t_list	*res;
 
 	wild.wstr = wilddup(wstr, wlen);
 	wild.wlen = wlen;
@@ -60,6 +54,13 @@ static char	*check_list_names(char *wstr, size_t wlen, t_list *file_list)
 	res = iterate_list(dp, &wild, file_list);
 	free(wild.wstr);
 	free_twoptr(dp, 0);
+	if (res->size == 0)
+	{
+		wstr_dup = ft_strdup(wstr);
+		if (wstr_dup == NULL)
+			exit(MALLOC_FAILURE);
+		push_node(make_node(wstr_dup, -1), res);
+	}
 	return (res);
 }
 
@@ -82,20 +83,26 @@ static void	set_file_list(DIR *dir_ptr, t_list **file_list)
 	}
 }
 
-char	*wildcard(char *wstr, size_t wlen)
+t_list	*wildcard(char *wstr, size_t wlen)
 {
 	DIR		*dir_ptr;
 	t_list	*file_list;
+	t_list	*res;
 	char	*path;
-	char	*res;
 
-	path = getcwd(NULL, UINT32_MAX);
+	path = ft_getcwd(NULL);
 	if (!path)
-		exit(EXIT_FAILURE);
+	{
+		set_exitcode(1, 0);
+		return (NULL);
+	}
 	dir_ptr = opendir(path);
 	free(path);
 	if (!dir_ptr)
+	{
+		set_exitcode(1, 0);
 		return (NULL);
+	}
 	file_list = make_list(NAME);
 	set_file_list(dir_ptr, &file_list);
 	sort_list(file_list);

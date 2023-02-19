@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:24:55 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/14 21:05:56 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/19 09:36:12 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,22 @@ char	*extract_pure_word(t_list *compound_list)
 	ret = compound_list->head->next->val;
 	compound_list->head->next->val = NULL;
 	return (ret);
+}
+
+char	*ft_getcwd(const char *cmd)
+{
+	char	*pwd;
+
+	pwd = getcwd(NULL, UINT32_MAX);
+	if (pwd == NULL)
+	{
+		if (cmd)
+		{
+			write(STDERR_FILENO, cmd, ft_strlen(cmd));
+			write(STDERR_FILENO, ": ", 2);
+		}
+		perror(NULL);
+		return (NULL);
+	}
+	return (pwd);
 }
