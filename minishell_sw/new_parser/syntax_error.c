@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 19:26:26 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/18 17:10:06 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/19 20:33:05 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ int	error_manage(t_node *cur_token, t_list *stack)
 	}
 	else
 		token_val = find_token_val(cur_token);
-	write(STDERR_FILENO, front_msg, ft_strlen(front_msg));
-	write(STDERR_FILENO, token_val, ft_strlen(token_val));
-	write(STDERR_FILENO, back_msg, ft_strlen(back_msg));
+	print_err(front_msg, token_val, back_msg);
 	set_exitcode(258, 0);
 	free_list(stack, 0, LEX);
 	free(token_val);

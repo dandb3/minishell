@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:24:55 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/19 13:20:39 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/19 20:26:38 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*extract_pure_word(t_list *compound_list)
 	return (ret);
 }
 
-void	print_err(char *str1, char *str2, char *str3)
+void	print_err(char const *str1, char const *str2, char const *str3)
 {
 	if (str1 != NULL)
 		write(STDERR_FILENO, str1, ft_strlen(str1));

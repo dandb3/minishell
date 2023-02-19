@@ -1,17 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax_check_utils.c                               :+:      :+:    :+:   */
+/*   syntax_check_utils1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:03:28 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/17 22:27:16 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/19 21:17:51 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "parser.h"
+
+void	syntax_init(t_node **cur_token, t_list **stack, t_list *token_list)
+{
+	init_heredoc_status();
+	*cur_token = token_list->head->next;
+	*stack = make_list(LEX);
+	push(*stack, make_tree(AST_E0));
+}
 
 static char	*read_here_doc(char *here_doc_end)
 {
@@ -36,7 +44,8 @@ static char	*read_here_doc(char *here_doc_end)
 void	here_doc_or_pop(t_list *stack, t_node **cur_token)
 {
 	char	*here_doc_end;
-  
+
+	pop_tree(stack);
 	if ((*cur_token)->lex == LEX_COMPOUND \
 		&& (*cur_token)->prev->lex == LEX_HERE_DOC)
 	{
@@ -48,5 +57,4 @@ void	here_doc_or_pop(t_list *stack, t_node **cur_token)
 		free(here_doc_end);
 	}
 	*cur_token = (*cur_token)->next;
-	pop_tree(stack);
 }
