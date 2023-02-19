@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:06:55 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 14:11:00 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/19 10:56:59 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,14 @@ static t_tree	*make_total_tree(t_list *pipe_stack, t_list *and_or_stack,
 	return (cur_tree);
 }
 
+static t_tree	*free_stack_and_return(t_list *pipe_stack, t_list *and_or_stack,
+	t_tree *ret)
+{
+	free_list(pipe_stack, 0, LEX);
+	free_list(and_or_stack, 0, LEX);
+	return (ret);
+}
+
 t_tree	*make_expression(t_node **cur_token)
 {
 	t_tree	*cur_tree;
@@ -83,10 +91,11 @@ t_tree	*make_expression(t_node **cur_token)
 		else if ((*cur_token)->lex == LEX_AND || (*cur_token)->lex == LEX_OR)
 			make_and_or_tree(pipe_stack, and_or_stack, cur_tree, cur_token);
 		else if ((*cur_token)->lex == LEX_PARENTHESIS_CLOSE)
+		{
 			cur_tree = make_total_tree(pipe_stack, and_or_stack,
 					cur_tree, cur_token);
+			return (free_stack_and_return(pipe_stack, and_or_stack, cur_tree));
+		}
 	}
-	free_list(pipe_stack, 0, LEX);
-	free_list(and_or_stack, 0, LEX);
-	return (cur_tree);
+	return (free_stack_and_return(pipe_stack, and_or_stack, cur_tree));
 }

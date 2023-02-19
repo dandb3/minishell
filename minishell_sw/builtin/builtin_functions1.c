@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:36:47 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/15 14:49:46 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:12:24 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	builtin_cd(char **cmds)
 	{
 		nxtpwd = find_env_val("HOME");
 		if (!nxtpwd)
-			return ((ft_printf("MINI: cd: HOME not set\n") & 0) | 1);
+			return ((write(STDERR_FILENO, HOME_NOT_SET, 23) & 0) | 1);
 	}
 	if (!nxtpwd)
 		nxtpwd = ft_strdup(*cmds);
@@ -66,7 +66,7 @@ int	builtin_cd(char **cmds)
 		return (free_ret(nxtpwd, oldpwd, NULL, EXIT_SUCCESS));
 	if (chdir(nxtpwd) == -1)
 	{
-		ft_printf("MINI: cd: ");
+		write(STDERR_FILENO, "MINI: cd: ", 10);
 		perror(nxtpwd);
 		return (free_ret(nxtpwd, oldpwd, NULL, EXIT_FAILURE));
 	}

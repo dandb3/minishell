@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 18:47:01 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:20:30 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ char		*ft_strjoin_and_free(char *s1, char *s2);
 void		error_msg(char *str, int status);
 void		perror_msg(char *str, int status);
 char		*extract_pure_word(t_list *compound_list);
+void		print_err(char *str1, char *str2, char *str3);
 
 /*------------------------------- env utils -------------------------------*/
 size_t		get_envlen(const char *str);

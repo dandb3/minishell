@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 21:24:06 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/18 11:11:42 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/19 12:50:51 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,30 @@ static char	*strjoin_slash(char *s1, char *s2)
 	return (tmp);
 }
 
-static void	find_path(char **cmd, char **path_split)
+static int	find_path(char **cmd, char **path_split)
 {
 	char	**tmp;
 	char	*merged_path;
+	int		status;
 
-	if (path_split == NULL)
-		return ;
+	status = FAILURE;
 	tmp = path_split;
 	while (*path_split)
 	{
 		merged_path = strjoin_slash(*path_split, cmd[0]);
 		if (access(merged_path, F_OK) == SUCCESS)
 		{
+			status = SUCCESS;
 			free(cmd[0]);
 			cmd[0] = merged_path;
 			merged_path = NULL;
 			if (access(cmd[0], X_OK) == SUCCESS)
-			{
-				free_twoptr(tmp, 0);
-				return ;
-			}
+				return (free_twoptr(tmp, status));
 		}
 		free(merged_path);
 		++path_split;
 	}
+	return (status);
 }
 
 static void	access_check(char *cmd, char mode)
@@ -74,13 +73,23 @@ static void	access_check(char *cmd, char mode)
 void	add_path_and_access_check(char **path_split, char **cmd)
 {
 	if (path_split == NULL)
+	{
+		access_check(cmd[0], '/');
 		return ;
+	}
 	if (ft_strchr(cmd[0], '/') != NULL)
 		access_check(cmd[0], '/');
 	else
 	{
-		find_path(cmd, path_split);
-		access_check(cmd[0], '\0');
+		if (find_path(cmd, path_split) == FAILURE)
+		{
+			write(STDERR_FILENO, SHELL, SHELL_LEN);
+			write(STDERR_FILENO, cmd[0], ft_strlen(cmd[0]));
+			write(STDERR_FILENO, ": ", 2);
+			error_msg(COMMAND_NOT_FOUND, 127);
+		}
+		else
+			access_check(cmd[0], '\0');
 	}
 }
 
