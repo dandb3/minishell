@@ -24,7 +24,8 @@
 		"ratio": "c",
 		"tuple": "c",
 		"utility": "c",
-		"locale": "c"
+		"locale": "c",
+		"__node_handle": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

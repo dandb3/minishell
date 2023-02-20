@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:36:47 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/15 14:49:46 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:46:49 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	builtin_pwd(void)
 {
 	char	*pwd;
 
-	pwd = getcwd(NULL, UINT32_MAX);
+	pwd = ft_getcwd("pwd");
 	if (pwd == NULL)
-		exit(MALLOC_FAILURE);
+		return (EXIT_FAILURE);
 	ft_printf("%s\n", pwd);
 	free(pwd);
 	return (EXIT_SUCCESS);
@@ -29,9 +29,11 @@ static int	export_pwd(char *nxtpwd, char *oldpwd)
 	char	**cmds;
 	char	*pwd;
 
-	pwd = getcwd(NULL, UINT32_MAX);
+	pwd = ft_getcwd("cd");
+	if (pwd == NULL)
+		return (EXIT_FAILURE);
 	cmds = (char **)ft_calloc(4, sizeof(char *));
-	if (!cmds || !pwd)
+	if (cmds == NULL)
 		exit(MALLOC_FAILURE);
 	cmds[0] = ft_strdup("export");
 	cmds[1] = ft_strjoin("OLDPWD=", oldpwd);
@@ -50,23 +52,24 @@ int	builtin_cd(char **cmds)
 	char		*oldpwd;
 	char		*nxtpwd;
 
-	nxtpwd = NULL;
 	if (!(*(++cmds)))
 	{
 		nxtpwd = find_env_val("HOME");
 		if (!nxtpwd)
-			return ((ft_printf("MINI: cd: HOME not set\n") & 0) | 1);
+			return ((write(STDERR_FILENO, HOME_NOT_SET, 23) & 0) | 1);
 	}
-	if (!nxtpwd)
+	else
 		nxtpwd = ft_strdup(*cmds);
-	oldpwd = getcwd(NULL, UINT32_MAX);
-	if (!nxtpwd || !oldpwd)
+	if (!nxtpwd)
 		exit(MALLOC_FAILURE);
+	oldpwd = ft_getcwd("cd");
+	if (!oldpwd)
+		return (EXIT_FAILURE);
 	if (ft_strlen(nxtpwd) == 0)
 		return (free_ret(nxtpwd, oldpwd, NULL, EXIT_SUCCESS));
 	if (chdir(nxtpwd) == -1)
 	{
-		ft_printf("MINI: cd: ");
+		write(STDERR_FILENO, "MINI: cd: ", 10);
 		perror(nxtpwd);
 		return (free_ret(nxtpwd, oldpwd, NULL, EXIT_FAILURE));
 	}

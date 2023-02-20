@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:55:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 19:43:52 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:23:31 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_env	*make_env(const char *str, int to_check)
 
 	if (to_check && !check_valid_keyname(str))
 	{
-		ft_printf("MINI: export: \'%s\': not a valid identifier\n", str);
+		print_err("MINI: export: `", str, "\': not a valid identifier\n");
 		return (NULL);
 	}
 	newenv = (t_env *)ft_calloc(1, sizeof(t_env));

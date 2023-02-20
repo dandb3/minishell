@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:40:50 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/11 23:02:06 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/18 22:55:47 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	white_space_lexeme(t_node **new_token, char const **str)
 		++(*str);
 	if (tmp == *str)
 		return (FAILURE);
-	*new_token = make_node(ft_strdup(""), LEX_WHITE);
+	*new_token = make_node(ft_substr(tmp, 0, *str - tmp), LEX_WHITE);
 	if (*new_token == NULL)
 		exit(MALLOC_FAILURE);
 	return (SUCCESS);

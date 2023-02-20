@@ -6,19 +6,18 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:06:13 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/14 17:52:48 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/19 10:56:33 by jdoh             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static t_tree	*make_subshell(t_tree *subroot, t_node **cur_token)
+static void	make_subshell(t_tree *subroot, t_node **cur_token)
 {
 	*cur_token = (*cur_token)->next;
 	subroot->right_child = make_tree(AST_PARENTHESESES);
 	subroot->right_child->left_child
 		= make_expression(cur_token);
-	return (subroot);
 }
 
 static void	add_redirect(t_tree *subroot, t_node **cur_token)
@@ -55,7 +54,7 @@ t_tree	*make_empty_tree(t_node **cur_token)
 
 	subroot = make_tree(AST_COMMAND);
 	if ((*cur_token)->lex == LEX_PARENTHESIS_OPEN)
-		return (make_subshell(subroot, cur_token));
+		make_subshell(subroot, cur_token);
 	while (is_compound_redirect((*cur_token)->lex))
 	{
 		if (is_redirect((*cur_token)->lex))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 20:10:01 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:06:53 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ static int	execute_compound(t_tree *cur)
 	}
 	path_split = make_path_split();
 	add_path_and_access_check(path_split, cmd);
-  set_signal(SG_CHILD);
+	set_signal(SG_CHILD);
 	execve(cmd[0], cmd, env_to_char());
-	perror_msg(cmd[0], 1);
+	perror_msg(cmd[0], 127);
 	return (FAILURE);
 }
 
@@ -125,7 +125,7 @@ static void	redirection_set(int *red_in, int *red_out)
 		perror_msg(NULL, 1);
 }
 
-static int	execute_command(t_tree *cur)
+int	execute_command(t_tree *cur)
 {
 	int	red_in;
 	int	red_out;
@@ -138,10 +138,10 @@ static int	execute_command(t_tree *cur)
 	if (cur->right_child == NULL)
 		return (redirection_return(red_in, red_out, SUCCESS));
 	if (cur->right_child->symbol == AST_PARENTHESESES)
-		execute_parentheses(cur->right_child);
+		status = execute_parentheses(cur->right_child);
 	else
-		execute_compound(cur->right_child);
-	return (redirection_return(red_in, red_out, SUCCESS));
+		status = execute_compound(cur->right_child);
+	return (redirection_return(red_in, red_out, status));
 }
 
 int	execute(t_tree *cur, int prev_status)

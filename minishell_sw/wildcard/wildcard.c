@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:07:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 19:15:20 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:50:23 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,13 @@ void	print_wild(t_wild *wild) // 지우세용
 	printf("wild->nlen: %zu\n", wild->nlen);
 }
 
-static char	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
+static t_list	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 {
 	t_node	*cur;
-	char	*res;
+	t_list	*res;
+	char	*str;
 
-	res = (char *)malloc(sizeof(char));
-	if (!res)
-		exit(MALLOC_FAILURE);
-	*res = 0;
+	res = make_list(NAME);
 	cur = file_list->head->next;
 	while (cur->next)
 	{
@@ -37,28 +35,30 @@ static char	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 		free_and_realloc_dp(wild, dp);
 		if (disc(wild, dp, 0, 0))
 		{
-			res = ft_strjoin_and_free(res, wild->name);
-			res = ft_strjoin_and_free(res, " ");
+			printf("disc success\n");
+			str = ft_strdup(wild->name);
+			if (str == NULL)
+				exit(MALLOC_FAILURE);
+			push_node(make_node(str, -1), res);
 		}
 		cur = cur->next;
 	}
-	res[ft_strlen(res) - 1] = '\0';
+	printf("return res\n");
 	return (res);
 }
 
-static char	*check_list_names(char *wstr, size_t wlen, t_list *file_list)
+static t_list	*check_list_names(char *wstr, size_t wlen, t_list *file_list)
 {
 	t_wild	wild;
 	char	**dp;
-	char	*res;
+	t_list	*res;
 
-	wild.wstr = wilddup(wstr, wlen);
+	wild.wstr = wstr;
 	wild.wlen = wlen;
 	dp = (char **)ft_calloc(wild.wlen + 1, sizeof(char *));
 	if (!dp)
 		exit(MALLOC_FAILURE);
 	res = iterate_list(dp, &wild, file_list);
-	free(wild.wstr);
 	free_twoptr(dp, 0);
 	return (res);
 }
@@ -82,25 +82,55 @@ static void	set_file_list(DIR *dir_ptr, t_list **file_list)
 	}
 }
 
-char	*wildcard(char *wstr, size_t wlen)
+void	print_list(t_list *list) // 지우세용
+{
+	t_node *cur;
+
+	cur = list->head->next;
+	while (cur->next)
+	{
+		printf("cur->val: %s\n", cur->val);
+		cur = cur->next;
+	}
+}
+
+void	push_wstr(t_list *res, char *wstr, size_t wlen)
+{
+	char	*new_wstr;
+	size_t	idx;
+
+	idx = -1;
+	while (++idx < wlen)
+		if (wstr[idx] == 0)
+			wstr[idx] = '*';
+	printf("wstr: %s\n", wstr);
+	new_wstr = ft_strdup(wstr);
+	if (new_wstr == NULL)
+		exit(MALLOC_FAILURE);
+	push_node(make_node(new_wstr, -1), res);
+}
+
+t_list	*wildcard(char *wstr, size_t wlen)
 {
 	DIR		*dir_ptr;
 	t_list	*file_list;
+	t_list	*res;
 	char	*path;
-	char	*res;
 
-	path = getcwd(NULL, UINT32_MAX);
+	path = ft_getcwd(NULL);
 	if (!path)
-		exit(EXIT_FAILURE);
+		return ((t_list *)set_exitcode(1, 0));
 	dir_ptr = opendir(path);
 	free(path);
 	if (!dir_ptr)
-		return (NULL);
+		return ((t_list *)set_exitcode(1, 0));
 	file_list = make_list(NAME);
 	set_file_list(dir_ptr, &file_list);
 	sort_list(file_list);
 	closedir(dir_ptr);
 	res = check_list_names(wstr, wlen, file_list);
 	free_list(file_list, 0, NAME);
+	if (res->size == 0)
+		push_wstr(res, wstr, wlen);
 	return (res);
 }

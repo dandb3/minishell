@@ -6,47 +6,90 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 19:39:43 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 19:33:57 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:07:17 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-static int	get_compound_tree_depth(t_tree *cur)
+static void	append_to_list(t_list *ori_list, t_list *expanded_list)
 {
-	int	idx;
+	t_node	*cur;
+	char	*str;
 
-	idx = 0;
-	while (cur)
+	cur = expanded_list->tail->prev;
+	while (cur->prev)
 	{
-		cur = cur->right_child;
-		++idx;
+		if (cur->val == NULL)
+			push_node(make_null_value_node(-1), ori_list);
+		else
+		{
+			str = ft_strdup(cur->val);
+			if (str == NULL)
+				exit(MALLOC_FAILURE);
+			push_node(make_node(str, -1), ori_list);
+		}
+		cur = cur->prev;
 	}
-	return (idx);
+}
+
+static int	get_non_nullvalue_list_size(t_list *list)
+{
+	t_node	*cur;
+	int		size;
+
+	if (list == NULL)
+		return (0);
+	cur = list->head->next;
+	size = 0;
+	while (cur->next)
+	{
+		if (cur->val)
+			++size;
+		cur = cur->next;
+	}
+	return (size);
+}
+
+static char	**list_to_char_twoptr(t_list *list)
+{
+	t_node	*cur;
+	char	**cmd;
+	int		size;
+
+	size = get_non_nullvalue_list_size(list);
+	cmd = (char **)ft_calloc(size + 1, sizeof(char *));
+	if (cmd == NULL)
+		exit(MALLOC_FAILURE);
+	cur = list->head->next;
+	while (cur->next)
+	{
+		if (cur->val)
+		{
+			cmd[--size] = ft_strdup(cur->val);
+			if (!cmd[size])
+				exit(MALLOC_FAILURE);
+		}
+		cur = cur->next;
+	}
+	return (cmd);
 }
 
 char	**compound_to_char_twoptr(t_tree *cur)
 {
+	t_list	*list;
+	t_list	*expanded_list;
 	char	**cmd;
-	char	*str;
-	int		depth;
 
-	depth = get_compound_tree_depth(cur);
-	cmd = (char **)ft_calloc(depth + 1, sizeof(char *));
-	if (!cmd)
-		exit(MALLOC_FAILURE);
-	while (depth--)
+	list = make_list(NAME);
+	while (cur)
 	{
-		str = expand_char(cur->val);
-		if (str == NULL)
-		{
-			cmd[depth] = ft_strdup("");
-			if (!cmd[depth])
-				exit(MALLOC_FAILURE);
-		}
-		else
-			cmd[depth] = str;
+		expanded_list = expand_char(cur->val);
 		cur = cur->right_child;
+		append_to_list(list, expanded_list);
+		free_list(expanded_list, 0, NAME);
 	}
+	cmd = list_to_char_twoptr(list);
+	free_list(list, 0, NAME);
 	return (cmd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:59:29 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 19:30:35 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/20 09:47:04 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ typedef struct s_pipe_info
 	int		process_cnt;
 }	t_pipe_info;
 
+// execute
+int			execute_command(t_tree *cur);
+
 // execute_utils
 char		**compound_to_char_twoptr(t_tree *cur);
-char		*expand_char(t_list *compound_list);
+t_list		*expand_char(t_list *compound_list);
 void		add_path_and_access_check(char **path_split, char **cmd);
 char		**make_path_split(void);
 void		merge_wild(t_node *prev_token, t_node *cur_token, size_t len1);
