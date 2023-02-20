@@ -95,8 +95,7 @@ char		*extract_pure_word(t_list *compound_list);
 void		here_doc_or_pop(t_list *stack, t_node **cur_token);
 
 /*---------------------------------here_doc---------------------------------*/
-void		init_heredoc_status(void);
-void		set_heredoc_status(void);
+void		set_heredoc_status(int status);
 int			get_heredoc_status(void);
 
 #endif
