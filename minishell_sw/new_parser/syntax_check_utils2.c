@@ -6,11 +6,11 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:56:32 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/19 21:13:27 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/20 19:26:02 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execute.h"
+#include "parser.h"
 
 static int	heredoc_status(int mode)
 {
@@ -23,6 +23,12 @@ static int	heredoc_status(int mode)
 	else
 		return (status);
 	return (SUCCESS);
+}
+
+void	heredoc_handler(int sig)
+{
+	set_heredoc_status(1);
+	set_exitcode(128 + sig, 0);
 }
 
 void	set_heredoc_status(int status)

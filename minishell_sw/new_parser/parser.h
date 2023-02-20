@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/19 21:13:32 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/20 18:59:47 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ void		here_doc_or_pop(t_list *stack, t_node **cur_token);
 /*---------------------------------here_doc---------------------------------*/
 void		set_heredoc_status(int status);
 int			get_heredoc_status(void);
+void		heredoc_handler(int sig);
 
 #endif
