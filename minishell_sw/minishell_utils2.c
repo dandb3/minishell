@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:24:55 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/19 13:20:39 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/20 09:48:40 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*extract_pure_word(t_list *compound_list)
 	return (ret);
 }
 
-void	print_err(char *str1, char *str2, char *str3)
+void	print_err(const char *str1, const char *str2, const char *str3)
 {
 	if (str1 != NULL)
 		write(STDERR_FILENO, str1, ft_strlen(str1));
@@ -63,4 +63,22 @@ void	print_err(char *str1, char *str2, char *str3)
 		write(STDERR_FILENO, str2, ft_strlen(str2));
 	if (str3 != NULL)
 		write(STDERR_FILENO, str3, ft_strlen(str3));
+}
+
+char	*ft_getcwd(const char *cmd)
+{
+	char	*pwd;
+
+	pwd = getcwd(NULL, UINT32_MAX);
+	if (pwd == NULL)
+	{
+		if (cmd)
+		{
+			write(STDERR_FILENO, cmd, ft_strlen(cmd));
+			write(STDERR_FILENO, ": ", 2);
+		}
+		perror(NULL);
+		return (NULL);
+	}
+	return (pwd);
 }

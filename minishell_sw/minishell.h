@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/19 13:20:30 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/20 09:48:45 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ t_list		*g_env_list;
 /*--------------------------------  main  ---------------------------------*/
 int			ft_signal(void);
 int			ft_terminal(void);
-char		*wildcard(char *wstr, size_t wlen);
+t_list		*wildcard(char *wstr, size_t wlen);
 t_tree		*parser(char const *input);
 int			prompt(void);
 int			execute(t_tree *cur, int prev_status);
@@ -171,7 +171,8 @@ char		*ft_strjoin_and_free(char *s1, char *s2);
 void		error_msg(char *str, int status);
 void		perror_msg(char *str, int status);
 char		*extract_pure_word(t_list *compound_list);
-void		print_err(char *str1, char *str2, char *str3);
+void		print_err(const char *str1, const char *str2, const char *str3);
+char		*ft_getcwd(const char *cmd);
 
 /*------------------------------- env utils -------------------------------*/
 size_t		get_envlen(const char *str);
