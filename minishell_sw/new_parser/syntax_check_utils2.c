@@ -25,14 +25,9 @@ static int	heredoc_status(int mode)
 	return (SUCCESS);
 }
 
-void	init_heredoc_status(void)
+void	set_heredoc_status(int status)
 {
-	heredoc_status(0);
-}
-
-void	set_heredoc_status(void)
-{
-	heredoc_status(1);
+	heredoc_status(status);
 }
 
 int	get_heredoc_status(void)
