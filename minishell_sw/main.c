@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:32:49 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 17:00:36 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:41:30 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int	main(int ac, char **av)
 	(void) av;
 	g_env_list = make_envlist(environ);
 	ft_signal();
-	ft_terminal();
+	rl_catch_signals = 0;
+	//ft_terminal();
 	prompt();
 	return (0);
 }

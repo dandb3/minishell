@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 14:28:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/20 13:25:22 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:51:16 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	set_signal(int mode)
 	}
 	else if (mode == SG_CHILD)
 	{
-		signal(SIGINT, handler1);
+		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 	}
 }

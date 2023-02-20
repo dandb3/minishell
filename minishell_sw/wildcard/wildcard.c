@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:07:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/20 15:50:23 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/20 19:43:31 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static t_list	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 		free_and_realloc_dp(wild, dp);
 		if (disc(wild, dp, 0, 0))
 		{
-			printf("disc success\n");
 			str = ft_strdup(wild->name);
 			if (str == NULL)
 				exit(MALLOC_FAILURE);
@@ -43,7 +42,6 @@ static t_list	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 		}
 		cur = cur->next;
 	}
-	printf("return res\n");
 	return (res);
 }
 
