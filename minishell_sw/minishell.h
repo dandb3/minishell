@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/20 09:48:45 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:17:36 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ void		sort_list(t_list *list);
 
 /*------------------------------- node list -------------------------------*/
 t_node		*make_node(void *val, t_lex lex);
+t_node		*make_null_value_node(t_lex lex);
 void		del_node(t_node *node, t_type type);
 void		free_node(t_node *node, t_type type);
 
@@ -184,7 +185,7 @@ t_list		*make_envlist(char **envp);
 char		**env_to_char(void);
 void		sort_envlist(t_list *env_list);
 char		*find_env_val(const char *key);
-int			set_exitcode(int exit_code, int ret);
+long long	set_exitcode(int exit_code, long long ret);
 int			get_exitcode(void);
 
 /*lexer*/

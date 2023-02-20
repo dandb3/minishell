@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:08:49 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 18:03:28 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:02:50 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_and_realloc_dp(t_wild *wild, char **dp)
 	}
 }
 
-char	*wilddup(char *str, size_t len)
+char	*wilddup(char *str, size_t len) // 지우세용(사용x)
 {
 	size_t	idx;
 	char	*res;

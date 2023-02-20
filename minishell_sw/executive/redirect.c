@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 13:06:42 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/19 14:29:28 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:07:45 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,16 @@ static char	*get_val_from_expanded_list(t_tree *cur)
 	}
 	pure_str = copy_and_extract(cur->val);
 	compound_list = expand_char(cur->val);
-	if (compound_list->size != 1)
+	if (compound_list->size != 1 \
+		|| compound_list->head->next->val == NULL)
 	{
 		ambiguous_redirect_error(pure_str);
-	//	free_list(compound_list, 0, NAME);
+		free_list(compound_list, 0, NAME);
 		return (NULL);
 	}
-	//free(pure_str);
+	free(pure_str);
 	val = ft_strdup(compound_list->head->next->val);
-	//free_list(compound_list, 0, NAME);
-	printf("free list success\n");
+	free_list(compound_list, 0, NAME);
 	if (val == NULL)
 		exit(MALLOC_FAILURE);
 	return (val);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doublylinkedlist3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:28:12 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/15 21:33:07 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/20 13:25:55 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,15 @@ void	*copy_val(t_node *node)
 	if (ret == NULL)
 		exit(MALLOC_FAILURE);
 	return (ret);
+}
+
+t_node	*make_null_value_node(t_lex lex)
+{
+	t_node	*result;
+
+	result = (t_node *)ft_calloc(1, sizeof(t_node));
+	if (result == NULL)
+		exit(MALLOC_FAILURE);
+	result->lex = lex;
+	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:46:23 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/19 14:34:12 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:50:24 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static t_list	*expand_wild(t_node *token, size_t wlen)
 	t_list	*res;
 
 	res = wildcard((char *)(token->val), wlen);
-	free(token->val);
 	return (res);
 }
 
@@ -73,6 +72,18 @@ static size_t	join_tokens(t_node *cur_token, int *is_wild)
 	return (total_len);
 }
 
+void	print_listt(t_list *list) // 지우세용
+{
+	t_node	*cur;
+
+	cur = list->head->next;
+	while (cur->next)
+	{
+		printf("cur->val: %s\n", cur->val);
+		cur = cur->next;
+	}
+}
+
 t_list	*expand_char(t_list *compound_list)
 {
 	t_list	*res;
@@ -91,6 +102,8 @@ t_list	*expand_char(t_list *compound_list)
 		res = make_list(NAME);
 		if (compound_list->head->next->val)
 			push_node(make_node(compound_list->head->next->val, -1), res);
+		else
+			push_node(make_null_value_node(-1), res);
 		compound_list->head->next->val = NULL;
 	}
 	return (res);
