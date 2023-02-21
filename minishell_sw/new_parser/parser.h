@@ -92,7 +92,7 @@ t_symbol	lex_to_symbol(t_lex lex);
 int			is_terminal(t_symbol symbol);
 int			table_idx(t_lex lex);
 char		*extract_pure_word(t_list *compound_list);
-void		here_doc_or_pop(t_list *stack, t_node **cur_token);
+void		heredoc_or_pop(t_list *stack, t_node **cur_token);
 
 /*---------------------------------here_doc---------------------------------*/
 void		set_heredoc_status(int status);
