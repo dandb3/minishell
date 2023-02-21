@@ -13,14 +13,6 @@
 #include "../minishell.h"
 #include "parser.h"
 
-void	syntax_init(t_node **cur_token, t_list **stack, t_list *token_list)
-{
-	set_heredoc_status(0);
-	*cur_token = token_list->head->next;
-	*stack = make_list(LEX);
-	push(*stack, make_tree(AST_E0));
-}
-
 static void	sigaction_heredoc_init(struct sigaction *sa)
 {
 	ft_memset(sa, 0, sizeof(*sa));
