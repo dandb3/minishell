@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/19 12:35:34 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/21 21:42:04 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,44 +104,20 @@ static int	execute_compound(t_tree *cur)
 	return (FAILURE);
 }
 
-static int	redirection_return(int red_in, int red_out, int ret)
-{
-	if (dup2(red_in, STDIN_FILENO) == FAILURE)
-		perror_msg(NULL, 1);
-	if (dup2(red_out, STDOUT_FILENO) == FAILURE)
-		perror_msg(NULL, 1);
-	if (close(red_in) == FAILURE)
-		perror_msg(NULL, 1);
-	if (close(red_out) == FAILURE)
-		perror_msg(NULL, 1);
-	return (ret);
-}
-
-static void	redirection_set(int *red_in, int *red_out)
-{
-	*red_in = dup(STDIN_FILENO);
-	*red_out = dup(STDOUT_FILENO);
-	if (*red_in == FAILURE || *red_out == FAILURE)
-		perror_msg(NULL, 1);
-}
-
 int	execute_command(t_tree *cur)
 {
-	int	red_in;
-	int	red_out;
 	int	status;
 
-	redirection_set(&red_in, &red_out);
 	status = manage_redirect(cur->left_child);
 	if (status != SUCCESS)
-		return (redirection_return(red_in, red_out, status));
+		return (status);
 	if (cur->right_child == NULL)
-		return (redirection_return(red_in, red_out, SUCCESS));
+		return (status);
 	if (cur->right_child->symbol == AST_PARENTHESESES)
 		status = execute_parentheses(cur->right_child);
 	else
 		status = execute_compound(cur->right_child);
-	return (redirection_return(red_in, red_out, status));
+	return (status);
 }
 
 int	execute(t_tree *cur, int prev_status)

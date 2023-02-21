@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:46:23 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/19 20:35:43 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/21 21:44:01 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,11 @@ static size_t	join_tokens(t_node *cur_token, int *is_wild)
 
 char	*expand_char(t_list *compound_list)
 {
-	size_t	total_len;
 	size_t	len;
 	char	*ret;
 	int		is_wild;
 
 	is_wild = FALSE;
-	total_len = 0;
 	del_quotes(compound_list);
 	len = join_tokens(compound_list->head->next, &is_wild);
 	if (is_wild == TRUE)
