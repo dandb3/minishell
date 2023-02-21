@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:03:28 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/21 12:36:25 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/21 17:45:16 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ static void	heredoc_sigaction_init(struct sigaction *sa)
 	sigaddset(&sa->sa_mask, SIGINT);
 }
 
-static char	*heredoc_readline(char *heredoc_end)
+static char	*heredoc_readline(char *heredoc_end, char *buf)
 {
-	static char	buf[1025];
 	char		*total_line;
 	size_t		total_len;
 	ssize_t		read_len;
@@ -33,15 +32,16 @@ static char	*heredoc_readline(char *heredoc_end)
 	total_line = ft_strdup("");
 	if (total_line == NULL)
 		exit(MALLOC_FAILURE);
+	write(STDOUT_FILENO, "> ", 2);
 	while ((total_len | read_len) != 0 && ft_strchr(total_line, '\n') == NULL)
 	{
-		write(STDOUT_FILENO, "> ", 2);
 		read_len = read(STDIN_FILENO, buf, 1024);
 		if (read_len == FAILURE)
 		{
 			set_heredoc_status(1);
 			return ((void *)free_ret(total_line, NULL, NULL, 0));
 		}
+		buf[read_len] = '\0';
 		total_len += (size_t) read_len;
 		total_line = ft_strjoin_and_free(total_line, buf);
 	}
@@ -52,8 +52,9 @@ static char	*heredoc_readline(char *heredoc_end)
 
 static void	heredoc_read(t_node **cur_token)
 {
-	char	*cur_line;
-	char	*heredoc_end;
+	static char	buf[1025];
+	char		*cur_line;
+	char		*heredoc_end;
 
 	del_quotes((*cur_token)->val);
 	heredoc_end
@@ -63,12 +64,12 @@ static void	heredoc_read(t_node **cur_token)
 	(*cur_token)->val = ft_strdup("");
 	if ((*cur_token)->val == NULL)
 		exit(MALLOC_FAILURE);
-	cur_line = heredoc_readline(heredoc_end);
+	cur_line = heredoc_readline(heredoc_end, buf);
 	while (cur_line != NULL)
 	{
 		(*cur_token)->val = ft_strjoin_and_free((*cur_token)->val, cur_line);
 		free(cur_line);
-		cur_line = heredoc_readline(heredoc_end);
+		cur_line = heredoc_readline(heredoc_end, buf);
 	}
 	free(heredoc_end);
 }
