@@ -13,7 +13,7 @@
 #include "../minishell.h"
 #include "parser.h"
 
-static void	sigaction_heredoc_init(struct sigaction *sa)
+static void	heredoc_sigaction_init(struct sigaction *sa)
 {
 	ft_memset(sa, 0, sizeof(*sa));
 	sa->__sigaction_u.__sa_handler = heredoc_handler;
@@ -82,7 +82,7 @@ void	heredoc_or_pop(t_list *stack, t_node **cur_token)
 	if ((*cur_token)->lex == LEX_COMPOUND \
 		&& (*cur_token)->prev->lex == LEX_HERE_DOC)
 	{
-		sigaction_heredoc_init(&sa);
+		heredoc_sigaction_init(&sa);
 		sigaction(SIGINT, &sa, &old_sa);
 		heredoc_read(cur_token);
 		sigaction(SIGINT, &old_sa, NULL);
