@@ -12,6 +12,14 @@
 
 #include "parser.h"
 
+void	syntax_init(t_node **cur_token, t_list **stack, t_list *token_list)
+{
+	set_heredoc_status(0);
+	*cur_token = token_list->head->next;
+	*stack = make_list(LEX);
+	push(*stack, make_tree(AST_E0));
+}
+
 static int	heredoc_status(int mode)
 {
 	static int	status;
