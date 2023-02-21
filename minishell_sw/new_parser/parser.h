@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/17 21:03:52 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/20 18:59:47 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,11 @@ t_symbol	lex_to_symbol(t_lex lex);
 int			is_terminal(t_symbol symbol);
 int			table_idx(t_lex lex);
 char		*extract_pure_word(t_list *compound_list);
-void		here_doc_or_pop(t_list *stack, t_node **cur_token);
+void		heredoc_or_pop(t_list *stack, t_node **cur_token);
+
+/*---------------------------------here_doc---------------------------------*/
+void		set_heredoc_status(int status);
+int			get_heredoc_status(void);
+void		heredoc_handler(int sig);
 
 #endif
