@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:43:15 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/20 15:17:46 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:36:38 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,13 @@ char	**env_to_char(void)
 			envp[idx] = ft_strjoin(((t_env *)cur->val)->key, "=");
 			if (!envp[idx])
 				exit(MALLOC_FAILURE);
-			envp[idx] = ft_strjoin_and_free(envp[idx], ((t_env *)cur->val)->val);
+			envp[idx] = strjoin_and_free(envp[idx], ((t_env *)cur->val)->val);
 		}
 		else
 			envp[idx] = ft_strdup(((t_env *)cur->val)->key);
 		if (!envp[idx++])
 			exit(MALLOC_FAILURE);
 		cur = cur->next;
-	}
-	if ((int)idx != g_env_list->size)
-	{
-		printf("g_env_list->size: %d, idx: %zu\n", g_env_list->size, idx);
 	}
 	return (envp);
 }

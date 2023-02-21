@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:46:23 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/20 15:50:24 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:45:34 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@ static size_t	expand_env(t_node *env_token)
 		return (0);
 	len = ft_strlen(val);
 	return (len);
-}
-
-static t_list	*expand_wild(t_node *token, size_t wlen)
-{
-	t_list	*res;
-
-	res = wildcard((char *)(token->val), wlen);
-	return (res);
 }
 
 static void	replace_asterisk(t_node *cur_token, size_t total_len, size_t wlen)
@@ -72,31 +64,17 @@ static size_t	join_tokens(t_node *cur_token, int *is_wild)
 	return (total_len);
 }
 
-void	print_listt(t_list *list) // 지우세용
-{
-	t_node	*cur;
-
-	cur = list->head->next;
-	while (cur->next)
-	{
-		printf("cur->val: %s\n", cur->val);
-		cur = cur->next;
-	}
-}
-
 t_list	*expand_char(t_list *compound_list)
 {
 	t_list	*res;
-	size_t	total_len;
 	size_t	len;
 	int		is_wild;
 
 	is_wild = FALSE;
-	total_len = 0;
 	del_quotes(compound_list);
 	len = join_tokens(compound_list->head->next, &is_wild);
 	if (is_wild == TRUE)
-		res = expand_wild(compound_list->head->next, len);
+		res = wildcard(compound_list->head->next->val, len);
 	else
 	{
 		res = make_list(NAME);

@@ -6,24 +6,11 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/20 16:16:04 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:51:50 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
-
-static int	get_status(pid_t pid)
-{
-	int	status;
-
-	if (waitpid(pid, &status, 0) == -1)
-		perror_msg(NULL, 1);
-	if ((status & 0xff) == 0)
-		return ((status >> 8) & 0xff);
-	if ((status & 0xff) != 0xff && (status & 0xff) != 0)
-		return (128 + (status & 0xff));
-	return (status >> 8);
-}
 
 static int	execute_pipe(t_tree *cur)
 {
@@ -65,16 +52,6 @@ static int	execute_parentheses(t_tree *cur)
 	return (FAILURE);
 }
 
-void	print_chartwoptr(char **cmds) // 지우세용
-{
-	printf("print char two ptr go\n");
-	while (*cmds)
-	{
-		printf("%s\n", *cmds);
-		++cmds;
-	}
-}
-
 static int	execute_compound(t_tree *cur)
 {
 	char	**cmd;
@@ -102,27 +79,6 @@ static int	execute_compound(t_tree *cur)
 	execve(cmd[0], cmd, env_to_char());
 	perror_msg(cmd[0], 127);
 	return (FAILURE);
-}
-
-static int	redirection_return(int red_in, int red_out, int ret)
-{
-	if (dup2(red_in, STDIN_FILENO) == FAILURE)
-		perror_msg(NULL, 1);
-	if (dup2(red_out, STDOUT_FILENO) == FAILURE)
-		perror_msg(NULL, 1);
-	if (close(red_in) == FAILURE)
-		perror_msg(NULL, 1);
-	if (close(red_out) == FAILURE)
-		perror_msg(NULL, 1);
-	return (ret);
-}
-
-static void	redirection_set(int *red_in, int *red_out)
-{
-	*red_in = dup(STDIN_FILENO);
-	*red_out = dup(STDOUT_FILENO);
-	if (*red_in == FAILURE || *red_out == FAILURE)
-		perror_msg(NULL, 1);
 }
 
 int	execute_command(t_tree *cur)

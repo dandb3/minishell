@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:24:55 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/20 09:48:40 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:23:55 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*extract_pure_word(t_list *compound_list)
 	return (ret);
 }
 
-void	print_err(const char *str1, const char *str2, const char *str3)
+void	print_err(char const *str1, char const *str2, char const *str3)
 {
 	if (str1 != NULL)
 		write(STDERR_FILENO, str1, ft_strlen(str1));

@@ -19,6 +19,7 @@ int	read_file(char *filename)
 	open_fd = open(filename, O_RDONLY);
 	if (open_fd < 0)
 	{
+		write(STDERR_FILENO, SHELL, SHELL_LEN);
 		perror(filename);
 		return (1);
 	}
@@ -36,6 +37,7 @@ int	write_file(char *filename)
 	open_fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (open_fd < 0)
 	{
+		write(STDERR_FILENO, SHELL, SHELL_LEN);
 		perror(filename);
 		return (1);
 	}
@@ -53,6 +55,7 @@ int	append_file(char *filename)
 	open_fd = open(filename, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (open_fd < 0)
 	{
+		write(STDERR_FILENO, SHELL, SHELL_LEN);
 		perror(filename);
 		return (1);
 	}

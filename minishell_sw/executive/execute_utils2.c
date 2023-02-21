@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 21:24:06 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/19 12:50:51 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/21 20:36:38 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*strjoin_slash(char *s1, char *s2)
 	tmp = ft_strjoin(s1, "/");
 	if (tmp == NULL)
 		exit(MALLOC_FAILURE);
-	tmp = ft_strjoin_and_free(tmp, s2);
+	tmp = strjoin_and_free(tmp, s2);
 	return (tmp);
 }
 
@@ -58,8 +58,7 @@ static void	access_check(char *cmd, char mode)
 			perror_msg(cmd, 127);
 		else
 		{
-			write(STDERR_FILENO, cmd, ft_strlen(cmd));
-			write(STDERR_FILENO, ": ", 2);
+			print_err(cmd, ": ", NULL);
 			error_msg(COMMAND_NOT_FOUND, 127);
 		}
 	}
@@ -83,9 +82,7 @@ void	add_path_and_access_check(char **path_split, char **cmd)
 	{
 		if (find_path(cmd, path_split) == FAILURE)
 		{
-			write(STDERR_FILENO, SHELL, SHELL_LEN);
-			write(STDERR_FILENO, cmd[0], ft_strlen(cmd[0]));
-			write(STDERR_FILENO, ": ", 2);
+			print_err(SHELL, cmd[0], ": ");
 			error_msg(COMMAND_NOT_FOUND, 127);
 		}
 		else

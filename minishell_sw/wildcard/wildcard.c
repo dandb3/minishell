@@ -6,19 +6,11 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:07:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/20 19:43:31 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:39:10 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcard.h"
-
-void	print_wild(t_wild *wild) // 지우세용
-{
-	printf("wild->wstr: %s\n", wild->wstr);
-	printf("wild->name: %s\n", wild->name);
-	printf("wild->wlen: %zu\n", wild->wlen);
-	printf("wild->nlen: %zu\n", wild->nlen);
-}
 
 static t_list	*iterate_list(char **dp, t_wild *wild, t_list *file_list)
 {
@@ -78,34 +70,6 @@ static void	set_file_list(DIR *dir_ptr, t_list **file_list)
 			exit(MALLOC_FAILURE);
 		push_node(make_node(file_name, -1), *file_list);
 	}
-}
-
-void	print_list(t_list *list) // 지우세용
-{
-	t_node *cur;
-
-	cur = list->head->next;
-	while (cur->next)
-	{
-		printf("cur->val: %s\n", cur->val);
-		cur = cur->next;
-	}
-}
-
-void	push_wstr(t_list *res, char *wstr, size_t wlen)
-{
-	char	*new_wstr;
-	size_t	idx;
-
-	idx = -1;
-	while (++idx < wlen)
-		if (wstr[idx] == 0)
-			wstr[idx] = '*';
-	printf("wstr: %s\n", wstr);
-	new_wstr = ft_strdup(wstr);
-	if (new_wstr == NULL)
-		exit(MALLOC_FAILURE);
-	push_node(make_node(new_wstr, -1), res);
 }
 
 t_list	*wildcard(char *wstr, size_t wlen)

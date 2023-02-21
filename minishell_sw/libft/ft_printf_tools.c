@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:53:44 by sunwsong          #+#    #+#             */
-/*   Updated: 2022/12/27 18:05:50 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:48:32 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ long long	ft_printf_char(int ch)
 	char	c;
 
 	c = (char)ch;
-	if (write(1, &ch, 1) != 1)
+	if (write(1, &c, 1) != 1)
 		return (-1);
 	return (1);
 }

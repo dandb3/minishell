@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/20 19:46:24 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:36:38 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,11 +168,11 @@ void		free_node(t_node *node, t_type type);
 /*--------------------------------- utils ---------------------------------*/
 long long	free_ret(void *obj1, void *obj2, void *obj3, long long ret);
 long long	free_twoptr(char **ptr, long long ret);
-char		*ft_strjoin_and_free(char *s1, char *s2);
+char		*strjoin_and_free(char *s1, char *s2);
 void		error_msg(char *str, int status);
 void		perror_msg(char *str, int status);
 char		*extract_pure_word(t_list *compound_list);
-void		print_err(const char *str1, const char *str2, const char *str3);
+void		print_err(char const *str1, char const *str2, char const *str3);
 char		*ft_getcwd(const char *cmd);
 
 /*------------------------------- env utils -------------------------------*/
