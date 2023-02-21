@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:56:32 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/20 19:26:02 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/21 12:42:36 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int	heredoc_status(int mode)
 
 void	heredoc_handler(int sig)
 {
+	write(STDOUT_FILENO, "\n", 1);
 	set_heredoc_status(1);
 	set_exitcode(128 + sig, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:16:21 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/20 19:13:44 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/21 12:51:25 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	syntax_check(t_list *token_list, char **table)
 		else
 			production(stack, table[cur_tree->symbol][token_idx]);
 	}
-	if (get_heredoc_status() != 0 && cur_token->next != NULL)
+	if (get_heredoc_status() != 0 || cur_token->next != NULL)
 		return (error_manage(cur_token, stack));
 	free_list(stack, 0, LEX);
 	return (SUCCESS);

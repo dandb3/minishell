@@ -6,7 +6,7 @@
 /*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:03:28 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/20 19:24:56 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/21 12:36:25 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static char	*heredoc_readline(char *heredoc_end)
 	total_line = ft_strdup("");
 	if (total_line == NULL)
 		exit(MALLOC_FAILURE);
-	while ((total_len | read_len) != 0 && ft_strcmp(total_line, heredoc_end) \
-		   && ft_strchr(total_line, '\n') == NULL)
+	while ((total_len | read_len) != 0 && ft_strchr(total_line, '\n') == NULL)
 	{
+		write(STDOUT_FILENO, "> ", 2);
 		read_len = read(STDIN_FILENO, buf, 1024);
 		if (read_len == FAILURE)
 		{
@@ -56,7 +56,8 @@ static void	heredoc_read(t_node **cur_token)
 	char	*heredoc_end;
 
 	del_quotes((*cur_token)->val);
-	heredoc_end = ft_strjoin_and_free(extract_pure_word((*cur_token)->val), "\n");
+	heredoc_end
+		= ft_strjoin_and_free(extract_pure_word((*cur_token)->val), "\n");
 	free_list((*cur_token)->val, 0, LEX);
 	(*cur_token)->lex = LEX_WORD;
 	(*cur_token)->val = ft_strdup("");
@@ -76,7 +77,6 @@ void	heredoc_or_pop(t_list *stack, t_node **cur_token)
 {
 	struct sigaction	sa;
 	struct sigaction	old_sa;
-	char				*heredoc_end;
 
 	pop_tree(stack);
 	if ((*cur_token)->lex == LEX_COMPOUND \
