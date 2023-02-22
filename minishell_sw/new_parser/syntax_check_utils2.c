@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:56:32 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/21 20:58:23 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/21 22:30:36 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	heredoc_status(int mode)
 	return (SUCCESS);
 }
 
-void	heredoc_handler(int sig)
+void	heredoc_handler(__attribute__((unused)) int sig)
 {
 	write(STDOUT_FILENO, "\n", 1);
 	set_heredoc_status(1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/21 20:28:45 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/21 22:33:08 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,31 @@ static void	eof_exit(void)
 	exit(get_exitcode());
 }
 
+static int	redirection_return(int red_in, int red_out, int ret)
+{
+	if (dup2(red_in, STDIN_FILENO) == FAILURE)
+		perror_msg(NULL, 1);
+	if (dup2(red_out, STDOUT_FILENO) == FAILURE)
+		perror_msg(NULL, 1);
+	return (ret);
+}
+
+static void	redirection_set(int *red_in, int *red_out)
+{
+	*red_in = dup(STDIN_FILENO);
+	*red_out = dup(STDOUT_FILENO);
+	if (*red_in == FAILURE || *red_out == FAILURE)
+		perror_msg(NULL, 1);
+}
+
 int	prompt(void)
 {
 	char	*cmd;
 	t_tree	*parse_tree;
+	int		red_in;
+	int		red_out;
 
+	redirection_set(&red_in, &red_out);
 	while (1)
 	{
 		cmd = readline("MINI$ ");
@@ -35,6 +55,7 @@ int	prompt(void)
 			if (parse_tree)
 			{
 				set_exitcode(execute(parse_tree, 0), 0);
+				redirection_return(red_in, red_out, 0);
 				free_tree(parse_tree);
 			}
 		}

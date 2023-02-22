@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/21 20:51:50 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/21 21:42:04 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,21 +83,18 @@ static int	execute_compound(t_tree *cur)
 
 int	execute_command(t_tree *cur)
 {
-	int	red_in;
-	int	red_out;
 	int	status;
 
-	redirection_set(&red_in, &red_out);
 	status = manage_redirect(cur->left_child);
 	if (status != SUCCESS)
-		return (redirection_return(red_in, red_out, status));
+		return (status);
 	if (cur->right_child == NULL)
-		return (redirection_return(red_in, red_out, SUCCESS));
+		return (status);
 	if (cur->right_child->symbol == AST_PARENTHESESES)
 		status = execute_parentheses(cur->right_child);
 	else
 		status = execute_compound(cur->right_child);
-	return (redirection_return(red_in, red_out, status));
+	return (status);
 }
 
 int	execute(t_tree *cur, int prev_status)
