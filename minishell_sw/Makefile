@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 19:25:02 by jdoh              #+#    #+#              #
-#    Updated: 2023/02/19 21:04:00 by jdoh             ###   ########.fr        #
+#    Updated: 2023/02/21 20:53:16 by sunwsong         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,11 +29,12 @@ SRCS_M		=	main.c prompt.c minishell_utils1.c minishell_utils2.c \
 				new_parser/syntax_check_utils2.c \
 				new_parser/syntax_check.c \
 				new_parser/syntax_error.c new_parser/tree.c \
-				executive/execute.c executive/execute_utils2.c \
+				executive/execute.c executive/execute_utils1.c \
+				executive/execute_utils2.c executive/execute_utils3.c \
 				executive/open_file.c \
 				executive/expand.c executive/redirect.c \
 				executive/execute_pipe.c executive/here_doc.c \
-				executive/execute_utils1.c executive/init_pipe.c \
+				executive/init_pipe.c \
 				wildcard/wildcard.c wildcard/wildcard_utils.c \
 				wildcard/discriminate.c
 				
@@ -50,11 +51,11 @@ HEADER_M	=	minishell builtin/builtin executive/execute wildcard/wildcard \
 LIBFT		=	libft/libft.a
 LIBFT_DIR	=	libft
 
-#RL_LINK_FLAG	= -lreadline -L $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/lib
-#RL_COMP_FLAG	= -I $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/include
+RL_LINK_FLAG	= -lreadline -L $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/lib
+RL_COMP_FLAG	= -I $(HOME)/goinfre/.brew/Cellar/readline/8.2.1/include
 
-RL_LINK_FLAG	= -lreadline -L/opt/homebrew/opt/readline/lib
-RL_COMP_FLAG	= -I/opt/homebrew/opt/readline/include
+#RL_LINK_FLAG	= -lreadline -L/opt/homebrew/opt/readline/lib
+#RL_COMP_FLAG	= -I/opt/homebrew/opt/readline/include
 
 #RL_LINK_FLAG	=	-lreadline -L/Users/jdoh/.brew/opt/readline/lib
 #RL_COMP_FLAG	=	-I/Users/jdoh/.brew/opt/readline/include

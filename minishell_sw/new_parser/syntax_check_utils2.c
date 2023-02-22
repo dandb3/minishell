@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check_utils2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:56:32 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/21 12:42:36 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/21 20:58:23 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	heredoc_handler(int sig)
 {
 	write(STDOUT_FILENO, "\n", 1);
 	set_heredoc_status(1);
-	set_exitcode(128 + sig, 0);
+	set_exitcode(1, 0);
 }
 
 void	set_heredoc_status(int status)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 21:24:06 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/19 20:32:34 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/21 20:36:38 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*strjoin_slash(char *s1, char *s2)
 	tmp = ft_strjoin(s1, "/");
 	if (tmp == NULL)
 		exit(MALLOC_FAILURE);
-	tmp = ft_strjoin_and_free(tmp, s2);
+	tmp = strjoin_and_free(tmp, s2);
 	return (tmp);
 }
 

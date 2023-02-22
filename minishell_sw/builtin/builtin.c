@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:55:16 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/18 11:18:12 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/20 13:53:34 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	do_builtin(char **cmds)
 	int	exit_code;
 
 	exit_code = EXIT_SUCCESS;
+	if (*cmds == NULL)
+		return (FAILURE);
 	if (!ft_strcmp(*cmds, "cd"))
 		exit_code = builtin_cd(cmds);
 	else if (!ft_strcmp(*cmds, "echo"))

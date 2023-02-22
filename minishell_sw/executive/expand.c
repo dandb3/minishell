@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:46:23 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/19 20:35:43 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/21 20:45:34 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,10 @@ static size_t	expand_env(t_node *env_token)
 	return (len);
 }
 
-static void	expand_wild(t_node *token, size_t wlen)
-{
-	char	*wstr;
-
-	wstr = wildcard((char *)(token->val), wlen);
-	free(token->val);
-	token->val = wstr;
-}
-
 static void	replace_asterisk(t_node *cur_token, size_t total_len, size_t wlen)
 {
-	size_t			idx;
-	char			*val;
+	size_t	idx;
+	char	*val;
 
 	val = (char *)(cur_token->val);
 	idx = total_len - wlen;
@@ -68,25 +59,30 @@ static size_t	join_tokens(t_node *cur_token, int *is_wild)
 		total_len += cur_len;
 		if (cur_token->lex == LEX_WILD)
 			replace_asterisk(cur_token, total_len, cur_len);
-		cur_token = cur_token->next;
+			cur_token = cur_token->next;
 	}
 	return (total_len);
 }
 
-char	*expand_char(t_list *compound_list)
+t_list	*expand_char(t_list *compound_list)
 {
-	size_t	total_len;
+	t_list	*res;
 	size_t	len;
-	char	*ret;
 	int		is_wild;
 
 	is_wild = FALSE;
-	total_len = 0;
 	del_quotes(compound_list);
 	len = join_tokens(compound_list->head->next, &is_wild);
 	if (is_wild == TRUE)
-		expand_wild(compound_list->head->next, len);
-	ret = compound_list->head->next->val;
-	compound_list->head->next->val = NULL;
-	return (ret);
+		res = wildcard(compound_list->head->next->val, len);
+	else
+	{
+		res = make_list(NAME);
+		if (compound_list->head->next->val)
+			push_node(make_node(compound_list->head->next->val, -1), res);
+		else
+			push_node(make_null_value_node(-1), res);
+		compound_list->head->next->val = NULL;
+	}
+	return (res);
 }

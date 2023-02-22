@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 20:24:55 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/19 20:26:38 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/21 20:23:55 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,22 @@ void	print_err(char const *str1, char const *str2, char const *str3)
 		write(STDERR_FILENO, str2, ft_strlen(str2));
 	if (str3 != NULL)
 		write(STDERR_FILENO, str3, ft_strlen(str3));
+}
+
+char	*ft_getcwd(const char *cmd)
+{
+	char	*pwd;
+
+	pwd = getcwd(NULL, UINT32_MAX);
+	if (pwd == NULL)
+	{
+		if (cmd)
+		{
+			write(STDERR_FILENO, cmd, ft_strlen(cmd));
+			write(STDERR_FILENO, ": ", 2);
+		}
+		perror(NULL);
+		return (NULL);
+	}
+	return (pwd);
 }
