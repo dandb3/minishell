@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 14:28:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/20 19:51:16 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:21:51 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_signal(int mode)
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 	}
-	else if (mode == SG_HEREDOC_PARENT)
+	else if (mode == SG_HEREDOC_PARENT) // ?
 	{
 		return ;
 	}

@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/21 20:36:38 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/22 17:21:23 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int			ft_signal(void);
 int			ft_terminal(void);
 t_list		*wildcard(char *wstr, size_t wlen);
 t_tree		*parser(char const *input);
-int			prompt(void);
+void		prompt(void);
 int			execute(t_tree *cur, int prev_status);
 
 /*-------------------------------- builtin --------------------------------*/

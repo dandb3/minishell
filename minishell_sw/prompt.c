@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 11:41:06 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/21 22:33:08 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/22 17:22:37 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void	eof_exit(void)
 {
-	printf("exit\n");
+	write(STDOUT_FILENO, "exit\n", 5);
+	clear_history();
 	exit(get_exitcode());
 }
 
@@ -35,7 +36,7 @@ static void	redirection_set(int *red_in, int *red_out)
 		perror_msg(NULL, 1);
 }
 
-int	prompt(void)
+void	prompt(void)
 {
 	char	*cmd;
 	t_tree	*parse_tree;
@@ -62,5 +63,4 @@ int	prompt(void)
 		free(cmd);
 	}
 	clear_history();
-	return (0);
 }
