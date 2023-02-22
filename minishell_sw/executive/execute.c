@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 14:11:30 by sunwsong          #+#    #+#             */
 /*   Updated: 2023/02/21 21:42:04 by jdoh             ###   ########.fr       */
@@ -11,19 +11,6 @@
 /* ************************************************************************** */
 
 #include "execute.h"
-
-static int	get_status(pid_t pid)
-{
-	int	status;
-
-	if (waitpid(pid, &status, 0) == -1)
-		perror_msg(NULL, 1);
-	if ((status & 0xff) == 0)
-		return ((status >> 8) & 0xff);
-	if ((status & 0xff) != 0xff && (status & 0xff) != 0)
-		return (128 + (status & 0xff));
-	return (status >> 8);
-}
 
 static int	execute_pipe(t_tree *cur)
 {
@@ -63,16 +50,6 @@ static int	execute_parentheses(t_tree *cur)
 	}
 	exit(execute(cur->left_child, 0));
 	return (FAILURE);
-}
-
-void	print_chartwoptr(char **cmds) // 지우세용
-{
-	printf("print char two ptr go\n");
-	while (*cmds)
-	{
-		printf("%s\n", *cmds);
-		++cmds;
-	}
 }
 
 static int	execute_compound(t_tree *cur)

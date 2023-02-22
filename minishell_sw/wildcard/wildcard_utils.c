@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 21:08:49 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 18:03:28 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:39:36 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,17 @@ void	free_and_realloc_dp(t_wild *wild, char **dp)
 	}
 }
 
-char	*wilddup(char *str, size_t len)
+void	push_wstr(t_list *res, char *wstr, size_t wlen)
 {
+	char	*new_wstr;
 	size_t	idx;
-	char	*res;
 
-	res = (char *)ft_calloc(len + 1, sizeof(char));
-	if (!res)
-		exit(MALLOC_FAILURE);
 	idx = -1;
-	while (++idx < len)
-		res[idx] = str[idx];
-	return (res);
+	while (++idx < wlen)
+		if (wstr[idx] == 0)
+			wstr[idx] = '*';
+	new_wstr = ft_strdup(wstr);
+	if (new_wstr == NULL)
+		exit(MALLOC_FAILURE);
+	push_node(make_node(new_wstr, -1), res);
 }

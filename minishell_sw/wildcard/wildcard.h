@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:53:27 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/17 15:57:55 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:39:59 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_wild{
 }	t_wild;
 
 void	free_and_realloc_dp(t_wild *wild, char **dp);
-char	*wilddup(char *str, size_t len);
+void	push_wstr(t_list *res, char *wstr, size_t wlen);
 char	disc(t_wild *wild, char **dp, size_t widx, size_t nidx);
 
 #endif

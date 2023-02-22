@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check_utils2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 20:56:32 by jdoh              #+#    #+#             */
 /*   Updated: 2023/02/21 22:30:36 by jdoh             ###   ########.fr       */

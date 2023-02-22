@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_utils.c                                  :+:      :+:    :+:   */
+/*   minishell_utils1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 15:04:28 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/12 14:01:37 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/21 20:36:38 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ long long	free_twoptr(char **ptr, long long ret)
 	return (ret);
 }
 
-char	*ft_strjoin_and_free(char *s1, char *s2)
+char	*strjoin_and_free(char *s1, char *s2)
 {
 	char	*result;
 	size_t	s1_len;

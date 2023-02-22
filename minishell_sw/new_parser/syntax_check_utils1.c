@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check_utils1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 16:03:28 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/21 17:45:16 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/21 20:36:38 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*heredoc_readline(char *heredoc_end, char *buf)
 		}
 		buf[read_len] = '\0';
 		total_len += (size_t) read_len;
-		total_line = ft_strjoin_and_free(total_line, buf);
+		total_line = strjoin_and_free(total_line, buf);
 	}
 	if ((total_len | read_len) == 0 || !ft_strcmp(total_line, heredoc_end))
 		return ((void *)free_ret(total_line, NULL, NULL, 0));
@@ -58,7 +58,7 @@ static void	heredoc_read(t_node **cur_token)
 
 	del_quotes((*cur_token)->val);
 	heredoc_end
-		= ft_strjoin_and_free(extract_pure_word((*cur_token)->val), "\n");
+		= strjoin_and_free(extract_pure_word((*cur_token)->val), "\n");
 	free_list((*cur_token)->val, 0, LEX);
 	(*cur_token)->lex = LEX_WORD;
 	(*cur_token)->val = ft_strdup("");
@@ -67,7 +67,7 @@ static void	heredoc_read(t_node **cur_token)
 	cur_line = heredoc_readline(heredoc_end, buf);
 	while (cur_line != NULL)
 	{
-		(*cur_token)->val = ft_strjoin_and_free((*cur_token)->val, cur_line);
+		(*cur_token)->val = strjoin_and_free((*cur_token)->val, cur_line);
 		free(cur_line);
 		cur_line = heredoc_readline(heredoc_end, buf);
 	}

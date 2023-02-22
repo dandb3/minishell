@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:43:41 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/20 18:59:47 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/21 20:32:17 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef enum e_table
 	E8_HERE_DOC,
 	E8_REDIRECT_APPEND
 }	t_table;
-
 
 /*---------------------------------tokenize---------------------------------*/
 t_node		*get_pseudo_token(char const **str);

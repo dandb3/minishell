@@ -35,15 +35,6 @@ static void	redirection_set(int *red_in, int *red_out)
 		perror_msg(NULL, 1);
 }
 
-void	print_tree(t_tree *tree) // 지우세용
-{
-	if (!tree)
-		return ;
-	print_tree(tree->left_child);
-	printf("tree->val: %s", (char *)(((t_list *)(tree->val))->head->next->val));
-	print_tree(tree->right_child);
-}
-
 int	prompt(void)
 {
 	char	*cmd;
@@ -67,37 +58,9 @@ int	prompt(void)
 				redirection_return(red_in, red_out, 0);
 				free_tree(parse_tree);
 			}
-		//	system("leaks minishell");
 		}
 		free(cmd);
 	}
 	clear_history();
 	return (0);
 }
-
-// int	prompt(void)
-// {
-// 	char	*cmd;
-// 	char	**cmds;
-
-// 	//ft_signal();
-// 	while (1)
-// 	{
-// 		cmd = readline("MINI$ ");
-// 		if (!cmd)
-// 			eof_exit();
-// 		if (ft_strlen(cmd))
-// 		{
-// 			add_history(cmd);
-// 			cmds = ft_split(cmd, ' ');
-// 			if (!cmds)
-// 				exit(MALLOC_FAILURE);
-// 			if (*cmds)
-// 				set_exitcode(do_builtin(cmds), 0);
-// 			free_twoptr(cmds, 0);
-// 		}
-// 		free(cmd);
-// 	}
-// 	clear_history();
-// 	return (0);
-// }
