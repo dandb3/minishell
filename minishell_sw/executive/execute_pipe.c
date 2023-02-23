@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:58:07 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/19 11:22:39 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/23 12:30:51 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ static void	parent_process(t_pipe_info *info)
 			perror_msg(NULL, 1);
 	}
 	here_doc(NULL, TRUE);
-	if ((status & 0xFF) != 0)
-		exit((status & 0xFF) + 128);
-	else
-		exit((status >> 8) & 0xFF);
+	if ((status & 0xff) == 0)
+		exit((status >> 8) & 0xff);
+	if ((status & 0xff) != 0xff && (status & 0xff) != 0)
+		exit(128 + (status & 0xff));
+	exit(status >> 8);
 }
 
 static void	connect_pipe(t_pipe_info *info, int idx)

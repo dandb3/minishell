@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 19:26:26 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/21 12:59:05 by jdoh             ###   ########.fr       */
+/*   Updated: 2023/02/22 20:45:38 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	error_manage(t_node *cur_token, t_list *stack)
 		print_err(front_msg, token_val, back_msg);
 		set_exitcode(258, 0);
 		free(token_val);
-		free_list(stack, 0, LEX);
 	}
 	free_list(stack, 0, LEX);
 	return (FAILURE);

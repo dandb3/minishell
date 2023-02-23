@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:20:12 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/19 13:22:51 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/23 10:35:18 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,24 @@ static long long	builtin_atoi(const char *str)
 	return (num * sign);
 }
 
-void	builtin_exit(char **cmds)
+void	builtin_exit(char **cmd)
 {
 	long long	ret;
 	size_t		len;
 
-	if (!(*(++cmds)))
+	if (!(*(++cmd)))
 	{
 		ft_printf("exit\n");
 		exit(get_exitcode());
 	}
-	ret = builtin_atoi(*cmds);
-	len = ft_strlen(*cmds);
+	ret = builtin_atoi(*cmd);
+	len = ft_strlen(*cmd);
 	if (len >= 19)
 	{
-		if ((*cmds)[len - 1] - '0' != (ret % 10) * ((ret > 0) * 2 - 1))
+		if ((*cmd)[len - 1] - '0' != (ret % 10) * ((ret > 0) * 2 - 1))
 		{
 			print_err("exit\nMINI: exit: ",
-				*cmds, ": numeric argument required\n");
+				*cmd, ": numeric argument required\n");
 			exit(255);
 		}
 	}
@@ -61,19 +61,19 @@ void	builtin_exit(char **cmds)
 	exit((unsigned char)ret);
 }
 
-int	builtin_export(char **cmds)
+int	builtin_export(char **cmd)
 {
 	t_node	*cur;
 	t_env	*env;
 	int		exit_code;
 
 	exit_code = 0;
-	if (!*(++cmds))
+	if (!*(++cmd))
 		return (print_envlist("declare -x "));
-	while (*cmds)
+	while (*cmd)
 	{
 		cur = g_env_list->head->next->next;
-		env = make_env(*cmds++, TRUE);
+		env = make_env(*cmd++, TRUE);
 		if (!env)
 		{
 			exit_code = 1;
@@ -89,9 +89,9 @@ int	builtin_export(char **cmds)
 	return (exit_code);
 }
 
-int	builtin_env(char **cmds)
+int	builtin_env(char **cmd)
 {
-	if (cmds[1] != NULL)
+	if (cmd[1] != NULL)
 	{
 		print_err("env: env does not need arguments\n", NULL, NULL);
 		return (EXIT_FAILURE);
@@ -100,24 +100,24 @@ int	builtin_env(char **cmds)
 	return (EXIT_SUCCESS);
 }
 
-int	builtin_unset(char **cmds)
+int	builtin_unset(char **cmd)
 {
 	t_node	*cur;
 	int		exit_code;
 
 	exit_code = 0;
-	while (*(++cmds))
+	while (*(++cmd))
 	{
-		if (check_valid_keyname(*cmds) == FALSE)
+		if (check_valid_keyname(*cmd) == FALSE)
 		{
-			print_err("MINI: unset: `", *cmds, "\': not a valid identifier\n");
+			print_err("MINI: unset: `", *cmd, "\': not a valid identifier\n");
 			exit_code = 1;
 			continue ;
 		}
 		cur = g_env_list->head->next->next;
 		while (cur->next)
 		{
-			if (!ft_strncmp(*cmds, ((t_env *)cur->val)->key, get_envlen(*cmds)))
+			if (!ft_strncmp(*cmd, ((t_env *)cur->val)->key, get_envlen(*cmd)))
 			{
 				del_node(cur, ENV);
 				--(g_env_list->size);

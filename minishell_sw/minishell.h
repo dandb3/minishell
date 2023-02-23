@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/22 17:21:23 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:31:55 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ enum e_signal_state
 {
 	SG_RUN = 0,
 	SG_STOP,
-	SG_HEREDOC_PARENT,
-	SG_HEREDOC_CHILD,
 	SG_CHILD
 };
 
@@ -147,7 +145,7 @@ void		prompt(void);
 int			execute(t_tree *cur, int prev_status);
 
 /*-------------------------------- builtin --------------------------------*/
-int			do_builtin(char **cmds);
+int			do_builtin(char **cmd);
 
 /*--------------------------- doubly linked list --------------------------*/
 t_list		*make_list(t_type type);

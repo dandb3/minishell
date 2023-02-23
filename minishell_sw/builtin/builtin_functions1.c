@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:36:47 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/20 09:46:49 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:35:18 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,40 +26,40 @@ int	builtin_pwd(void)
 
 static int	export_pwd(char *nxtpwd, char *oldpwd)
 {
-	char	**cmds;
+	char	**cmd;
 	char	*pwd;
 
 	pwd = ft_getcwd("cd");
 	if (pwd == NULL)
 		return (EXIT_FAILURE);
-	cmds = (char **)ft_calloc(4, sizeof(char *));
-	if (cmds == NULL)
+	cmd = (char **)ft_calloc(4, sizeof(char *));
+	if (cmd == NULL)
 		exit(MALLOC_FAILURE);
-	cmds[0] = ft_strdup("export");
-	cmds[1] = ft_strjoin("OLDPWD=", oldpwd);
-	cmds[2] = ft_strjoin("PWD=", pwd);
-	cmds[3] = NULL;
-	if (!cmds[0] || !cmds[1] || !cmds[2])
+	cmd[0] = ft_strdup("export");
+	cmd[1] = ft_strjoin("OLDPWD=", oldpwd);
+	cmd[2] = ft_strjoin("PWD=", pwd);
+	cmd[3] = NULL;
+	if (!cmd[0] || !cmd[1] || !cmd[2])
 		exit(MALLOC_FAILURE);
-	builtin_export(cmds);
-	free_ret(cmds[0], cmds[1], cmds[2], 0);
+	builtin_export(cmd);
+	free_ret(cmd[0], cmd[1], cmd[2], 0);
 	free(nxtpwd);
-	return (free_ret(cmds, oldpwd, pwd, 0));
+	return (free_ret(cmd, oldpwd, pwd, 0));
 }
 
-int	builtin_cd(char **cmds)
+int	builtin_cd(char **cmd)
 {
 	char		*oldpwd;
 	char		*nxtpwd;
 
-	if (!(*(++cmds)))
+	if (!(*(++cmd)))
 	{
 		nxtpwd = find_env_val("HOME");
 		if (!nxtpwd)
 			return ((write(STDERR_FILENO, HOME_NOT_SET, 23) & 0) | 1);
 	}
 	else
-		nxtpwd = ft_strdup(*cmds);
+		nxtpwd = ft_strdup(*cmd);
 	if (!nxtpwd)
 		exit(MALLOC_FAILURE);
 	oldpwd = ft_getcwd("cd");
