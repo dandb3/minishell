@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:55:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/19 13:23:31 by jdoh             ###   ########seoul.kr  */
+/*   Updated: 2023/02/23 13:53:11 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	check_valid_keyname(const char *str)
 
 	idx = 0;
 	if (!str)
-		return (FAILURE);
+		return (FALSE);
 	if (*str == '=')
-		return (FAILURE);
+		return (FALSE);
 	while (str[idx] && str[idx] != '=')
 	{
 		if (((!ft_isalnum(str[idx]) && idx != 0) || \

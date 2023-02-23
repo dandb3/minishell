@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 21:24:06 by jdoh              #+#    #+#             */
-/*   Updated: 2023/02/23 10:12:38 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:07:04 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,15 @@ static void	access_check(char *cmd, char mode)
 
 void	add_path_and_access_check(char **path_split, char **cmd)
 {
-	if (cmd[0] == NULL)
-		return ;
 	if (path_split == NULL)
 	{
 		access_check(cmd[0], '/');
 		return ;
+	}
+	if (ft_strlen(cmd[0]) == 0)
+	{
+		print_err(SHELL, "", ": ");
+		error_msg(COMMAND_NOT_FOUND, 127);
 	}
 	if (ft_strchr(cmd[0], '/') != NULL)
 		access_check(cmd[0], '/');
