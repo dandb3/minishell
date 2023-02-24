@@ -19,6 +19,7 @@
 # include <sys/stat.h>
 
 # define COMMAND_NOT_FOUND "command not found\n"
+# define IS_A_DIR "Is a directory\n"
 
 typedef struct s_pipe_info
 {
