@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jdoh <jdoh@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 15:59:29 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/23 12:50:30 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:29:00 by jdoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/stat.h>
 
 # define COMMAND_NOT_FOUND "command not found\n"
-# define IS_A_DIR "Is a directory\n"
+# define IS_A_DIR "is a directory\n"
 
 typedef struct s_pipe_info
 {
