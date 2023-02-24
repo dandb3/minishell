@@ -25,9 +25,10 @@ static char	*strjoin_slash(char *s1, char *s2)
 
 static int	find_path(char **cmd, char **path_split)
 {
-	char	**tmp;
-	char	*merged_path;
-	int		status;
+	struct stat	buf;
+	char		**tmp;
+	char		*merged_path;
+	int			status;
 
 	status = FAILURE;
 	tmp = path_split;
@@ -41,7 +42,7 @@ static int	find_path(char **cmd, char **path_split)
 			cmd[0] = merged_path;
 			merged_path = NULL;
 			if (access(cmd[0], X_OK) == SUCCESS)
-				return (free_twoptr(tmp, status));
+				return (status);
 		}
 		free(merged_path);
 		++path_split;
