@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 15:20:12 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/23 10:35:18 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:12:37 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static long long	builtin_atoi(const char *str)
 			sign *= -1;
 	while ('0' <= str[idx] && str[idx] <= '9')
 		num = num * 10 + (str[idx++] - '0');
-	if ((str[idx] != 0 && (str[idx] < '0' || '9' < str[idx])) || idx >= 21)
+	if ((str[idx] != 0 && (str[idx] < '0' || '9' < str[idx])) || idx >= 21 || \
+		idx == 0)
 	{
 		print_err("exit\nMINI: exit: ", str, ": numeric argument required\n");
 		exit(255);
@@ -96,7 +97,7 @@ int	builtin_env(char **cmd)
 		print_err("env: env does not need arguments\n", NULL, NULL);
 		return (EXIT_FAILURE);
 	}
-	print_envlist(NULL);
+	print_envlist("");
 	return (EXIT_SUCCESS);
 }
 

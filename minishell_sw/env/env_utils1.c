@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:55:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/23 13:53:11 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:12:26 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,18 +111,20 @@ int	print_envlist(const char *pre)
 	cur = g_env_list->head->next->next;
 	while (cur->next)
 	{
-		if (cur->next == NULL)
-			break ;
-		if (pre)
-			ft_printf("%s", pre);
-		if (!pre && !(((t_env *)(cur->val))->val))
+		ft_printf("%s", pre);
+		if (pre == NULL && (((t_env *)(cur->val))->val) == NULL)
 		{
 			cur = cur->next;
 			continue ;
 		}
 		ft_printf("%s", (((t_env *)(cur->val))->key));
 		if (((t_env *)(cur->val))->val)
-			ft_printf("=\"%s\"", (((t_env *)(cur->val))->val));
+		{
+			if (*pre == 0)
+				ft_printf("=%s", (((t_env *)(cur->val))->val));
+			else
+				ft_printf("=\"%s\"", (((t_env *)(cur->val))->val));
+		}
 		ft_printf("\n");
 		cur = cur->next;
 	}

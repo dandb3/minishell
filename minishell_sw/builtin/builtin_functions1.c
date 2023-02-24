@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:36:47 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/23 10:35:18 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:22:52 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	builtin_cd(char **cmd)
 		exit(MALLOC_FAILURE);
 	oldpwd = ft_getcwd("cd");
 	if (!oldpwd)
-		return (EXIT_FAILURE);
+		return (free_ret(nxtpwd, NULL, NULL, EXIT_FAILURE));
 	if (ft_strlen(nxtpwd) == 0)
 		return (free_ret(nxtpwd, oldpwd, NULL, EXIT_SUCCESS));
 	if (chdir(nxtpwd) == -1)
@@ -79,6 +79,8 @@ int	builtin_cd(char **cmd)
 static int	check_n(char *str)
 {
 	if (*str++ != '-')
+		return (FALSE);
+	if (*str == 0)
 		return (FALSE);
 	while (*str)
 		if (*str++ != 'n')

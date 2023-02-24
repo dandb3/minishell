@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:41:39 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/23 10:47:16 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/24 10:55:10 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	get_status(pid_t pid)
 	if ((status & 0xff) != 0xff && (status & 0xff) != 0)
 	{
 		if ((status & 0xff) == SIGINT)
-			write(1, "^C\n", 3);
+			write(STDERR_FILENO, "^C\n", 3);
 		else if ((status & 0xff) == SIGQUIT)
-			write(1, "^\\Quit: 3\n", 10);
+			write(STDERR_FILENO, "^\\Quit: 3\n", 10);
 		return (128 + (status & 0xff));
 	}
 	return (status >> 8);
