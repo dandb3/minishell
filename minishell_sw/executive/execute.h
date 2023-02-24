@@ -16,6 +16,7 @@
 # include "../minishell.h"
 # include "../new_parser/parser.h"
 # include <sys/wait.h>
+# include <sys/stat.h>
 
 # define COMMAND_NOT_FOUND "command not found\n"
 
