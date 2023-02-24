@@ -35,24 +35,3 @@ int	get_status(pid_t pid)
 	}
 	return (status >> 8);
 }
-
-int	redirection_return(int red_in, int red_out, int ret)
-{
-	if (dup2(red_in, STDIN_FILENO) == FAILURE)
-		perror_msg(NULL, 1);
-	if (dup2(red_out, STDOUT_FILENO) == FAILURE)
-		perror_msg(NULL, 1);
-	if (close(red_in) == FAILURE)
-		perror_msg(NULL, 1);
-	if (close(red_out) == FAILURE)
-		perror_msg(NULL, 1);
-	return (ret);
-}
-
-void	redirection_set(int *red_in, int *red_out)
-{
-	*red_in = dup(STDIN_FILENO);
-	*red_out = dup(STDOUT_FILENO);
-	if (*red_in == FAILURE || *red_out == FAILURE)
-		perror_msg(NULL, 1);
-}
