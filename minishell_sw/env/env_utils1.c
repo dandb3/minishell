@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:55:13 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/24 11:12:26 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/25 11:48:45 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_valid_keyname(const char *str)
 	idx = 0;
 	if (!str)
 		return (FALSE);
-	if (*str == '=')
+	if (*str == '=' || *str == 0)
 		return (FALSE);
 	while (str[idx] && str[idx] != '=')
 	{
@@ -112,7 +112,7 @@ int	print_envlist(const char *pre)
 	while (cur->next)
 	{
 		ft_printf("%s", pre);
-		if (pre == NULL && (((t_env *)(cur->val))->val) == NULL)
+		if (*pre == 0 && (((t_env *)(cur->val))->val) == NULL)
 		{
 			cur = cur->next;
 			continue ;

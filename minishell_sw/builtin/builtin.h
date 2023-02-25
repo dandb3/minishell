@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:59:45 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/23 10:35:18 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/25 11:34:45 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define BUILTIN_H
 
 # include "../minishell.h"
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <dirent.h>
 # include <sys/types.h>
 # include <sys/stat.h>

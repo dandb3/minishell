@@ -6,17 +6,16 @@
 #    By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 19:25:02 by jdoh              #+#    #+#              #
-#    Updated: 2023/02/21 20:53:16 by sunwsong         ###   ########.fr        #
+#    Updated: 2023/02/25 11:32:28 by sunwsong         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
 SRCS_M		=	main.c prompt.c minishell_utils1.c minishell_utils2.c \
-				terminal.c builtin/builtin_functions1.c \
+				terminal.c signal.c builtin/builtin_functions1.c \
 				builtin/builtin_functions2.c builtin/builtin.c \
 				env/env_utils1.c env/env_utils2.c env/env_utils3.c\
 				doublylinkedlist1.c doublylinkedlist2.c doublylinkedlist3.c\
-				signal.c \
 				new_parser/del_unused.c new_parser/get_pseudo_token.c \
 				new_parser/group_compound.c new_parser/lexer.c \
 				new_parser/make_ast_utils1.c \
@@ -39,8 +38,8 @@ SRCS_M		=	main.c prompt.c minishell_utils1.c minishell_utils2.c \
 				wildcard/discriminate.c
 				
 OBJS_M		=	$(SRCS_M:.c=.o)
-HEADER_M	=	minishell builtin/builtin executive/execute wildcard/wildcard \
-				new_parser/parser
+HEADER_M	=	minishell builtin/builtin executive/execute \
+				wildcard/wildcard new_parser/parser
 
 # SRCS_B		=	main_bonus.c init_bonus.c error_bonus.c parsing_bonus.c \
 # 				pipex_bonus.c process_bonus.c get_next_line_bonus.c \
@@ -78,7 +77,6 @@ bonus		:	$(NAME)
 
 $(NAME)		:	$(OBJS)
 	$(CC) $(CFLAGS) $(RL_LINK_FLAG) $(OBJS) libft.a -lreadline -o $@
-	
 
 # $(NAME)		:	$(OBJS) $(LIBFT)
 # 	$(CC) $(CFLAGS) $(OBJS) -L $(LIBFT_DIR) -lft -lreadline -o $@
