@@ -1,0 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_bonus.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/11 15:59:29 by sunwsong          #+#    #+#             */
+/*   Updated: 2023/02/25 13:03:43 by sunwsong         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef EXECUTE_BONUS_H
+# define EXECUTE_BONUS_H
+
+# include "../minishell_bonus.h"
+# include "../new_parser/parser_bonus.h"
+# include <sys/wait.h>
+# include <sys/stat.h>
+
+# define COMMAND_NOT_FOUND "command not found\n"
+# define IS_A_DIR "is a directory\n"
+
+typedef struct s_pipe_info
+{
+	pid_t	*pid_table;
+	char	**path_split;
+	int		(*fds)[2];
+	int		process_cnt;
+}	t_pipe_info;
+
+/*-------------------------------- command ---------------------------------*/
+int			execute_command(t_tree *cur);
+
+/*--------------------------------- utils ----------------------------------*/
+char		**compound_to_char_twoptr(t_tree *cur);
+t_list		*expand_char(t_list *compound_list);
+void		add_path_and_access_check(char **path_split, char **cmd);
+char		**make_path_split(void);
+void		merge_wild(t_node *prev_token, t_node *cur_token, size_t len1);
+int			get_status(pid_t pid);
+
+/*--------------------------------- pipe  ----------------------------------*/
+void		init_pipeinfo(t_pipe_info *info, t_tree *cur);
+void		pipe_process(t_pipe_info *info, t_tree *cur_tree);
+
+/*------------------------------- redirect  --------------------------------*/
+int			manage_redirect(t_tree *cur);
+
+/*------------------------------- open_file --------------------------------*/
+int			read_file(char *filename);
+int			write_file(char *filename);
+int			append_file(char *filename);
+
+/*-------------------------------- here_doc --------------------------------*/
+int			here_doc(char *word, int to_del);
+
+#endif
