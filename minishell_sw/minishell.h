@@ -6,7 +6,7 @@
 /*   By: sunwsong <sunwsong@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 10:33:52 by sunwsong          #+#    #+#             */
-/*   Updated: 2023/02/23 12:31:55 by sunwsong         ###   ########.fr       */
+/*   Updated: 2023/02/25 12:38:02 by sunwsong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ enum e_sbool
 
 typedef enum e_type
 {
+	TYPE_UNUSED = -1,
 	ENV = 0,
 	LEX = 1,
 	NAME = 1,
