@@ -25,23 +25,22 @@ static char	*strjoin_slash(char *s1, char *s2)
 
 static int	find_path(char **cmd, char **path_split)
 {
-	char	**tmp;
-	char	*merged_path;
-	int		status;
+	struct stat	buf;
+	char		*merged_path;
+	int			status;
 
 	status = FAILURE;
-	tmp = path_split;
 	while (*path_split)
 	{
 		merged_path = strjoin_slash(*path_split, cmd[0]);
-		if (access(merged_path, F_OK) == SUCCESS)
+		if (stat(merged_path, &buf) == SUCCESS && !(buf.st_mode & 0040000))
 		{
 			status = SUCCESS;
 			free(cmd[0]);
 			cmd[0] = merged_path;
 			merged_path = NULL;
 			if (access(cmd[0], X_OK) == SUCCESS)
-				return (free_twoptr(tmp, status));
+				return (status);
 		}
 		free(merged_path);
 		++path_split;
@@ -51,7 +50,9 @@ static int	find_path(char **cmd, char **path_split)
 
 static void	access_check(char *cmd, char mode)
 {
-	if (access(cmd, F_OK) == FAILURE)
+	struct stat	buf;
+
+	if (stat(cmd, &buf) == FAILURE)
 	{
 		write(STDERR_FILENO, SHELL, SHELL_LEN);
 		if (mode == '/')
@@ -61,6 +62,11 @@ static void	access_check(char *cmd, char mode)
 			print_err(cmd, ": ", NULL);
 			error_msg(COMMAND_NOT_FOUND, 127);
 		}
+	}
+	else if (buf.st_mode & 0040000)
+	{
+		print_err(SHELL, cmd, ": ");
+		error_msg(IS_A_DIR, 126);
 	}
 	else if (access(cmd, X_OK) == FAILURE)
 	{
@@ -72,16 +78,13 @@ static void	access_check(char *cmd, char mode)
 void	add_path_and_access_check(char **path_split, char **cmd)
 {
 	if (path_split == NULL)
-	{
 		access_check(cmd[0], '/');
-		return ;
-	}
-	if (ft_strlen(cmd[0]) == 0)
+	else if (ft_strlen(cmd[0]) == 0)
 	{
 		print_err(SHELL, "", ": ");
 		error_msg(COMMAND_NOT_FOUND, 127);
 	}
-	if (ft_strchr(cmd[0], '/') != NULL)
+	else if (ft_strchr(cmd[0], '/') != NULL)
 		access_check(cmd[0], '/');
 	else
 	{
@@ -90,8 +93,7 @@ void	add_path_and_access_check(char **path_split, char **cmd)
 			print_err(SHELL, cmd[0], ": ");
 			error_msg(COMMAND_NOT_FOUND, 127);
 		}
-		else
-			access_check(cmd[0], '\0');
+		access_check(cmd[0], '\0');
 	}
 }
 
