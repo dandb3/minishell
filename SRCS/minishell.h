@@ -105,6 +105,11 @@ enum e_signal_state
 	SG_CHILD
 };
 
+/**
+ * doubly-linked list의 elem에 해당
+ * @val: 실제 정보가 담겨있는 포인터
+ * @lex: token이 어떤 lexeme에 해당하는지
+*/
 typedef struct s_node
 {
 	void			*val;
@@ -119,6 +124,13 @@ typedef struct s_env
 	char			*val;
 }	t_env;
 
+/**
+ * doubly-linked list를 관리하는 구조체
+ * @head: head node(NULL node)를 가리킴
+ * @tail: tail node(NULL node)를 가리킴
+ * @size: list의 크기
+ * @type: compound type인지 lex type 인지... 를 나타냄
+*/
 typedef struct s_list
 {
 	struct s_node	*head;

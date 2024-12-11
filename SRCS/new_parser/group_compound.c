@@ -25,6 +25,10 @@ static t_node	*compound_end(t_node *end_token)
 	return (end_token->prev);
 }
 
+/**
+ * pipe나 &&, || 와 같은 연산기호가 들어오지 않는다면,
+ * token들을 하나의 compound로 묶는다.
+*/
 void	group_compound(t_list *token_list)
 {
 	t_node	*cur_token;

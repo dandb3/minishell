@@ -14,6 +14,45 @@
 # define PARSER_H
 
 # include "../minishell.h"
+
+/**
+ * < LL(1) grammar >
+ * 
+ * E0       ->      E2 E1
+ * E1       ->      OR E0 | AND E0 | EPS
+ * E2       ->      E5 | E3
+ * E3       ->      PIPE E2 | EPS
+ * E4       ->      E8 E4 | EPS
+ * E5       ->      PAREN | E7 E6
+ * E6       ->      E7 E6 | EPS
+ * E7       ->      COMP | E8
+ * E8       ->      RED_IN | RED_OUT | HERE_DOC | RED_APP
+ * OR       ->      "||"
+ * AND      ->      "&&"
+ * EPS      ->      EOF
+ * PIPE     ->      "|"
+ * PAREN    ->      "(" | ")"
+ * RED_IN   ->      "<"
+ * RED_OUT  ->      ">"
+ * HERE_DOC ->      "<<"
+ * RED_APP  ->      ">>"
+ * COMP     ->      string of alphanumeric, ", ', $, etc. 
+ * 
+ * < LL(1) table >
+ * 
+ *      COMP    ||      &&      |       (           )           <       >       <<          >>      EOF
+ * E0   E2 E1   ERROR   ERROR   ERROR   E2 E1       ERROR       E2 E1   E2 E1   E2 E1       E2 E1   ERROR
+ * E1   ERROR   OR E0   AND E0  ERROR   ERROR       EPS         ERROR   ERROR   ERROR       ERROR   EPS
+ * E2   E5 E3   ERROR   ERROR   ERROR   E5 E3       ERROR       E5 E3   E5 E3   E5 E3       E5 E3   ERROR
+ * E3   ERROR   EPS     EPS     E8 E4   ERROR       EPS         ERROR   ERROR   ERROR       ERROR   EPS
+ * E4   ERROR   EPS     EPS     EPS     ERROR       EPS         E8 E4   E8 E4   E8 E4       E8 E4   EPS
+ * E5   E7 E6   ERROR   ERROR   ERROR   PAREN       ERROR       E7 E6   E7 E6   E7 E6       E7 E6   ERROR
+ * E6   E7 E6   EPS     EPS     EPS     ERROR       EPS         E7 E6   E7 E6   E7 E6       E7 E6   EPS
+ * E7   COMP    ERROR   ERROR   ERROR   ERROR       ERROR       E8      E8      E8          E8      ERROR
+ * E8   ERROR   ERROR   ERROR   ERROR   ERROR       ERROR       RED_IN  RED_OUT HERE_DOC    RED_APP ERROR
+*/
+
+
 # define T0 "\1\0\0\0\1\0\1\1\1\1\0"
 # define T1 "\0\2\3\0\0\4\0\0\0\0\4"
 # define T2 "\5\0\0\0\5\0\5\5\5\5\0"

@@ -12,6 +12,10 @@
 
 #include "parser.h"
 
+/**
+ * LEX_WORD로 구분하기는 했지만 $PATH^와 같은 input이 들어온다면
+ * $PATH는 환경변수로 확장시키되 ^는 그대로 남겨야 함.
+*/
 static void	env_val(t_node *cur_token)
 {
 	const size_t	idx = get_envlen(cur_token->next->val);
@@ -57,6 +61,12 @@ static void	substitute_env(t_node *cur_token, t_flag flag)
 		cur_token->lex = LEX_WORD;
 }
 
+/**
+ * pseudo-tokenize가 된 list를 순회하면서 다음의 과정을 진행.
+ * 1. unquoted || double-quoted -> LEV_ENV로 취급, 나머지의 경우 LEV_WORD로 취급
+ * 2. quoted 상태라면 env를 제외한 나머지 token들은 LEX_WORD로 바꿈
+ * 3. quote의 문법이 잘 적용되었는지 확인
+*/
 int	pseudo_expand_env(t_list *token_list)
 {
 	t_node	*cur_token;

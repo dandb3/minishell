@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "parser.h": "c",
+        "signal.h": "c",
+        "minishell.h": "c"
+    }
+}

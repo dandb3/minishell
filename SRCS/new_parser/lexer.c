@@ -12,6 +12,12 @@
 
 #include "parser.h"
 
+/**
+ * input string을 tokenize 시킨다.
+ * 연산자와 피연산자로 나눔.
+ * 연산자: ||, |, && 등.
+ * 피연산자: ", ', alphanumeric 등.
+*/
 int	make_token_list(t_list **token_list, char const *str)
 {
 	*token_list = make_list(LEX);
